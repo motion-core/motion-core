@@ -53,7 +53,9 @@
 	class="mt-2 flex flex-1 flex-col overflow-hidden rounded-md rounded-b-md bg-background card"
 >
 	{#if tabs.length}
-		<div class="flex items-center border-b border-border bg-background text-sm">
+		<div
+			class="relative flex items-center bg-background text-sm after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-border after:shadow-2xs after:shadow-white after:content-[''] dark:after:bg-background-inset dark:after:shadow-border"
+		>
 			<div class="flex flex-1 items-center overflow-x-auto">
 				{#each tabs as tab, index (tab.name)}
 					<button

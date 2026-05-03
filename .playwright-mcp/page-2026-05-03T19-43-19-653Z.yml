@@ -1,0 +1,217 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - link "Skip to main content" [ref=e3] [cursor=pointer]:
+      - /url: "#main-content"
+    - main [ref=e4]:
+      - generic [ref=e5]:
+        - generic [ref=e11]:
+          - img [ref=e13]
+          - heading "High-quality motion components for Svelte." [level=1] [ref=e15]
+          - paragraph [ref=e16]: Animated Svelte component library powered by GSAP and OGL. Drop-in solutions for motion design, 3D canvases, and interactive animations.
+          - generic [ref=e17]:
+            - link "Documentation" [ref=e18] [cursor=pointer]:
+              - /url: /docs
+              - img [ref=e19]
+              - generic [ref=e27]: Documentation
+            - link "GitHub 455" [ref=e28] [cursor=pointer]:
+              - /url: https://github.com/motion-core/motion-core
+              - img [ref=e29]
+              - generic [ref=e31]: GitHub
+              - generic [ref=e32]: "|"
+              - generic [ref=e33]: "455"
+        - region "Production motion patterns without rebuilding the foundation." [ref=e34]:
+          - generic [ref=e35]:
+            - heading "Production motion patterns without rebuilding the foundation." [level=2] [ref=e38]
+            - generic [ref=e39]:
+              - article [ref=e41]:
+                - generic [ref=e42]:
+                  - img [ref=e44]
+                  - generic [ref=e47]: "01"
+                - generic [ref=e48]:
+                  - heading "Component-first" [level=3] [ref=e49]
+                  - paragraph [ref=e50]: Each pattern ships as a focused Svelte component with typed props, scoped assets, and docs that mirror the implementation.
+              - article [ref=e52]:
+                - generic [ref=e53]:
+                  - img [ref=e55]
+                  - generic [ref=e57]: "02"
+                - generic [ref=e58]:
+                  - heading "Canvas-ready" [level=3] [ref=e59]
+                  - paragraph [ref=e60]: OGL-powered effects are wrapped in predictable Svelte APIs, so WebGL demos feel integrated instead of bolted onto the page.
+              - article [ref=e62]:
+                - generic [ref=e63]:
+                  - img [ref=e65]
+                  - generic [ref=e68]: "03"
+                - generic [ref=e69]:
+                  - heading "CLI workflow" [level=3] [ref=e70]
+                  - paragraph [ref=e71]: Install only the pieces you need, keep dependencies explicit, and use the registry-backed docs as the source of truth.
+        - region "What people say" [ref=e72]:
+          - generic [ref=e73]:
+            - generic [ref=e74]:
+              - paragraph [ref=e75]: Testimonials
+              - heading "What people say" [level=2] [ref=e76]
+            - generic [ref=e77]:
+              - generic [ref=e81]:
+                - article [ref=e83]:
+                  - generic [ref=e84]:
+                    - generic [ref=e85]:
+                      - img "Vinay Juneja avatar" [ref=e87]
+                      - generic [ref=e88]:
+                        - generic [ref=e89]:
+                          - paragraph [ref=e90]: Vinay Juneja
+                          - img "Verified account" [ref=e91]
+                        - paragraph [ref=e94]: "@vinayjunejaa"
+                    - link "View on X" [ref=e95] [cursor=pointer]:
+                      - /url: https://x.com/vinayjunejaa/status/2037117697889362260
+                      - img [ref=e96]
+                  - paragraph [ref=e98]: "@madebyhex Yo, that's sick. 🔥🔥"
+                - article [ref=e100]:
+                  - generic [ref=e101]:
+                    - generic [ref=e102]:
+                      - img "Iwo Plaza | TypeGPU avatar" [ref=e104]
+                      - generic [ref=e105]:
+                        - generic [ref=e106]:
+                          - paragraph [ref=e107]: Iwo Plaza | TypeGPU
+                          - img "Verified account" [ref=e108]
+                        - paragraph [ref=e111]: "@iwoplaza"
+                    - link "View on X" [ref=e112] [cursor=pointer]:
+                      - /url: https://x.com/iwoplaza/status/2030615698540560887
+                      - img [ref=e113]
+                  - paragraph [ref=e115]: "@madebyhex That looks so gooood!"
+                - article [ref=e117]:
+                  - generic [ref=e118]:
+                    - generic [ref=e119]:
+                      - img "Honcho avatar" [ref=e121]
+                      - generic [ref=e122]:
+                        - paragraph [ref=e124]: Honcho
+                        - paragraph [ref=e125]: "@liamhoncho"
+                    - link "View on X" [ref=e126] [cursor=pointer]:
+                      - /url: https://x.com/liamhoncho/status/2030695122778612070
+                      - img [ref=e127]
+                  - paragraph [ref=e129]: "@madebyhex I love what you’re building man"
+                - article [ref=e131]:
+                  - generic [ref=e132]:
+                    - generic [ref=e133]:
+                      - img "Vinay Juneja avatar" [ref=e135]
+                      - generic [ref=e136]:
+                        - generic [ref=e137]:
+                          - paragraph [ref=e138]: Vinay Juneja
+                          - img "Verified account" [ref=e139]
+                        - paragraph [ref=e142]: "@vinayjunejaa"
+                    - link "View on X" [ref=e143] [cursor=pointer]:
+                      - /url: https://x.com/vinayjunejaa/status/2037117697889362260
+                      - img [ref=e144]
+                  - paragraph [ref=e146]: "@madebyhex Yo, that's sick. 🔥🔥"
+                - article [ref=e148]:
+                  - generic [ref=e149]:
+                    - generic [ref=e150]:
+                      - img "Iwo Plaza | TypeGPU avatar" [ref=e152]
+                      - generic [ref=e153]:
+                        - generic [ref=e154]:
+                          - paragraph [ref=e155]: Iwo Plaza | TypeGPU
+                          - img "Verified account" [ref=e156]
+                        - paragraph [ref=e159]: "@iwoplaza"
+                    - link "View on X" [ref=e160] [cursor=pointer]:
+                      - /url: https://x.com/iwoplaza/status/2030615698540560887
+                      - img [ref=e161]
+                  - paragraph [ref=e163]: "@madebyhex That looks so gooood!"
+                - article [ref=e165]:
+                  - generic [ref=e166]:
+                    - generic [ref=e167]:
+                      - img "Honcho avatar" [ref=e169]
+                      - generic [ref=e170]:
+                        - paragraph [ref=e172]: Honcho
+                        - paragraph [ref=e173]: "@liamhoncho"
+                    - link "View on X" [ref=e174] [cursor=pointer]:
+                      - /url: https://x.com/liamhoncho/status/2030695122778612070
+                      - img [ref=e175]
+                  - paragraph [ref=e177]: "@madebyhex I love what you’re building man"
+              - generic [ref=e179]:
+                - article [ref=e181]:
+                  - generic [ref=e182]:
+                    - generic [ref=e183]:
+                      - img "Sebastiano Guerriero avatar" [ref=e185]
+                      - generic [ref=e186]:
+                        - generic [ref=e187]:
+                          - paragraph [ref=e188]: Sebastiano Guerriero
+                          - img "Verified account" [ref=e189]
+                        - paragraph [ref=e192]: "@guerriero_se"
+                    - link "View on X" [ref=e193] [cursor=pointer]:
+                      - /url: https://x.com/guerriero_se/status/2022813528030105691
+                      - img [ref=e194]
+                  - paragraph [ref=e196]: "@madebyhex It’s looking very nice Marek! 👌"
+                - article [ref=e198]:
+                  - generic [ref=e199]:
+                    - generic [ref=e200]:
+                      - img "OrcDev avatar" [ref=e202]
+                      - generic [ref=e203]:
+                        - generic [ref=e204]:
+                          - paragraph [ref=e205]: OrcDev
+                          - img "Verified account" [ref=e206]
+                        - paragraph [ref=e209]: "@orcdev"
+                    - link "View on X" [ref=e210] [cursor=pointer]:
+                      - /url: https://x.com/orcdev/status/2011014350400545269
+                      - img [ref=e211]
+                  - paragraph [ref=e213]: "@madebyhex niiiiice"
+                - article [ref=e215]:
+                  - generic [ref=e216]:
+                    - generic [ref=e217]:
+                      - img "Fuma Nama avatar" [ref=e219]
+                      - generic [ref=e220]:
+                        - generic [ref=e221]:
+                          - paragraph [ref=e222]: Fuma Nama
+                          - img "Verified account" [ref=e223]
+                        - paragraph [ref=e226]: "@fuma_nama"
+                    - link "View on X" [ref=e227] [cursor=pointer]:
+                      - /url: https://x.com/fuma_nama/status/1989728363674833331
+                      - img [ref=e228]
+                  - paragraph [ref=e230]: "@hextechworks nice"
+                - article [ref=e232]:
+                  - generic [ref=e233]:
+                    - generic [ref=e234]:
+                      - img "Sebastiano Guerriero avatar" [ref=e236]
+                      - generic [ref=e237]:
+                        - generic [ref=e238]:
+                          - paragraph [ref=e239]: Sebastiano Guerriero
+                          - img "Verified account" [ref=e240]
+                        - paragraph [ref=e243]: "@guerriero_se"
+                    - link "View on X" [ref=e244] [cursor=pointer]:
+                      - /url: https://x.com/guerriero_se/status/2022813528030105691
+                      - img [ref=e245]
+                  - paragraph [ref=e247]: "@madebyhex It’s looking very nice Marek! 👌"
+                - article [ref=e249]:
+                  - generic [ref=e250]:
+                    - generic [ref=e251]:
+                      - img "OrcDev avatar" [ref=e253]
+                      - generic [ref=e254]:
+                        - generic [ref=e255]:
+                          - paragraph [ref=e256]: OrcDev
+                          - img "Verified account" [ref=e257]
+                        - paragraph [ref=e260]: "@orcdev"
+                    - link "View on X" [ref=e261] [cursor=pointer]:
+                      - /url: https://x.com/orcdev/status/2011014350400545269
+                      - img [ref=e262]
+                  - paragraph [ref=e264]: "@madebyhex niiiiice"
+                - article [ref=e266]:
+                  - generic [ref=e267]:
+                    - generic [ref=e268]:
+                      - img "Fuma Nama avatar" [ref=e270]
+                      - generic [ref=e271]:
+                        - generic [ref=e272]:
+                          - paragraph [ref=e273]: Fuma Nama
+                          - img "Verified account" [ref=e274]
+                        - paragraph [ref=e277]: "@fuma_nama"
+                    - link "View on X" [ref=e278] [cursor=pointer]:
+                      - /url: https://x.com/fuma_nama/status/1989728363674833331
+                      - img [ref=e279]
+                  - paragraph [ref=e281]: "@hextechworks nice"
+  - generic [ref=e284]:
+    - button "Toggle menu" [ref=e285]:
+      - generic [ref=e289]: Menu
+    - link [ref=e292] [cursor=pointer]:
+      - /url: /
+      - img [ref=e294]
+    - generic [ref=e296]:
+      - link "GitHub" [ref=e297] [cursor=pointer]:
+        - /url: https://github.com/motion-core/motion-core
+      - link "Discord" [ref=e298] [cursor=pointer]:
+        - /url: https://discord.gg/stZ8hqAvpE

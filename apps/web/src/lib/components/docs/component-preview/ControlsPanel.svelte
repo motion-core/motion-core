@@ -23,12 +23,12 @@
 		aria-label="Component props"
 	>
 		<div
-			class="relative flex items-center justify-between border-b border-border px-4 py-2.5"
+			class="relative flex items-center justify-between px-4 py-2.5 after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-border after:shadow-2xs after:shadow-white after:content-[''] dark:after:bg-background-inset dark:after:shadow-border"
 		>
 			<h2 class="text-sm font-medium tracking-normal text-foreground">Props</h2>
 			<button
 				onclick={onReset}
-				class="absolute top-1/2 right-2 z-30 flex size-7 -translate-y-1/2 items-center justify-center rounded-sm bg-background-inset text-foreground inset-shadow transition-transform duration-150 ease-out active:scale-[0.95]"
+				class="inset-shadow absolute top-1/2 right-2 z-30 flex size-7 -translate-y-1/2 items-center justify-center rounded-sm bg-background-inset text-foreground transition-transform duration-150 ease-out active:scale-[0.95]"
 				aria-label="Reset Settings"
 			>
 				<Reset class="size-4 flex-none" />

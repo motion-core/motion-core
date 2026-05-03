@@ -1,0 +1,3043 @@
+[
+  {
+    "__typename": "Tweet",
+    "in_reply_to_screen_name": "madebyhex",
+    "in_reply_to_status_id_str": "2024992081685414342",
+    "in_reply_to_user_id_str": "1913155043919831040",
+    "lang": "en",
+    "favorite_count": 1,
+    "created_at": "2026-02-27T09:32:00.000Z",
+    "display_text_range": [
+      52,
+      106
+    ],
+    "entities": {
+      "hashtags": [],
+      "urls": [],
+      "user_mentions": [
+        {
+          "id_str": "1913155043919831040",
+          "indices": [
+            0,
+            10
+          ],
+          "name": "Marek Jóźwiak",
+          "screen_name": "madebyhex"
+        },
+        {
+          "id_str": "801833412487184384",
+          "indices": [
+            11,
+            20
+          ],
+          "name": "Svelte",
+          "screen_name": "sveltejs"
+        },
+        {
+          "id_str": "1176969867733479424",
+          "indices": [
+            21,
+            35
+          ],
+          "name": "Svelte Society 🧡",
+          "screen_name": "SvelteSociety"
+        },
+        {
+          "id_str": "1120584927924322306",
+          "indices": [
+            36,
+            51
+          ],
+          "name": "MadeWithSvelte",
+          "screen_name": "MadeWithSvelte"
+        }
+      ],
+      "symbols": []
+    },
+    "id_str": "2027315773468016950",
+    "text": "@madebyhex @sveltejs @SvelteSociety @MadeWithSvelte Why is this not having more hype? Very very good work!",
+    "user": {
+      "id_str": "1840688222269329408",
+      "name": "Edward Manhattan",
+      "screen_name": "EdwardMan27",
+      "is_blue_verified": false,
+      "profile_image_shape": "Circle",
+      "verified": false,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1840688266842107905/oAo3lbsi_normal.png"
+    },
+    "edit_control": {
+      "edit_tweet_ids": [
+        "2027315773468016950"
+      ],
+      "editable_until_msecs": "1772188320000",
+      "is_edit_eligible": false,
+      "edits_remaining": "5"
+    },
+    "conversation_count": 1,
+    "news_action_type": "conversation",
+    "parent": {
+      "lang": "en",
+      "reply_count": 1,
+      "retweet_count": 0,
+      "favorite_count": 7,
+      "possibly_sensitive": false,
+      "created_at": "2026-02-20T23:38:29.000Z",
+      "display_text_range": [
+        0,
+        165
+      ],
+      "entities": {
+        "hashtags": [],
+        "urls": [
+          {
+            "display_url": "motion-core.dev",
+            "expanded_url": "https://motion-core.dev/",
+            "indices": [
+              100,
+              123
+            ],
+            "url": "https://t.co/4VOhQtXmjn"
+          }
+        ],
+        "user_mentions": [
+          {
+            "id_str": "801833412487184384",
+            "indices": [
+              125,
+              134
+            ],
+            "name": "Svelte",
+            "screen_name": "sveltejs"
+          },
+          {
+            "id_str": "1176969867733479424",
+            "indices": [
+              135,
+              149
+            ],
+            "name": "Svelte Society 🧡",
+            "screen_name": "SvelteSociety"
+          },
+          {
+            "id_str": "1120584927924322306",
+            "indices": [
+              150,
+              165
+            ],
+            "name": "MadeWithSvelte",
+            "screen_name": "MadeWithSvelte"
+          }
+        ],
+        "symbols": [],
+        "media": [
+          {
+            "display_url": "pic.x.com/OmxWaDmImC",
+            "expanded_url": "https://x.com/madebyhex/status/2024992081685414342/photo/1",
+            "indices": [
+              166,
+              189
+            ],
+            "url": "https://t.co/OmxWaDmImC"
+          }
+        ]
+      },
+      "id_str": "2024992081685414342",
+      "text": "Motion Core news:\n-Major update to the design of the docs page\n-New component added: Glitter Cloth\n\nhttps://t.co/4VOhQtXmjn\n\n@sveltejs @SvelteSociety @MadeWithSvelte https://t.co/OmxWaDmImC",
+      "user": {
+        "id_str": "1913155043919831040",
+        "name": "Marek Jóźwiak",
+        "screen_name": "madebyhex",
+        "is_blue_verified": true,
+        "profile_image_shape": "Circle",
+        "verified": false,
+        "profile_image_url_https": "https://pbs.twimg.com/profile_images/2048158689937313792/SBqSlE-n_normal.jpg"
+      },
+      "edit_control": {
+        "edit_tweet_ids": [
+          "2024992081685414342"
+        ],
+        "editable_until_msecs": "1771634309000",
+        "is_edit_eligible": true,
+        "edits_remaining": "5"
+      },
+      "mediaDetails": [
+        {
+          "display_url": "pic.x.com/OmxWaDmImC",
+          "expanded_url": "https://x.com/madebyhex/status/2024992081685414342/photo/1",
+          "ext_media_availability": {
+            "status": "Available"
+          },
+          "indices": [
+            166,
+            189
+          ],
+          "media_url_https": "https://pbs.twimg.com/media/HBo3jRpXcAExwsX.jpg",
+          "original_info": {
+            "height": 1080,
+            "width": 1920,
+            "focus_rects": [
+              {
+                "x": 0,
+                "y": 0,
+                "w": 1920,
+                "h": 1075
+              },
+              {
+                "x": 468,
+                "y": 0,
+                "w": 1080,
+                "h": 1080
+              },
+              {
+                "x": 535,
+                "y": 0,
+                "w": 947,
+                "h": 1080
+              },
+              {
+                "x": 738,
+                "y": 0,
+                "w": 540,
+                "h": 1080
+              },
+              {
+                "x": 0,
+                "y": 0,
+                "w": 1920,
+                "h": 1080
+              }
+            ]
+          },
+          "sizes": {
+            "large": {
+              "h": 1080,
+              "resize": "fit",
+              "w": 1920
+            },
+            "medium": {
+              "h": 675,
+              "resize": "fit",
+              "w": 1200
+            },
+            "small": {
+              "h": 383,
+              "resize": "fit",
+              "w": 680
+            },
+            "thumb": {
+              "h": 150,
+              "resize": "crop",
+              "w": 150
+            }
+          },
+          "type": "photo",
+          "url": "https://t.co/OmxWaDmImC"
+        },
+        {
+          "display_url": "pic.x.com/OmxWaDmImC",
+          "expanded_url": "https://x.com/madebyhex/status/2024992081685414342/photo/1",
+          "ext_media_availability": {
+            "status": "Available"
+          },
+          "indices": [
+            166,
+            189
+          ],
+          "media_url_https": "https://pbs.twimg.com/media/HBo3jRuW8AEI6un.jpg",
+          "original_info": {
+            "height": 1080,
+            "width": 1920,
+            "focus_rects": [
+              {
+                "x": 0,
+                "y": 0,
+                "w": 1920,
+                "h": 1075
+              },
+              {
+                "x": 468,
+                "y": 0,
+                "w": 1080,
+                "h": 1080
+              },
+              {
+                "x": 535,
+                "y": 0,
+                "w": 947,
+                "h": 1080
+              },
+              {
+                "x": 738,
+                "y": 0,
+                "w": 540,
+                "h": 1080
+              },
+              {
+                "x": 0,
+                "y": 0,
+                "w": 1920,
+                "h": 1080
+              }
+            ]
+          },
+          "sizes": {
+            "large": {
+              "h": 1080,
+              "resize": "fit",
+              "w": 1920
+            },
+            "medium": {
+              "h": 675,
+              "resize": "fit",
+              "w": 1200
+            },
+            "small": {
+              "h": 383,
+              "resize": "fit",
+              "w": 680
+            },
+            "thumb": {
+              "h": 150,
+              "resize": "crop",
+              "w": 150
+            }
+          },
+          "type": "photo",
+          "url": "https://t.co/OmxWaDmImC"
+        }
+      ],
+      "photos": [
+        {
+          "backgroundColor": {
+            "red": 204,
+            "green": 214,
+            "blue": 221
+          },
+          "cropCandidates": [
+            {
+              "x": 0,
+              "y": 0,
+              "w": 1920,
+              "h": 1075
+            },
+            {
+              "x": 468,
+              "y": 0,
+              "w": 1080,
+              "h": 1080
+            },
+            {
+              "x": 535,
+              "y": 0,
+              "w": 947,
+              "h": 1080
+            },
+            {
+              "x": 738,
+              "y": 0,
+              "w": 540,
+              "h": 1080
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "w": 1920,
+              "h": 1080
+            }
+          ],
+          "expandedUrl": "https://x.com/madebyhex/status/2024992081685414342/photo/1",
+          "url": "https://pbs.twimg.com/media/HBo3jRpXcAExwsX.jpg",
+          "width": 1920,
+          "height": 1080
+        },
+        {
+          "backgroundColor": {
+            "red": 204,
+            "green": 214,
+            "blue": 221
+          },
+          "cropCandidates": [
+            {
+              "x": 0,
+              "y": 0,
+              "w": 1920,
+              "h": 1075
+            },
+            {
+              "x": 468,
+              "y": 0,
+              "w": 1080,
+              "h": 1080
+            },
+            {
+              "x": 535,
+              "y": 0,
+              "w": 947,
+              "h": 1080
+            },
+            {
+              "x": 738,
+              "y": 0,
+              "w": 540,
+              "h": 1080
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "w": 1920,
+              "h": 1080
+            }
+          ],
+          "expandedUrl": "https://x.com/madebyhex/status/2024992081685414342/photo/1",
+          "url": "https://pbs.twimg.com/media/HBo3jRuW8AEI6un.jpg",
+          "width": 1920,
+          "height": 1080
+        }
+      ],
+      "isEdited": false,
+      "isStaleEdit": false
+    },
+    "isEdited": false,
+    "isStaleEdit": false
+  },
+  {
+    "__typename": "Tweet",
+    "in_reply_to_screen_name": "madebyhex",
+    "in_reply_to_status_id_str": "2038223362917282155",
+    "in_reply_to_user_id_str": "1913155043919831040",
+    "lang": "en",
+    "favorite_count": 1,
+    "created_at": "2026-03-29T19:16:08.000Z",
+    "display_text_range": [
+      11,
+      76
+    ],
+    "entities": {
+      "hashtags": [],
+      "urls": [],
+      "user_mentions": [
+        {
+          "id_str": "1913155043919831040",
+          "indices": [
+            0,
+            10
+          ],
+          "name": "Marek Jóźwiak",
+          "screen_name": "madebyhex"
+        }
+      ],
+      "symbols": []
+    },
+    "id_str": "2038334411305877957",
+    "text": "@madebyhex awesome work man, i need to build this into bklit and bklit ui 😍",
+    "user": {
+      "id_str": "168518950",
+      "name": "Matt",
+      "screen_name": "uixmat",
+      "is_blue_verified": true,
+      "profile_image_shape": "Circle",
+      "verified": false,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1816722074292899840/nsnPz-xI_normal.jpg"
+    },
+    "edit_control": {
+      "edit_tweet_ids": [
+        "2038334411305877957"
+      ],
+      "editable_until_msecs": "1774815368000",
+      "is_edit_eligible": false,
+      "edits_remaining": "5"
+    },
+    "conversation_count": 1,
+    "news_action_type": "conversation",
+    "parent": {
+      "lang": "en",
+      "reply_count": 10,
+      "retweet_count": 48,
+      "favorite_count": 722,
+      "possibly_sensitive": false,
+      "created_at": "2026-03-29T11:54:52.000Z",
+      "display_text_range": [
+        0,
+        106
+      ],
+      "entities": {
+        "hashtags": [],
+        "urls": [
+          {
+            "display_url": "motion-core.dev/docs/globe",
+            "expanded_url": "https://motion-core.dev/docs/globe",
+            "indices": [
+              83,
+              106
+            ],
+            "url": "https://t.co/i6Z1Qr0SPH"
+          }
+        ],
+        "user_mentions": [],
+        "symbols": [],
+        "media": [
+          {
+            "display_url": "pic.x.com/rjAFAtTIby",
+            "expanded_url": "https://x.com/madebyhex/status/2038223362917282155/video/1",
+            "indices": [
+              107,
+              130
+            ],
+            "url": "https://t.co/rjAFAtTIby"
+          }
+        ]
+      },
+      "id_str": "2038223362917282155",
+      "text": "Update: from now on the Globe component supports any HTML tooltips.\n\nCheck it out!\nhttps://t.co/i6Z1Qr0SPH https://t.co/rjAFAtTIby",
+      "user": {
+        "id_str": "1913155043919831040",
+        "name": "Marek Jóźwiak",
+        "screen_name": "madebyhex",
+        "is_blue_verified": true,
+        "profile_image_shape": "Circle",
+        "verified": false,
+        "profile_image_url_https": "https://pbs.twimg.com/profile_images/2048158689937313792/SBqSlE-n_normal.jpg"
+      },
+      "edit_control": {
+        "edit_tweet_ids": [
+          "2038223362917282155"
+        ],
+        "editable_until_msecs": "1774788892000",
+        "is_edit_eligible": true,
+        "edits_remaining": "5"
+      },
+      "mediaDetails": [
+        {
+          "additional_media_info": {},
+          "display_url": "pic.x.com/rjAFAtTIby",
+          "expanded_url": "https://x.com/madebyhex/status/2038223362917282155/video/1",
+          "ext_media_availability": {
+            "status": "Available"
+          },
+          "indices": [
+            107,
+            130
+          ],
+          "media_url_https": "https://pbs.twimg.com/amplify_video_thumb/2038223219442712576/img/g3rdlpOgHDFwjbV7.jpg",
+          "original_info": {
+            "height": 1964,
+            "width": 3024,
+            "focus_rects": []
+          },
+          "sizes": {
+            "large": {
+              "h": 1330,
+              "resize": "fit",
+              "w": 2048
+            },
+            "medium": {
+              "h": 779,
+              "resize": "fit",
+              "w": 1200
+            },
+            "small": {
+              "h": 442,
+              "resize": "fit",
+              "w": 680
+            },
+            "thumb": {
+              "h": 150,
+              "resize": "crop",
+              "w": 150
+            }
+          },
+          "type": "video",
+          "url": "https://t.co/rjAFAtTIby",
+          "video_info": {
+            "aspect_ratio": [
+              756,
+              491
+            ],
+            "duration_millis": 19283,
+            "variants": [
+              {
+                "content_type": "application/x-mpegURL",
+                "url": "https://video.twimg.com/amplify_video/2038223219442712576/pl/aIcBMqrOZ3-Wqeyd.m3u8?tag=14&v=cfc"
+              },
+              {
+                "bitrate": 288000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2038223219442712576/vid/avc1/414x270/pc0jBhwd8omvD9aY.mp4?tag=14"
+              },
+              {
+                "bitrate": 832000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2038223219442712576/vid/avc1/554x360/ircVcBAUmkBTIeHG.mp4?tag=14"
+              },
+              {
+                "bitrate": 2176000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2038223219442712576/vid/avc1/1108x720/7PW0Phh1MExF_Nx4.mp4?tag=14"
+              }
+            ]
+          }
+        }
+      ],
+      "photos": [],
+      "video": {
+        "aspectRatio": [
+          756,
+          491
+        ],
+        "contentType": "media_entity",
+        "durationMs": 19283,
+        "mediaAvailability": {
+          "status": "available"
+        },
+        "poster": "https://pbs.twimg.com/amplify_video_thumb/2038223219442712576/img/g3rdlpOgHDFwjbV7.jpg",
+        "variants": [
+          {
+            "type": "application/x-mpegURL",
+            "src": "https://video.twimg.com/amplify_video/2038223219442712576/pl/aIcBMqrOZ3-Wqeyd.m3u8?tag=14&v=cfc"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2038223219442712576/vid/avc1/414x270/pc0jBhwd8omvD9aY.mp4?tag=14"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2038223219442712576/vid/avc1/554x360/ircVcBAUmkBTIeHG.mp4?tag=14"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2038223219442712576/vid/avc1/1108x720/7PW0Phh1MExF_Nx4.mp4?tag=14"
+          }
+        ],
+        "videoId": {
+          "type": "tweet",
+          "id": "2038223362917282155"
+        },
+        "viewCount": 0
+      },
+      "isEdited": false,
+      "isStaleEdit": false
+    },
+    "isEdited": false,
+    "isStaleEdit": false
+  },
+  {
+    "__typename": "Tweet",
+    "in_reply_to_screen_name": "madebyhex",
+    "in_reply_to_status_id_str": "2038223362917282155",
+    "in_reply_to_user_id_str": "1913155043919831040",
+    "lang": "en",
+    "favorite_count": 1,
+    "created_at": "2026-03-29T18:13:19.000Z",
+    "display_text_range": [
+      11,
+      20
+    ],
+    "entities": {
+      "hashtags": [],
+      "urls": [],
+      "user_mentions": [
+        {
+          "id_str": "1913155043919831040",
+          "indices": [
+            0,
+            10
+          ],
+          "name": "Marek Jóźwiak",
+          "screen_name": "madebyhex"
+        }
+      ],
+      "symbols": []
+    },
+    "id_str": "2038318602332295582",
+    "text": "@madebyhex nice work",
+    "user": {
+      "id_str": "99204810",
+      "name": "Dami Dina",
+      "screen_name": "DamiDina",
+      "is_blue_verified": true,
+      "profile_image_shape": "Circle",
+      "verified": false,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/2007143842303127552/JfATTrwP_normal.jpg"
+    },
+    "edit_control": {
+      "edit_tweet_ids": [
+        "2038318602332295582"
+      ],
+      "editable_until_msecs": "1774811599000",
+      "is_edit_eligible": false,
+      "edits_remaining": "5"
+    },
+    "conversation_count": 1,
+    "news_action_type": "conversation",
+    "parent": {
+      "lang": "en",
+      "reply_count": 10,
+      "retweet_count": 48,
+      "favorite_count": 722,
+      "possibly_sensitive": false,
+      "created_at": "2026-03-29T11:54:52.000Z",
+      "display_text_range": [
+        0,
+        106
+      ],
+      "entities": {
+        "hashtags": [],
+        "urls": [
+          {
+            "display_url": "motion-core.dev/docs/globe",
+            "expanded_url": "https://motion-core.dev/docs/globe",
+            "indices": [
+              83,
+              106
+            ],
+            "url": "https://t.co/i6Z1Qr0SPH"
+          }
+        ],
+        "user_mentions": [],
+        "symbols": [],
+        "media": [
+          {
+            "display_url": "pic.x.com/rjAFAtTIby",
+            "expanded_url": "https://x.com/madebyhex/status/2038223362917282155/video/1",
+            "indices": [
+              107,
+              130
+            ],
+            "url": "https://t.co/rjAFAtTIby"
+          }
+        ]
+      },
+      "id_str": "2038223362917282155",
+      "text": "Update: from now on the Globe component supports any HTML tooltips.\n\nCheck it out!\nhttps://t.co/i6Z1Qr0SPH https://t.co/rjAFAtTIby",
+      "user": {
+        "id_str": "1913155043919831040",
+        "name": "Marek Jóźwiak",
+        "screen_name": "madebyhex",
+        "is_blue_verified": true,
+        "profile_image_shape": "Circle",
+        "verified": false,
+        "profile_image_url_https": "https://pbs.twimg.com/profile_images/2048158689937313792/SBqSlE-n_normal.jpg"
+      },
+      "edit_control": {
+        "edit_tweet_ids": [
+          "2038223362917282155"
+        ],
+        "editable_until_msecs": "1774788892000",
+        "is_edit_eligible": true,
+        "edits_remaining": "5"
+      },
+      "mediaDetails": [
+        {
+          "additional_media_info": {},
+          "display_url": "pic.x.com/rjAFAtTIby",
+          "expanded_url": "https://x.com/madebyhex/status/2038223362917282155/video/1",
+          "ext_media_availability": {
+            "status": "Available"
+          },
+          "indices": [
+            107,
+            130
+          ],
+          "media_url_https": "https://pbs.twimg.com/amplify_video_thumb/2038223219442712576/img/g3rdlpOgHDFwjbV7.jpg",
+          "original_info": {
+            "height": 1964,
+            "width": 3024,
+            "focus_rects": []
+          },
+          "sizes": {
+            "large": {
+              "h": 1330,
+              "resize": "fit",
+              "w": 2048
+            },
+            "medium": {
+              "h": 779,
+              "resize": "fit",
+              "w": 1200
+            },
+            "small": {
+              "h": 442,
+              "resize": "fit",
+              "w": 680
+            },
+            "thumb": {
+              "h": 150,
+              "resize": "crop",
+              "w": 150
+            }
+          },
+          "type": "video",
+          "url": "https://t.co/rjAFAtTIby",
+          "video_info": {
+            "aspect_ratio": [
+              756,
+              491
+            ],
+            "duration_millis": 19283,
+            "variants": [
+              {
+                "content_type": "application/x-mpegURL",
+                "url": "https://video.twimg.com/amplify_video/2038223219442712576/pl/aIcBMqrOZ3-Wqeyd.m3u8?tag=14&v=cfc"
+              },
+              {
+                "bitrate": 288000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2038223219442712576/vid/avc1/414x270/pc0jBhwd8omvD9aY.mp4?tag=14"
+              },
+              {
+                "bitrate": 832000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2038223219442712576/vid/avc1/554x360/ircVcBAUmkBTIeHG.mp4?tag=14"
+              },
+              {
+                "bitrate": 2176000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2038223219442712576/vid/avc1/1108x720/7PW0Phh1MExF_Nx4.mp4?tag=14"
+              }
+            ]
+          }
+        }
+      ],
+      "photos": [],
+      "video": {
+        "aspectRatio": [
+          756,
+          491
+        ],
+        "contentType": "media_entity",
+        "durationMs": 19283,
+        "mediaAvailability": {
+          "status": "available"
+        },
+        "poster": "https://pbs.twimg.com/amplify_video_thumb/2038223219442712576/img/g3rdlpOgHDFwjbV7.jpg",
+        "variants": [
+          {
+            "type": "application/x-mpegURL",
+            "src": "https://video.twimg.com/amplify_video/2038223219442712576/pl/aIcBMqrOZ3-Wqeyd.m3u8?tag=14&v=cfc"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2038223219442712576/vid/avc1/414x270/pc0jBhwd8omvD9aY.mp4?tag=14"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2038223219442712576/vid/avc1/554x360/ircVcBAUmkBTIeHG.mp4?tag=14"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2038223219442712576/vid/avc1/1108x720/7PW0Phh1MExF_Nx4.mp4?tag=14"
+          }
+        ],
+        "videoId": {
+          "type": "tweet",
+          "id": "2038223362917282155"
+        },
+        "viewCount": 0
+      },
+      "isEdited": false,
+      "isStaleEdit": false
+    },
+    "isEdited": false,
+    "isStaleEdit": false
+  },
+  {
+    "__typename": "Tweet",
+    "in_reply_to_screen_name": "madebyhex",
+    "in_reply_to_status_id_str": "2005307712322879594",
+    "in_reply_to_user_id_str": "1913155043919831040",
+    "lang": "en",
+    "favorite_count": 2,
+    "created_at": "2025-12-29T04:27:54.000Z",
+    "display_text_range": [
+      11,
+      39
+    ],
+    "entities": {
+      "hashtags": [],
+      "urls": [],
+      "user_mentions": [
+        {
+          "id_str": "1913155043919831040",
+          "indices": [
+            0,
+            10
+          ],
+          "name": "Marek Jóźwiak",
+          "screen_name": "madebyhex"
+        }
+      ],
+      "symbols": []
+    },
+    "id_str": "2005495972970053763",
+    "text": "@madebyhex Wtf this is so awesome???!!!",
+    "user": {
+      "id_str": "1325590913851199488",
+      "name": "Enis",
+      "screen_name": "enisdev",
+      "is_blue_verified": false,
+      "profile_image_shape": "Circle",
+      "verified": false,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1883875248099000320/IxUfmCOn_normal.jpg"
+    },
+    "edit_control": {
+      "edit_tweet_ids": [
+        "2005495972970053763"
+      ],
+      "editable_until_msecs": "1766986074000",
+      "is_edit_eligible": false,
+      "edits_remaining": "5"
+    },
+    "conversation_count": 0,
+    "news_action_type": "conversation",
+    "parent": {
+      "lang": "en",
+      "reply_count": 1,
+      "retweet_count": 0,
+      "favorite_count": 3,
+      "possibly_sensitive": false,
+      "created_at": "2025-12-28T15:59:50.000Z",
+      "display_text_range": [
+        0,
+        83
+      ],
+      "entities": {
+        "hashtags": [],
+        "urls": [
+          {
+            "display_url": "motion-core.dev",
+            "expanded_url": "https://motion-core.dev/",
+            "indices": [
+              59,
+              82
+            ],
+            "url": "https://t.co/4VOhQtXU8V"
+          }
+        ],
+        "user_mentions": [],
+        "symbols": [],
+        "media": [
+          {
+            "display_url": "pic.x.com/9UORPsnjnN",
+            "expanded_url": "https://x.com/madebyhex/status/2005307712322879594/video/1",
+            "indices": [
+              83,
+              106
+            ],
+            "url": "https://t.co/9UORPsnjnN"
+          }
+        ]
+      },
+      "id_str": "2005307712322879594",
+      "text": "two commands with CLI and your static image goes brrrah 🔥\n\nhttps://t.co/4VOhQtXU8V https://t.co/9UORPsnjnN",
+      "user": {
+        "id_str": "1913155043919831040",
+        "name": "Marek Jóźwiak",
+        "screen_name": "madebyhex",
+        "is_blue_verified": true,
+        "profile_image_shape": "Circle",
+        "verified": false,
+        "profile_image_url_https": "https://pbs.twimg.com/profile_images/2048158689937313792/SBqSlE-n_normal.jpg"
+      },
+      "edit_control": {
+        "edit_tweet_ids": [
+          "2005307712322879594"
+        ],
+        "editable_until_msecs": "1766941190000",
+        "is_edit_eligible": true,
+        "edits_remaining": "5"
+      },
+      "mediaDetails": [
+        {
+          "additional_media_info": {},
+          "display_url": "pic.x.com/9UORPsnjnN",
+          "expanded_url": "https://x.com/madebyhex/status/2005307712322879594/video/1",
+          "ext_media_availability": {
+            "status": "Available"
+          },
+          "indices": [
+            83,
+            106
+          ],
+          "media_url_https": "https://pbs.twimg.com/amplify_video_thumb/2005307606269652992/img/jaGX4n1mh31Hwq5n.jpg",
+          "original_info": {
+            "height": 1080,
+            "width": 1920,
+            "focus_rects": []
+          },
+          "sizes": {
+            "large": {
+              "h": 1080,
+              "resize": "fit",
+              "w": 1920
+            },
+            "medium": {
+              "h": 675,
+              "resize": "fit",
+              "w": 1200
+            },
+            "small": {
+              "h": 383,
+              "resize": "fit",
+              "w": 680
+            },
+            "thumb": {
+              "h": 150,
+              "resize": "crop",
+              "w": 150
+            }
+          },
+          "type": "video",
+          "url": "https://t.co/9UORPsnjnN",
+          "video_info": {
+            "aspect_ratio": [
+              16,
+              9
+            ],
+            "duration_millis": 4798,
+            "variants": [
+              {
+                "content_type": "application/x-mpegURL",
+                "url": "https://video.twimg.com/amplify_video/2005307606269652992/pl/i19xDhI3ipb_fG7j.m3u8?tag=14"
+              },
+              {
+                "bitrate": 288000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2005307606269652992/vid/avc1/480x270/QJ6yPyRRkENxWdhp.mp4?tag=14"
+              },
+              {
+                "bitrate": 832000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2005307606269652992/vid/avc1/640x360/0JlnrMTQ3OLG5IbV.mp4?tag=14"
+              },
+              {
+                "bitrate": 2176000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2005307606269652992/vid/avc1/1280x720/z6jUBuYId7lT4Fi7.mp4?tag=14"
+              }
+            ]
+          }
+        }
+      ],
+      "photos": [],
+      "video": {
+        "aspectRatio": [
+          16,
+          9
+        ],
+        "contentType": "media_entity",
+        "durationMs": 4798,
+        "mediaAvailability": {
+          "status": "available"
+        },
+        "poster": "https://pbs.twimg.com/amplify_video_thumb/2005307606269652992/img/jaGX4n1mh31Hwq5n.jpg",
+        "variants": [
+          {
+            "type": "application/x-mpegURL",
+            "src": "https://video.twimg.com/amplify_video/2005307606269652992/pl/i19xDhI3ipb_fG7j.m3u8?tag=14"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2005307606269652992/vid/avc1/480x270/QJ6yPyRRkENxWdhp.mp4?tag=14"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2005307606269652992/vid/avc1/640x360/0JlnrMTQ3OLG5IbV.mp4?tag=14"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2005307606269652992/vid/avc1/1280x720/z6jUBuYId7lT4Fi7.mp4?tag=14"
+          }
+        ],
+        "videoId": {
+          "type": "tweet",
+          "id": "2005307712322879594"
+        },
+        "viewCount": 0
+      },
+      "isEdited": false,
+      "isStaleEdit": false
+    },
+    "isEdited": false,
+    "isStaleEdit": false
+  },
+  {
+    "__typename": "Tweet",
+    "in_reply_to_screen_name": "madebyhex",
+    "in_reply_to_status_id_str": "2036942917336449151",
+    "in_reply_to_user_id_str": "1913155043919831040",
+    "lang": "en",
+    "favorite_count": 1,
+    "created_at": "2026-03-26T10:41:21.000Z",
+    "display_text_range": [
+      11,
+      32
+    ],
+    "entities": {
+      "hashtags": [],
+      "urls": [],
+      "user_mentions": [
+        {
+          "id_str": "1913155043919831040",
+          "indices": [
+            0,
+            10
+          ],
+          "name": "Marek Jóźwiak",
+          "screen_name": "madebyhex"
+        }
+      ],
+      "symbols": []
+    },
+    "id_str": "2037117697889362260",
+    "text": "@madebyhex Yo, that's sick. 🔥🔥",
+    "user": {
+      "id_str": "1301038042564628481",
+      "name": "Vinay Juneja",
+      "screen_name": "vinayjunejaa",
+      "is_blue_verified": true,
+      "profile_image_shape": "Circle",
+      "verified": false,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/2036093327662309377/cog1wOXv_normal.jpg"
+    },
+    "edit_control": {
+      "edit_tweet_ids": [
+        "2037117697889362260"
+      ],
+      "editable_until_msecs": "1774525281000",
+      "is_edit_eligible": false,
+      "edits_remaining": "5"
+    },
+    "conversation_count": 1,
+    "news_action_type": "conversation",
+    "parent": {
+      "lang": "en",
+      "reply_count": 4,
+      "retweet_count": 4,
+      "favorite_count": 156,
+      "possibly_sensitive": false,
+      "created_at": "2026-03-25T23:06:50.000Z",
+      "display_text_range": [
+        0,
+        58
+      ],
+      "entities": {
+        "hashtags": [],
+        "urls": [
+          {
+            "display_url": "motion-core.dev/docs/stacking-…",
+            "expanded_url": "https://motion-core.dev/docs/stacking-words",
+            "indices": [
+              35,
+              58
+            ],
+            "url": "https://t.co/ZAL2v88PXv"
+          }
+        ],
+        "user_mentions": [],
+        "symbols": [],
+        "media": [
+          {
+            "display_url": "pic.x.com/ObD13wJpzC",
+            "expanded_url": "https://x.com/madebyhex/status/2036942917336449151/video/1",
+            "indices": [
+              59,
+              82
+            ],
+            "url": "https://t.co/ObD13wJpzC"
+          }
+        ]
+      },
+      "id_str": "2036942917336449151",
+      "text": "New Motion Core component is out!\n\nhttps://t.co/ZAL2v88PXv https://t.co/ObD13wJpzC",
+      "user": {
+        "id_str": "1913155043919831040",
+        "name": "Marek Jóźwiak",
+        "screen_name": "madebyhex",
+        "is_blue_verified": true,
+        "profile_image_shape": "Circle",
+        "verified": false,
+        "profile_image_url_https": "https://pbs.twimg.com/profile_images/2048158689937313792/SBqSlE-n_normal.jpg"
+      },
+      "edit_control": {
+        "edit_tweet_ids": [
+          "2036942917336449151"
+        ],
+        "editable_until_msecs": "1774483610000",
+        "is_edit_eligible": true,
+        "edits_remaining": "5"
+      },
+      "mediaDetails": [
+        {
+          "additional_media_info": {},
+          "display_url": "pic.x.com/ObD13wJpzC",
+          "expanded_url": "https://x.com/madebyhex/status/2036942917336449151/video/1",
+          "ext_media_availability": {
+            "status": "Available"
+          },
+          "indices": [
+            59,
+            82
+          ],
+          "media_url_https": "https://pbs.twimg.com/amplify_video_thumb/2036942771328544768/img/WnIsO-SIwKIz_JNX.jpg",
+          "original_info": {
+            "height": 1748,
+            "width": 3004,
+            "focus_rects": []
+          },
+          "sizes": {
+            "large": {
+              "h": 1192,
+              "resize": "fit",
+              "w": 2048
+            },
+            "medium": {
+              "h": 698,
+              "resize": "fit",
+              "w": 1200
+            },
+            "small": {
+              "h": 396,
+              "resize": "fit",
+              "w": 680
+            },
+            "thumb": {
+              "h": 150,
+              "resize": "crop",
+              "w": 150
+            }
+          },
+          "type": "video",
+          "url": "https://t.co/ObD13wJpzC",
+          "video_info": {
+            "aspect_ratio": [
+              751,
+              437
+            ],
+            "duration_millis": 7106,
+            "variants": [
+              {
+                "content_type": "application/x-mpegURL",
+                "url": "https://video.twimg.com/amplify_video/2036942771328544768/pl/7gqmKIGd14WRrswb.m3u8?tag=14"
+              },
+              {
+                "bitrate": 288000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2036942771328544768/vid/avc1/464x270/UjuOkgJH-ChCZYbb.mp4?tag=14"
+              },
+              {
+                "bitrate": 832000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2036942771328544768/vid/avc1/618x360/IayTxPkllStVnzvU.mp4?tag=14"
+              },
+              {
+                "bitrate": 2176000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2036942771328544768/vid/avc1/1236x720/zpvoCtIn7GsmhLf-.mp4?tag=14"
+              }
+            ]
+          }
+        }
+      ],
+      "photos": [],
+      "video": {
+        "aspectRatio": [
+          751,
+          437
+        ],
+        "contentType": "media_entity",
+        "durationMs": 7106,
+        "mediaAvailability": {
+          "status": "available"
+        },
+        "poster": "https://pbs.twimg.com/amplify_video_thumb/2036942771328544768/img/WnIsO-SIwKIz_JNX.jpg",
+        "variants": [
+          {
+            "type": "application/x-mpegURL",
+            "src": "https://video.twimg.com/amplify_video/2036942771328544768/pl/7gqmKIGd14WRrswb.m3u8?tag=14"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2036942771328544768/vid/avc1/464x270/UjuOkgJH-ChCZYbb.mp4?tag=14"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2036942771328544768/vid/avc1/618x360/IayTxPkllStVnzvU.mp4?tag=14"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2036942771328544768/vid/avc1/1236x720/zpvoCtIn7GsmhLf-.mp4?tag=14"
+          }
+        ],
+        "videoId": {
+          "type": "tweet",
+          "id": "2036942917336449151"
+        },
+        "viewCount": 0
+      },
+      "isEdited": false,
+      "isStaleEdit": false
+    },
+    "isEdited": false,
+    "isStaleEdit": false
+  },
+  {
+    "__typename": "Tweet",
+    "in_reply_to_screen_name": "madebyhex",
+    "in_reply_to_status_id_str": "2038000612252520472",
+    "in_reply_to_user_id_str": "1913155043919831040",
+    "lang": "en",
+    "favorite_count": 1,
+    "created_at": "2026-03-28T23:37:03.000Z",
+    "display_text_range": [
+      11,
+      74
+    ],
+    "entities": {
+      "hashtags": [],
+      "urls": [],
+      "user_mentions": [
+        {
+          "id_str": "1913155043919831040",
+          "indices": [
+            0,
+            10
+          ],
+          "name": "Marek Jóźwiak",
+          "screen_name": "madebyhex"
+        }
+      ],
+      "symbols": []
+    },
+    "id_str": "2038037682367132038",
+    "text": "@madebyhex I can feel the texture of those cards in my mouth. Really good!",
+    "user": {
+      "id_str": "2030904073000771584",
+      "name": "Borouch",
+      "screen_name": "permataste",
+      "is_blue_verified": true,
+      "profile_image_shape": "Circle",
+      "verified": false,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/2031456281953959936/OaA6ct0H_normal.jpg"
+    },
+    "edit_control": {
+      "edit_tweet_ids": [
+        "2038037682367132038"
+      ],
+      "editable_until_msecs": "1774744623000",
+      "is_edit_eligible": false,
+      "edits_remaining": "5"
+    },
+    "conversation_count": 1,
+    "news_action_type": "conversation",
+    "parent": {
+      "lang": "en",
+      "reply_count": 5,
+      "retweet_count": 10,
+      "favorite_count": 167,
+      "possibly_sensitive": false,
+      "created_at": "2026-03-28T21:09:44.000Z",
+      "display_text_range": [
+        0,
+        53
+      ],
+      "entities": {
+        "hashtags": [],
+        "urls": [
+          {
+            "display_url": "motion-core.dev/docs/flip-card…",
+            "expanded_url": "https://motion-core.dev/docs/flip-card-stack",
+            "indices": [
+              30,
+              53
+            ],
+            "url": "https://t.co/Y60e9XjqZR"
+          }
+        ],
+        "user_mentions": [],
+        "symbols": [],
+        "media": [
+          {
+            "display_url": "pic.x.com/rv7nfAt5YB",
+            "expanded_url": "https://x.com/madebyhex/status/2038000612252520472/video/1",
+            "indices": [
+              54,
+              77
+            ],
+            "url": "https://t.co/rv7nfAt5YB"
+          }
+        ]
+      },
+      "id_str": "2038000612252520472",
+      "text": "Motion Core grows every day!\n\nhttps://t.co/Y60e9XjqZR https://t.co/rv7nfAt5YB",
+      "user": {
+        "id_str": "1913155043919831040",
+        "name": "Marek Jóźwiak",
+        "screen_name": "madebyhex",
+        "is_blue_verified": true,
+        "profile_image_shape": "Circle",
+        "verified": false,
+        "profile_image_url_https": "https://pbs.twimg.com/profile_images/2048158689937313792/SBqSlE-n_normal.jpg"
+      },
+      "edit_control": {
+        "edit_tweet_ids": [
+          "2038000612252520472"
+        ],
+        "editable_until_msecs": "1774735784000",
+        "is_edit_eligible": true,
+        "edits_remaining": "5"
+      },
+      "mediaDetails": [
+        {
+          "additional_media_info": {},
+          "display_url": "pic.x.com/rv7nfAt5YB",
+          "expanded_url": "https://x.com/madebyhex/status/2038000612252520472/video/1",
+          "ext_media_availability": {
+            "status": "Available"
+          },
+          "indices": [
+            54,
+            77
+          ],
+          "media_url_https": "https://pbs.twimg.com/amplify_video_thumb/2038000520389156864/img/Vg371pR6XM391PI_.jpg",
+          "original_info": {
+            "height": 1964,
+            "width": 3024,
+            "focus_rects": []
+          },
+          "sizes": {
+            "large": {
+              "h": 1330,
+              "resize": "fit",
+              "w": 2048
+            },
+            "medium": {
+              "h": 779,
+              "resize": "fit",
+              "w": 1200
+            },
+            "small": {
+              "h": 442,
+              "resize": "fit",
+              "w": 680
+            },
+            "thumb": {
+              "h": 150,
+              "resize": "crop",
+              "w": 150
+            }
+          },
+          "type": "video",
+          "url": "https://t.co/rv7nfAt5YB",
+          "video_info": {
+            "aspect_ratio": [
+              756,
+              491
+            ],
+            "duration_millis": 17233,
+            "variants": [
+              {
+                "content_type": "application/x-mpegURL",
+                "url": "https://video.twimg.com/amplify_video/2038000520389156864/pl/eJaykknNaCTt4-xZ.m3u8?tag=14&v=cfc"
+              },
+              {
+                "bitrate": 288000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2038000520389156864/vid/avc1/414x270/KNg8yE3385di1HjV.mp4?tag=14"
+              },
+              {
+                "bitrate": 832000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2038000520389156864/vid/avc1/554x360/FGVjuY2FZrSlJTrY.mp4?tag=14"
+              },
+              {
+                "bitrate": 2176000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2038000520389156864/vid/avc1/1108x720/2mqRQ65c9HKCZkAI.mp4?tag=14"
+              }
+            ]
+          }
+        }
+      ],
+      "photos": [],
+      "video": {
+        "aspectRatio": [
+          756,
+          491
+        ],
+        "contentType": "media_entity",
+        "durationMs": 17233,
+        "mediaAvailability": {
+          "status": "available"
+        },
+        "poster": "https://pbs.twimg.com/amplify_video_thumb/2038000520389156864/img/Vg371pR6XM391PI_.jpg",
+        "variants": [
+          {
+            "type": "application/x-mpegURL",
+            "src": "https://video.twimg.com/amplify_video/2038000520389156864/pl/eJaykknNaCTt4-xZ.m3u8?tag=14&v=cfc"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2038000520389156864/vid/avc1/414x270/KNg8yE3385di1HjV.mp4?tag=14"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2038000520389156864/vid/avc1/554x360/FGVjuY2FZrSlJTrY.mp4?tag=14"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2038000520389156864/vid/avc1/1108x720/2mqRQ65c9HKCZkAI.mp4?tag=14"
+          }
+        ],
+        "videoId": {
+          "type": "tweet",
+          "id": "2038000612252520472"
+        },
+        "viewCount": 0
+      },
+      "isEdited": false,
+      "isStaleEdit": false
+    },
+    "isEdited": false,
+    "isStaleEdit": false
+  },
+  {
+    "__typename": "Tweet",
+    "in_reply_to_screen_name": "madebyhex",
+    "in_reply_to_status_id_str": "2038000612252520472",
+    "in_reply_to_user_id_str": "1913155043919831040",
+    "lang": "en",
+    "favorite_count": 1,
+    "created_at": "2026-03-29T12:13:57.000Z",
+    "display_text_range": [
+      11,
+      53
+    ],
+    "entities": {
+      "hashtags": [],
+      "urls": [],
+      "user_mentions": [
+        {
+          "id_str": "1913155043919831040",
+          "indices": [
+            0,
+            10
+          ],
+          "name": "Marek Jóźwiak",
+          "screen_name": "madebyhex"
+        }
+      ],
+      "symbols": []
+    },
+    "id_str": "2038228166410658262",
+    "text": "@madebyhex Such a nice vibe here, feels super smooth.",
+    "user": {
+      "id_str": "1941844954571255809",
+      "name": "Ozyflow",
+      "screen_name": "Ozyflowx",
+      "is_blue_verified": true,
+      "profile_image_shape": "Circle",
+      "verified": false,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1961073074977013760/xIC3oNoX_normal.jpg"
+    },
+    "edit_control": {
+      "edit_tweet_ids": [
+        "2038228166410658262"
+      ],
+      "editable_until_msecs": "1774790037000",
+      "is_edit_eligible": false,
+      "edits_remaining": "5"
+    },
+    "conversation_count": 0,
+    "news_action_type": "conversation",
+    "parent": {
+      "lang": "en",
+      "reply_count": 5,
+      "retweet_count": 10,
+      "favorite_count": 167,
+      "possibly_sensitive": false,
+      "created_at": "2026-03-28T21:09:44.000Z",
+      "display_text_range": [
+        0,
+        53
+      ],
+      "entities": {
+        "hashtags": [],
+        "urls": [
+          {
+            "display_url": "motion-core.dev/docs/flip-card…",
+            "expanded_url": "https://motion-core.dev/docs/flip-card-stack",
+            "indices": [
+              30,
+              53
+            ],
+            "url": "https://t.co/Y60e9XjqZR"
+          }
+        ],
+        "user_mentions": [],
+        "symbols": [],
+        "media": [
+          {
+            "display_url": "pic.x.com/rv7nfAt5YB",
+            "expanded_url": "https://x.com/madebyhex/status/2038000612252520472/video/1",
+            "indices": [
+              54,
+              77
+            ],
+            "url": "https://t.co/rv7nfAt5YB"
+          }
+        ]
+      },
+      "id_str": "2038000612252520472",
+      "text": "Motion Core grows every day!\n\nhttps://t.co/Y60e9XjqZR https://t.co/rv7nfAt5YB",
+      "user": {
+        "id_str": "1913155043919831040",
+        "name": "Marek Jóźwiak",
+        "screen_name": "madebyhex",
+        "is_blue_verified": true,
+        "profile_image_shape": "Circle",
+        "verified": false,
+        "profile_image_url_https": "https://pbs.twimg.com/profile_images/2048158689937313792/SBqSlE-n_normal.jpg"
+      },
+      "edit_control": {
+        "edit_tweet_ids": [
+          "2038000612252520472"
+        ],
+        "editable_until_msecs": "1774735784000",
+        "is_edit_eligible": true,
+        "edits_remaining": "5"
+      },
+      "mediaDetails": [
+        {
+          "additional_media_info": {},
+          "display_url": "pic.x.com/rv7nfAt5YB",
+          "expanded_url": "https://x.com/madebyhex/status/2038000612252520472/video/1",
+          "ext_media_availability": {
+            "status": "Available"
+          },
+          "indices": [
+            54,
+            77
+          ],
+          "media_url_https": "https://pbs.twimg.com/amplify_video_thumb/2038000520389156864/img/Vg371pR6XM391PI_.jpg",
+          "original_info": {
+            "height": 1964,
+            "width": 3024,
+            "focus_rects": []
+          },
+          "sizes": {
+            "large": {
+              "h": 1330,
+              "resize": "fit",
+              "w": 2048
+            },
+            "medium": {
+              "h": 779,
+              "resize": "fit",
+              "w": 1200
+            },
+            "small": {
+              "h": 442,
+              "resize": "fit",
+              "w": 680
+            },
+            "thumb": {
+              "h": 150,
+              "resize": "crop",
+              "w": 150
+            }
+          },
+          "type": "video",
+          "url": "https://t.co/rv7nfAt5YB",
+          "video_info": {
+            "aspect_ratio": [
+              756,
+              491
+            ],
+            "duration_millis": 17233,
+            "variants": [
+              {
+                "content_type": "application/x-mpegURL",
+                "url": "https://video.twimg.com/amplify_video/2038000520389156864/pl/eJaykknNaCTt4-xZ.m3u8?tag=14&v=cfc"
+              },
+              {
+                "bitrate": 288000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2038000520389156864/vid/avc1/414x270/KNg8yE3385di1HjV.mp4?tag=14"
+              },
+              {
+                "bitrate": 832000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2038000520389156864/vid/avc1/554x360/FGVjuY2FZrSlJTrY.mp4?tag=14"
+              },
+              {
+                "bitrate": 2176000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2038000520389156864/vid/avc1/1108x720/2mqRQ65c9HKCZkAI.mp4?tag=14"
+              }
+            ]
+          }
+        }
+      ],
+      "photos": [],
+      "video": {
+        "aspectRatio": [
+          756,
+          491
+        ],
+        "contentType": "media_entity",
+        "durationMs": 17233,
+        "mediaAvailability": {
+          "status": "available"
+        },
+        "poster": "https://pbs.twimg.com/amplify_video_thumb/2038000520389156864/img/Vg371pR6XM391PI_.jpg",
+        "variants": [
+          {
+            "type": "application/x-mpegURL",
+            "src": "https://video.twimg.com/amplify_video/2038000520389156864/pl/eJaykknNaCTt4-xZ.m3u8?tag=14&v=cfc"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2038000520389156864/vid/avc1/414x270/KNg8yE3385di1HjV.mp4?tag=14"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2038000520389156864/vid/avc1/554x360/FGVjuY2FZrSlJTrY.mp4?tag=14"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2038000520389156864/vid/avc1/1108x720/2mqRQ65c9HKCZkAI.mp4?tag=14"
+          }
+        ],
+        "videoId": {
+          "type": "tweet",
+          "id": "2038000612252520472"
+        },
+        "viewCount": 0
+      },
+      "isEdited": false,
+      "isStaleEdit": false
+    },
+    "isEdited": false,
+    "isStaleEdit": false
+  },
+  {
+    "__typename": "Tweet",
+    "in_reply_to_screen_name": "madebyhex",
+    "in_reply_to_status_id_str": "2038000612252520472",
+    "in_reply_to_user_id_str": "1913155043919831040",
+    "lang": "en",
+    "favorite_count": 1,
+    "created_at": "2026-03-29T06:59:14.000Z",
+    "display_text_range": [
+      11,
+      49
+    ],
+    "entities": {
+      "hashtags": [],
+      "urls": [],
+      "user_mentions": [
+        {
+          "id_str": "1913155043919831040",
+          "indices": [
+            0,
+            10
+          ],
+          "name": "Marek Jóźwiak",
+          "screen_name": "madebyhex"
+        }
+      ],
+      "symbols": []
+    },
+    "id_str": "2038148962226467080",
+    "text": "@madebyhex that flip card component looks neat 👍",
+    "user": {
+      "id_str": "1715861024396455936",
+      "name": "Denis Turbin",
+      "screen_name": "den_turbin",
+      "is_blue_verified": true,
+      "profile_image_shape": "Circle",
+      "verified": false,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/2046943966973628418/oy0tM804_normal.jpg"
+    },
+    "edit_control": {
+      "edit_tweet_ids": [
+        "2038148962226467080"
+      ],
+      "editable_until_msecs": "1774771154000",
+      "is_edit_eligible": false,
+      "edits_remaining": "5"
+    },
+    "conversation_count": 0,
+    "news_action_type": "conversation",
+    "parent": {
+      "lang": "en",
+      "reply_count": 5,
+      "retweet_count": 10,
+      "favorite_count": 167,
+      "possibly_sensitive": false,
+      "created_at": "2026-03-28T21:09:44.000Z",
+      "display_text_range": [
+        0,
+        53
+      ],
+      "entities": {
+        "hashtags": [],
+        "urls": [
+          {
+            "display_url": "motion-core.dev/docs/flip-card…",
+            "expanded_url": "https://motion-core.dev/docs/flip-card-stack",
+            "indices": [
+              30,
+              53
+            ],
+            "url": "https://t.co/Y60e9XjqZR"
+          }
+        ],
+        "user_mentions": [],
+        "symbols": [],
+        "media": [
+          {
+            "display_url": "pic.x.com/rv7nfAt5YB",
+            "expanded_url": "https://x.com/madebyhex/status/2038000612252520472/video/1",
+            "indices": [
+              54,
+              77
+            ],
+            "url": "https://t.co/rv7nfAt5YB"
+          }
+        ]
+      },
+      "id_str": "2038000612252520472",
+      "text": "Motion Core grows every day!\n\nhttps://t.co/Y60e9XjqZR https://t.co/rv7nfAt5YB",
+      "user": {
+        "id_str": "1913155043919831040",
+        "name": "Marek Jóźwiak",
+        "screen_name": "madebyhex",
+        "is_blue_verified": true,
+        "profile_image_shape": "Circle",
+        "verified": false,
+        "profile_image_url_https": "https://pbs.twimg.com/profile_images/2048158689937313792/SBqSlE-n_normal.jpg"
+      },
+      "edit_control": {
+        "edit_tweet_ids": [
+          "2038000612252520472"
+        ],
+        "editable_until_msecs": "1774735784000",
+        "is_edit_eligible": true,
+        "edits_remaining": "5"
+      },
+      "mediaDetails": [
+        {
+          "additional_media_info": {},
+          "display_url": "pic.x.com/rv7nfAt5YB",
+          "expanded_url": "https://x.com/madebyhex/status/2038000612252520472/video/1",
+          "ext_media_availability": {
+            "status": "Available"
+          },
+          "indices": [
+            54,
+            77
+          ],
+          "media_url_https": "https://pbs.twimg.com/amplify_video_thumb/2038000520389156864/img/Vg371pR6XM391PI_.jpg",
+          "original_info": {
+            "height": 1964,
+            "width": 3024,
+            "focus_rects": []
+          },
+          "sizes": {
+            "large": {
+              "h": 1330,
+              "resize": "fit",
+              "w": 2048
+            },
+            "medium": {
+              "h": 779,
+              "resize": "fit",
+              "w": 1200
+            },
+            "small": {
+              "h": 442,
+              "resize": "fit",
+              "w": 680
+            },
+            "thumb": {
+              "h": 150,
+              "resize": "crop",
+              "w": 150
+            }
+          },
+          "type": "video",
+          "url": "https://t.co/rv7nfAt5YB",
+          "video_info": {
+            "aspect_ratio": [
+              756,
+              491
+            ],
+            "duration_millis": 17233,
+            "variants": [
+              {
+                "content_type": "application/x-mpegURL",
+                "url": "https://video.twimg.com/amplify_video/2038000520389156864/pl/eJaykknNaCTt4-xZ.m3u8?tag=14&v=cfc"
+              },
+              {
+                "bitrate": 288000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2038000520389156864/vid/avc1/414x270/KNg8yE3385di1HjV.mp4?tag=14"
+              },
+              {
+                "bitrate": 832000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2038000520389156864/vid/avc1/554x360/FGVjuY2FZrSlJTrY.mp4?tag=14"
+              },
+              {
+                "bitrate": 2176000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2038000520389156864/vid/avc1/1108x720/2mqRQ65c9HKCZkAI.mp4?tag=14"
+              }
+            ]
+          }
+        }
+      ],
+      "photos": [],
+      "video": {
+        "aspectRatio": [
+          756,
+          491
+        ],
+        "contentType": "media_entity",
+        "durationMs": 17233,
+        "mediaAvailability": {
+          "status": "available"
+        },
+        "poster": "https://pbs.twimg.com/amplify_video_thumb/2038000520389156864/img/Vg371pR6XM391PI_.jpg",
+        "variants": [
+          {
+            "type": "application/x-mpegURL",
+            "src": "https://video.twimg.com/amplify_video/2038000520389156864/pl/eJaykknNaCTt4-xZ.m3u8?tag=14&v=cfc"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2038000520389156864/vid/avc1/414x270/KNg8yE3385di1HjV.mp4?tag=14"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2038000520389156864/vid/avc1/554x360/FGVjuY2FZrSlJTrY.mp4?tag=14"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2038000520389156864/vid/avc1/1108x720/2mqRQ65c9HKCZkAI.mp4?tag=14"
+          }
+        ],
+        "videoId": {
+          "type": "tweet",
+          "id": "2038000612252520472"
+        },
+        "viewCount": 0
+      },
+      "isEdited": false,
+      "isStaleEdit": false
+    },
+    "isEdited": false,
+    "isStaleEdit": false
+  },
+  {
+    "__typename": "Tweet",
+    "in_reply_to_screen_name": "madebyhex",
+    "in_reply_to_status_id_str": "2034771266914156986",
+    "in_reply_to_user_id_str": "1913155043919831040",
+    "lang": "en",
+    "favorite_count": 0,
+    "created_at": "2026-03-24T15:50:19.000Z",
+    "display_text_range": [
+      11,
+      34
+    ],
+    "entities": {
+      "hashtags": [],
+      "urls": [],
+      "user_mentions": [
+        {
+          "id_str": "1913155043919831040",
+          "indices": [
+            0,
+            10
+          ],
+          "name": "Marek Jóźwiak",
+          "screen_name": "madebyhex"
+        }
+      ],
+      "symbols": []
+    },
+    "id_str": "2036470674739314958",
+    "text": "@madebyhex Holy shit, this is good",
+    "user": {
+      "id_str": "860831697796988928",
+      "name": "Ryan Zanardi",
+      "screen_name": "ryanzanardi",
+      "is_blue_verified": true,
+      "profile_image_shape": "Circle",
+      "verified": false,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/2036208157374984192/qGiZKiv8_normal.jpg"
+    },
+    "edit_control": {
+      "edit_tweet_ids": [
+        "2036470674739314958"
+      ],
+      "editable_until_msecs": "1774371019000",
+      "is_edit_eligible": false,
+      "edits_remaining": "5"
+    },
+    "conversation_count": 1,
+    "news_action_type": "conversation",
+    "parent": {
+      "lang": "en",
+      "reply_count": 30,
+      "retweet_count": 87,
+      "favorite_count": 1443,
+      "possibly_sensitive": false,
+      "created_at": "2026-03-19T23:17:28.000Z",
+      "display_text_range": [
+        0,
+        62
+      ],
+      "entities": {
+        "hashtags": [],
+        "urls": [
+          {
+            "display_url": "motion-core.dev",
+            "expanded_url": "https://motion-core.dev/",
+            "indices": [
+              39,
+              62
+            ],
+            "url": "https://t.co/4VOhQtXmjn"
+          }
+        ],
+        "user_mentions": [],
+        "symbols": [],
+        "media": [
+          {
+            "display_url": "pic.x.com/vxavLMNUiY",
+            "expanded_url": "https://x.com/madebyhex/status/2034771266914156986/video/1",
+            "indices": [
+              63,
+              86
+            ],
+            "url": "https://t.co/vxavLMNUiY"
+          }
+        ]
+      },
+      "id_str": "2034771266914156986",
+      "text": "3 new shader background available at: \nhttps://t.co/4VOhQtXmjn https://t.co/vxavLMNUiY",
+      "user": {
+        "id_str": "1913155043919831040",
+        "name": "Marek Jóźwiak",
+        "screen_name": "madebyhex",
+        "is_blue_verified": true,
+        "profile_image_shape": "Circle",
+        "verified": false,
+        "profile_image_url_https": "https://pbs.twimg.com/profile_images/2048158689937313792/SBqSlE-n_normal.jpg"
+      },
+      "edit_control": {
+        "edit_tweet_ids": [
+          "2034771266914156986"
+        ],
+        "editable_until_msecs": "1773965848000",
+        "is_edit_eligible": true,
+        "edits_remaining": "5"
+      },
+      "mediaDetails": [
+        {
+          "additional_media_info": {},
+          "display_url": "pic.x.com/vxavLMNUiY",
+          "expanded_url": "https://x.com/madebyhex/status/2034771266914156986/video/1",
+          "ext_media_availability": {
+            "status": "Available"
+          },
+          "indices": [
+            63,
+            86
+          ],
+          "media_url_https": "https://pbs.twimg.com/amplify_video_thumb/2034771158302957570/img/9tJydTPqiZGao8Oy.jpg",
+          "original_info": {
+            "height": 1724,
+            "width": 2966,
+            "focus_rects": []
+          },
+          "sizes": {
+            "large": {
+              "h": 1190,
+              "resize": "fit",
+              "w": 2048
+            },
+            "medium": {
+              "h": 698,
+              "resize": "fit",
+              "w": 1200
+            },
+            "small": {
+              "h": 395,
+              "resize": "fit",
+              "w": 680
+            },
+            "thumb": {
+              "h": 150,
+              "resize": "crop",
+              "w": 150
+            }
+          },
+          "type": "video",
+          "url": "https://t.co/vxavLMNUiY",
+          "video_info": {
+            "aspect_ratio": [
+              1483,
+              862
+            ],
+            "duration_millis": 21876,
+            "variants": [
+              {
+                "content_type": "application/x-mpegURL",
+                "url": "https://video.twimg.com/amplify_video/2034771158302957570/pl/UfgHchYrv01iDu2E.m3u8?tag=14&v=cfc"
+              },
+              {
+                "bitrate": 288000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2034771158302957570/vid/avc1/464x270/ZiCHF56eBTjmRNUC.mp4?tag=14"
+              },
+              {
+                "bitrate": 832000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2034771158302957570/vid/avc1/618x360/5yG_6M7SfG2hl8gj.mp4?tag=14"
+              },
+              {
+                "bitrate": 2176000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2034771158302957570/vid/avc1/1238x720/SgUh7V2OuTlDXj4m.mp4?tag=14"
+              }
+            ]
+          }
+        }
+      ],
+      "photos": [],
+      "video": {
+        "aspectRatio": [
+          1483,
+          862
+        ],
+        "contentType": "media_entity",
+        "durationMs": 21876,
+        "mediaAvailability": {
+          "status": "available"
+        },
+        "poster": "https://pbs.twimg.com/amplify_video_thumb/2034771158302957570/img/9tJydTPqiZGao8Oy.jpg",
+        "variants": [
+          {
+            "type": "application/x-mpegURL",
+            "src": "https://video.twimg.com/amplify_video/2034771158302957570/pl/UfgHchYrv01iDu2E.m3u8?tag=14&v=cfc"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2034771158302957570/vid/avc1/464x270/ZiCHF56eBTjmRNUC.mp4?tag=14"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2034771158302957570/vid/avc1/618x360/5yG_6M7SfG2hl8gj.mp4?tag=14"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2034771158302957570/vid/avc1/1238x720/SgUh7V2OuTlDXj4m.mp4?tag=14"
+          }
+        ],
+        "videoId": {
+          "type": "tweet",
+          "id": "2034771266914156986"
+        },
+        "viewCount": 0
+      },
+      "isEdited": false,
+      "isStaleEdit": false
+    },
+    "isEdited": false,
+    "isStaleEdit": false
+  },
+  {
+    "__typename": "Tweet",
+    "in_reply_to_screen_name": "madebyhex",
+    "in_reply_to_status_id_str": "2034771266914156986",
+    "in_reply_to_user_id_str": "1913155043919831040",
+    "lang": "en",
+    "favorite_count": 2,
+    "created_at": "2026-03-20T10:24:16.000Z",
+    "display_text_range": [
+      11,
+      85
+    ],
+    "entities": {
+      "hashtags": [],
+      "urls": [],
+      "user_mentions": [
+        {
+          "id_str": "1913155043919831040",
+          "indices": [
+            0,
+            10
+          ],
+          "name": "Marek Jóźwiak",
+          "screen_name": "madebyhex"
+        }
+      ],
+      "symbols": []
+    },
+    "id_str": "2034939071017980387",
+    "text": "@madebyhex MOTION CORE ❤️ \nI'm ready to gather another 39 people and raid this place.",
+    "user": {
+      "id_str": "1592897609445908481",
+      "name": "Jordan Parker",
+      "screen_name": "heyJordanParker",
+      "is_blue_verified": true,
+      "profile_image_shape": "Circle",
+      "verified": false,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1592908527051350016/s5sEii_3_normal.jpg"
+    },
+    "edit_control": {
+      "edit_tweet_ids": [
+        "2034939071017980387"
+      ],
+      "editable_until_msecs": "1774005856000",
+      "is_edit_eligible": false,
+      "edits_remaining": "5"
+    },
+    "conversation_count": 0,
+    "news_action_type": "conversation",
+    "parent": {
+      "lang": "en",
+      "reply_count": 30,
+      "retweet_count": 87,
+      "favorite_count": 1443,
+      "possibly_sensitive": false,
+      "created_at": "2026-03-19T23:17:28.000Z",
+      "display_text_range": [
+        0,
+        62
+      ],
+      "entities": {
+        "hashtags": [],
+        "urls": [
+          {
+            "display_url": "motion-core.dev",
+            "expanded_url": "https://motion-core.dev/",
+            "indices": [
+              39,
+              62
+            ],
+            "url": "https://t.co/4VOhQtXmjn"
+          }
+        ],
+        "user_mentions": [],
+        "symbols": [],
+        "media": [
+          {
+            "display_url": "pic.x.com/vxavLMNUiY",
+            "expanded_url": "https://x.com/madebyhex/status/2034771266914156986/video/1",
+            "indices": [
+              63,
+              86
+            ],
+            "url": "https://t.co/vxavLMNUiY"
+          }
+        ]
+      },
+      "id_str": "2034771266914156986",
+      "text": "3 new shader background available at: \nhttps://t.co/4VOhQtXmjn https://t.co/vxavLMNUiY",
+      "user": {
+        "id_str": "1913155043919831040",
+        "name": "Marek Jóźwiak",
+        "screen_name": "madebyhex",
+        "is_blue_verified": true,
+        "profile_image_shape": "Circle",
+        "verified": false,
+        "profile_image_url_https": "https://pbs.twimg.com/profile_images/2048158689937313792/SBqSlE-n_normal.jpg"
+      },
+      "edit_control": {
+        "edit_tweet_ids": [
+          "2034771266914156986"
+        ],
+        "editable_until_msecs": "1773965848000",
+        "is_edit_eligible": true,
+        "edits_remaining": "5"
+      },
+      "mediaDetails": [
+        {
+          "additional_media_info": {},
+          "display_url": "pic.x.com/vxavLMNUiY",
+          "expanded_url": "https://x.com/madebyhex/status/2034771266914156986/video/1",
+          "ext_media_availability": {
+            "status": "Available"
+          },
+          "indices": [
+            63,
+            86
+          ],
+          "media_url_https": "https://pbs.twimg.com/amplify_video_thumb/2034771158302957570/img/9tJydTPqiZGao8Oy.jpg",
+          "original_info": {
+            "height": 1724,
+            "width": 2966,
+            "focus_rects": []
+          },
+          "sizes": {
+            "large": {
+              "h": 1190,
+              "resize": "fit",
+              "w": 2048
+            },
+            "medium": {
+              "h": 698,
+              "resize": "fit",
+              "w": 1200
+            },
+            "small": {
+              "h": 395,
+              "resize": "fit",
+              "w": 680
+            },
+            "thumb": {
+              "h": 150,
+              "resize": "crop",
+              "w": 150
+            }
+          },
+          "type": "video",
+          "url": "https://t.co/vxavLMNUiY",
+          "video_info": {
+            "aspect_ratio": [
+              1483,
+              862
+            ],
+            "duration_millis": 21876,
+            "variants": [
+              {
+                "content_type": "application/x-mpegURL",
+                "url": "https://video.twimg.com/amplify_video/2034771158302957570/pl/UfgHchYrv01iDu2E.m3u8?tag=14&v=cfc"
+              },
+              {
+                "bitrate": 288000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2034771158302957570/vid/avc1/464x270/ZiCHF56eBTjmRNUC.mp4?tag=14"
+              },
+              {
+                "bitrate": 832000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2034771158302957570/vid/avc1/618x360/5yG_6M7SfG2hl8gj.mp4?tag=14"
+              },
+              {
+                "bitrate": 2176000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2034771158302957570/vid/avc1/1238x720/SgUh7V2OuTlDXj4m.mp4?tag=14"
+              }
+            ]
+          }
+        }
+      ],
+      "photos": [],
+      "video": {
+        "aspectRatio": [
+          1483,
+          862
+        ],
+        "contentType": "media_entity",
+        "durationMs": 21876,
+        "mediaAvailability": {
+          "status": "available"
+        },
+        "poster": "https://pbs.twimg.com/amplify_video_thumb/2034771158302957570/img/9tJydTPqiZGao8Oy.jpg",
+        "variants": [
+          {
+            "type": "application/x-mpegURL",
+            "src": "https://video.twimg.com/amplify_video/2034771158302957570/pl/UfgHchYrv01iDu2E.m3u8?tag=14&v=cfc"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2034771158302957570/vid/avc1/464x270/ZiCHF56eBTjmRNUC.mp4?tag=14"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2034771158302957570/vid/avc1/618x360/5yG_6M7SfG2hl8gj.mp4?tag=14"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2034771158302957570/vid/avc1/1238x720/SgUh7V2OuTlDXj4m.mp4?tag=14"
+          }
+        ],
+        "videoId": {
+          "type": "tweet",
+          "id": "2034771266914156986"
+        },
+        "viewCount": 0
+      },
+      "isEdited": false,
+      "isStaleEdit": false
+    },
+    "isEdited": false,
+    "isStaleEdit": false
+  },
+  {
+    "__typename": "Tweet",
+    "in_reply_to_screen_name": "madebyhex",
+    "in_reply_to_status_id_str": "2034771266914156986",
+    "in_reply_to_user_id_str": "1913155043919831040",
+    "lang": "en",
+    "favorite_count": 1,
+    "created_at": "2026-03-20T22:29:27.000Z",
+    "display_text_range": [
+      11,
+      28
+    ],
+    "entities": {
+      "hashtags": [],
+      "urls": [],
+      "user_mentions": [
+        {
+          "id_str": "1913155043919831040",
+          "indices": [
+            0,
+            10
+          ],
+          "name": "Marek Jóźwiak",
+          "screen_name": "madebyhex"
+        }
+      ],
+      "symbols": []
+    },
+    "id_str": "2035121568058417499",
+    "text": "@madebyhex Shade for days 🔥",
+    "user": {
+      "id_str": "1834826997643792384",
+      "name": "CREADEVS",
+      "screen_name": "creadevsglobal",
+      "is_blue_verified": true,
+      "profile_image_shape": "Circle",
+      "verified": false,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1848200584857374721/EZUFS9yH_normal.jpg"
+    },
+    "edit_control": {
+      "edit_tweet_ids": [
+        "2035121568058417499"
+      ],
+      "editable_until_msecs": "1774049367000",
+      "is_edit_eligible": false,
+      "edits_remaining": "5"
+    },
+    "conversation_count": 0,
+    "news_action_type": "conversation",
+    "parent": {
+      "lang": "en",
+      "reply_count": 30,
+      "retweet_count": 87,
+      "favorite_count": 1443,
+      "possibly_sensitive": false,
+      "created_at": "2026-03-19T23:17:28.000Z",
+      "display_text_range": [
+        0,
+        62
+      ],
+      "entities": {
+        "hashtags": [],
+        "urls": [
+          {
+            "display_url": "motion-core.dev",
+            "expanded_url": "https://motion-core.dev/",
+            "indices": [
+              39,
+              62
+            ],
+            "url": "https://t.co/4VOhQtXmjn"
+          }
+        ],
+        "user_mentions": [],
+        "symbols": [],
+        "media": [
+          {
+            "display_url": "pic.x.com/vxavLMNUiY",
+            "expanded_url": "https://x.com/madebyhex/status/2034771266914156986/video/1",
+            "indices": [
+              63,
+              86
+            ],
+            "url": "https://t.co/vxavLMNUiY"
+          }
+        ]
+      },
+      "id_str": "2034771266914156986",
+      "text": "3 new shader background available at: \nhttps://t.co/4VOhQtXmjn https://t.co/vxavLMNUiY",
+      "user": {
+        "id_str": "1913155043919831040",
+        "name": "Marek Jóźwiak",
+        "screen_name": "madebyhex",
+        "is_blue_verified": true,
+        "profile_image_shape": "Circle",
+        "verified": false,
+        "profile_image_url_https": "https://pbs.twimg.com/profile_images/2048158689937313792/SBqSlE-n_normal.jpg"
+      },
+      "edit_control": {
+        "edit_tweet_ids": [
+          "2034771266914156986"
+        ],
+        "editable_until_msecs": "1773965848000",
+        "is_edit_eligible": true,
+        "edits_remaining": "5"
+      },
+      "mediaDetails": [
+        {
+          "additional_media_info": {},
+          "display_url": "pic.x.com/vxavLMNUiY",
+          "expanded_url": "https://x.com/madebyhex/status/2034771266914156986/video/1",
+          "ext_media_availability": {
+            "status": "Available"
+          },
+          "indices": [
+            63,
+            86
+          ],
+          "media_url_https": "https://pbs.twimg.com/amplify_video_thumb/2034771158302957570/img/9tJydTPqiZGao8Oy.jpg",
+          "original_info": {
+            "height": 1724,
+            "width": 2966,
+            "focus_rects": []
+          },
+          "sizes": {
+            "large": {
+              "h": 1190,
+              "resize": "fit",
+              "w": 2048
+            },
+            "medium": {
+              "h": 698,
+              "resize": "fit",
+              "w": 1200
+            },
+            "small": {
+              "h": 395,
+              "resize": "fit",
+              "w": 680
+            },
+            "thumb": {
+              "h": 150,
+              "resize": "crop",
+              "w": 150
+            }
+          },
+          "type": "video",
+          "url": "https://t.co/vxavLMNUiY",
+          "video_info": {
+            "aspect_ratio": [
+              1483,
+              862
+            ],
+            "duration_millis": 21876,
+            "variants": [
+              {
+                "content_type": "application/x-mpegURL",
+                "url": "https://video.twimg.com/amplify_video/2034771158302957570/pl/UfgHchYrv01iDu2E.m3u8?tag=14&v=cfc"
+              },
+              {
+                "bitrate": 288000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2034771158302957570/vid/avc1/464x270/ZiCHF56eBTjmRNUC.mp4?tag=14"
+              },
+              {
+                "bitrate": 832000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2034771158302957570/vid/avc1/618x360/5yG_6M7SfG2hl8gj.mp4?tag=14"
+              },
+              {
+                "bitrate": 2176000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2034771158302957570/vid/avc1/1238x720/SgUh7V2OuTlDXj4m.mp4?tag=14"
+              }
+            ]
+          }
+        }
+      ],
+      "photos": [],
+      "video": {
+        "aspectRatio": [
+          1483,
+          862
+        ],
+        "contentType": "media_entity",
+        "durationMs": 21876,
+        "mediaAvailability": {
+          "status": "available"
+        },
+        "poster": "https://pbs.twimg.com/amplify_video_thumb/2034771158302957570/img/9tJydTPqiZGao8Oy.jpg",
+        "variants": [
+          {
+            "type": "application/x-mpegURL",
+            "src": "https://video.twimg.com/amplify_video/2034771158302957570/pl/UfgHchYrv01iDu2E.m3u8?tag=14&v=cfc"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2034771158302957570/vid/avc1/464x270/ZiCHF56eBTjmRNUC.mp4?tag=14"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2034771158302957570/vid/avc1/618x360/5yG_6M7SfG2hl8gj.mp4?tag=14"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2034771158302957570/vid/avc1/1238x720/SgUh7V2OuTlDXj4m.mp4?tag=14"
+          }
+        ],
+        "videoId": {
+          "type": "tweet",
+          "id": "2034771266914156986"
+        },
+        "viewCount": 0
+      },
+      "isEdited": false,
+      "isStaleEdit": false
+    },
+    "isEdited": false,
+    "isStaleEdit": false
+  },
+  {
+    "__typename": "Tweet",
+    "in_reply_to_screen_name": "madebyhex",
+    "in_reply_to_status_id_str": "2034771266914156986",
+    "in_reply_to_user_id_str": "1913155043919831040",
+    "lang": "en",
+    "favorite_count": 1,
+    "created_at": "2026-03-20T10:00:30.000Z",
+    "display_text_range": [
+      11,
+      18
+    ],
+    "entities": {
+      "hashtags": [],
+      "urls": [],
+      "user_mentions": [
+        {
+          "id_str": "1913155043919831040",
+          "indices": [
+            0,
+            10
+          ],
+          "name": "Marek Jóźwiak",
+          "screen_name": "madebyhex"
+        }
+      ],
+      "symbols": []
+    },
+    "id_str": "2034933090523693106",
+    "text": "@madebyhex so cool",
+    "user": {
+      "id_str": "882531809438744576",
+      "name": "leemysw",
+      "screen_name": "leemysw",
+      "is_blue_verified": true,
+      "profile_image_shape": "Circle",
+      "verified": false,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1981755353898389504/OmQSxJrZ_normal.jpg"
+    },
+    "edit_control": {
+      "edit_tweet_ids": [
+        "2034933090523693106"
+      ],
+      "editable_until_msecs": "1774004430000",
+      "is_edit_eligible": false,
+      "edits_remaining": "5"
+    },
+    "conversation_count": 0,
+    "news_action_type": "conversation",
+    "parent": {
+      "lang": "en",
+      "reply_count": 30,
+      "retweet_count": 87,
+      "favorite_count": 1443,
+      "possibly_sensitive": false,
+      "created_at": "2026-03-19T23:17:28.000Z",
+      "display_text_range": [
+        0,
+        62
+      ],
+      "entities": {
+        "hashtags": [],
+        "urls": [
+          {
+            "display_url": "motion-core.dev",
+            "expanded_url": "https://motion-core.dev/",
+            "indices": [
+              39,
+              62
+            ],
+            "url": "https://t.co/4VOhQtXmjn"
+          }
+        ],
+        "user_mentions": [],
+        "symbols": [],
+        "media": [
+          {
+            "display_url": "pic.x.com/vxavLMNUiY",
+            "expanded_url": "https://x.com/madebyhex/status/2034771266914156986/video/1",
+            "indices": [
+              63,
+              86
+            ],
+            "url": "https://t.co/vxavLMNUiY"
+          }
+        ]
+      },
+      "id_str": "2034771266914156986",
+      "text": "3 new shader background available at: \nhttps://t.co/4VOhQtXmjn https://t.co/vxavLMNUiY",
+      "user": {
+        "id_str": "1913155043919831040",
+        "name": "Marek Jóźwiak",
+        "screen_name": "madebyhex",
+        "is_blue_verified": true,
+        "profile_image_shape": "Circle",
+        "verified": false,
+        "profile_image_url_https": "https://pbs.twimg.com/profile_images/2048158689937313792/SBqSlE-n_normal.jpg"
+      },
+      "edit_control": {
+        "edit_tweet_ids": [
+          "2034771266914156986"
+        ],
+        "editable_until_msecs": "1773965848000",
+        "is_edit_eligible": true,
+        "edits_remaining": "5"
+      },
+      "mediaDetails": [
+        {
+          "additional_media_info": {},
+          "display_url": "pic.x.com/vxavLMNUiY",
+          "expanded_url": "https://x.com/madebyhex/status/2034771266914156986/video/1",
+          "ext_media_availability": {
+            "status": "Available"
+          },
+          "indices": [
+            63,
+            86
+          ],
+          "media_url_https": "https://pbs.twimg.com/amplify_video_thumb/2034771158302957570/img/9tJydTPqiZGao8Oy.jpg",
+          "original_info": {
+            "height": 1724,
+            "width": 2966,
+            "focus_rects": []
+          },
+          "sizes": {
+            "large": {
+              "h": 1190,
+              "resize": "fit",
+              "w": 2048
+            },
+            "medium": {
+              "h": 698,
+              "resize": "fit",
+              "w": 1200
+            },
+            "small": {
+              "h": 395,
+              "resize": "fit",
+              "w": 680
+            },
+            "thumb": {
+              "h": 150,
+              "resize": "crop",
+              "w": 150
+            }
+          },
+          "type": "video",
+          "url": "https://t.co/vxavLMNUiY",
+          "video_info": {
+            "aspect_ratio": [
+              1483,
+              862
+            ],
+            "duration_millis": 21876,
+            "variants": [
+              {
+                "content_type": "application/x-mpegURL",
+                "url": "https://video.twimg.com/amplify_video/2034771158302957570/pl/UfgHchYrv01iDu2E.m3u8?tag=14&v=cfc"
+              },
+              {
+                "bitrate": 288000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2034771158302957570/vid/avc1/464x270/ZiCHF56eBTjmRNUC.mp4?tag=14"
+              },
+              {
+                "bitrate": 832000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2034771158302957570/vid/avc1/618x360/5yG_6M7SfG2hl8gj.mp4?tag=14"
+              },
+              {
+                "bitrate": 2176000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2034771158302957570/vid/avc1/1238x720/SgUh7V2OuTlDXj4m.mp4?tag=14"
+              }
+            ]
+          }
+        }
+      ],
+      "photos": [],
+      "video": {
+        "aspectRatio": [
+          1483,
+          862
+        ],
+        "contentType": "media_entity",
+        "durationMs": 21876,
+        "mediaAvailability": {
+          "status": "available"
+        },
+        "poster": "https://pbs.twimg.com/amplify_video_thumb/2034771158302957570/img/9tJydTPqiZGao8Oy.jpg",
+        "variants": [
+          {
+            "type": "application/x-mpegURL",
+            "src": "https://video.twimg.com/amplify_video/2034771158302957570/pl/UfgHchYrv01iDu2E.m3u8?tag=14&v=cfc"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2034771158302957570/vid/avc1/464x270/ZiCHF56eBTjmRNUC.mp4?tag=14"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2034771158302957570/vid/avc1/618x360/5yG_6M7SfG2hl8gj.mp4?tag=14"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2034771158302957570/vid/avc1/1238x720/SgUh7V2OuTlDXj4m.mp4?tag=14"
+          }
+        ],
+        "videoId": {
+          "type": "tweet",
+          "id": "2034771266914156986"
+        },
+        "viewCount": 0
+      },
+      "isEdited": false,
+      "isStaleEdit": false
+    },
+    "isEdited": false,
+    "isStaleEdit": false
+  },
+  {
+    "__typename": "Tweet",
+    "in_reply_to_screen_name": "madebyhex",
+    "in_reply_to_status_id_str": "2034771266914156986",
+    "in_reply_to_user_id_str": "1913155043919831040",
+    "lang": "en",
+    "favorite_count": 1,
+    "created_at": "2026-03-21T04:27:17.000Z",
+    "display_text_range": [
+      11,
+      73
+    ],
+    "entities": {
+      "hashtags": [],
+      "urls": [],
+      "user_mentions": [
+        {
+          "id_str": "1913155043919831040",
+          "indices": [
+            0,
+            10
+          ],
+          "name": "Marek Jóźwiak",
+          "screen_name": "madebyhex"
+        }
+      ],
+      "symbols": []
+    },
+    "id_str": "2035211619236467144",
+    "text": "@madebyhex So great to see these awesome tools in the Svelte ecosystem 🧡",
+    "user": {
+      "id_str": "2009975718516797442",
+      "name": "hícaro dânrlley",
+      "screen_name": "hicroooo",
+      "is_blue_verified": false,
+      "profile_image_shape": "Circle",
+      "verified": false,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/2010377398261362688/pFLA_-1M_normal.jpg"
+    },
+    "edit_control": {
+      "edit_tweet_ids": [
+        "2035211619236467144"
+      ],
+      "editable_until_msecs": "1774070837000",
+      "is_edit_eligible": false,
+      "edits_remaining": "5"
+    },
+    "conversation_count": 0,
+    "news_action_type": "conversation",
+    "parent": {
+      "lang": "en",
+      "reply_count": 30,
+      "retweet_count": 87,
+      "favorite_count": 1443,
+      "possibly_sensitive": false,
+      "created_at": "2026-03-19T23:17:28.000Z",
+      "display_text_range": [
+        0,
+        62
+      ],
+      "entities": {
+        "hashtags": [],
+        "urls": [
+          {
+            "display_url": "motion-core.dev",
+            "expanded_url": "https://motion-core.dev/",
+            "indices": [
+              39,
+              62
+            ],
+            "url": "https://t.co/4VOhQtXmjn"
+          }
+        ],
+        "user_mentions": [],
+        "symbols": [],
+        "media": [
+          {
+            "display_url": "pic.x.com/vxavLMNUiY",
+            "expanded_url": "https://x.com/madebyhex/status/2034771266914156986/video/1",
+            "indices": [
+              63,
+              86
+            ],
+            "url": "https://t.co/vxavLMNUiY"
+          }
+        ]
+      },
+      "id_str": "2034771266914156986",
+      "text": "3 new shader background available at: \nhttps://t.co/4VOhQtXmjn https://t.co/vxavLMNUiY",
+      "user": {
+        "id_str": "1913155043919831040",
+        "name": "Marek Jóźwiak",
+        "screen_name": "madebyhex",
+        "is_blue_verified": true,
+        "profile_image_shape": "Circle",
+        "verified": false,
+        "profile_image_url_https": "https://pbs.twimg.com/profile_images/2048158689937313792/SBqSlE-n_normal.jpg"
+      },
+      "edit_control": {
+        "edit_tweet_ids": [
+          "2034771266914156986"
+        ],
+        "editable_until_msecs": "1773965848000",
+        "is_edit_eligible": true,
+        "edits_remaining": "5"
+      },
+      "mediaDetails": [
+        {
+          "additional_media_info": {},
+          "display_url": "pic.x.com/vxavLMNUiY",
+          "expanded_url": "https://x.com/madebyhex/status/2034771266914156986/video/1",
+          "ext_media_availability": {
+            "status": "Available"
+          },
+          "indices": [
+            63,
+            86
+          ],
+          "media_url_https": "https://pbs.twimg.com/amplify_video_thumb/2034771158302957570/img/9tJydTPqiZGao8Oy.jpg",
+          "original_info": {
+            "height": 1724,
+            "width": 2966,
+            "focus_rects": []
+          },
+          "sizes": {
+            "large": {
+              "h": 1190,
+              "resize": "fit",
+              "w": 2048
+            },
+            "medium": {
+              "h": 698,
+              "resize": "fit",
+              "w": 1200
+            },
+            "small": {
+              "h": 395,
+              "resize": "fit",
+              "w": 680
+            },
+            "thumb": {
+              "h": 150,
+              "resize": "crop",
+              "w": 150
+            }
+          },
+          "type": "video",
+          "url": "https://t.co/vxavLMNUiY",
+          "video_info": {
+            "aspect_ratio": [
+              1483,
+              862
+            ],
+            "duration_millis": 21876,
+            "variants": [
+              {
+                "content_type": "application/x-mpegURL",
+                "url": "https://video.twimg.com/amplify_video/2034771158302957570/pl/UfgHchYrv01iDu2E.m3u8?tag=14&v=cfc"
+              },
+              {
+                "bitrate": 288000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2034771158302957570/vid/avc1/464x270/ZiCHF56eBTjmRNUC.mp4?tag=14"
+              },
+              {
+                "bitrate": 832000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2034771158302957570/vid/avc1/618x360/5yG_6M7SfG2hl8gj.mp4?tag=14"
+              },
+              {
+                "bitrate": 2176000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2034771158302957570/vid/avc1/1238x720/SgUh7V2OuTlDXj4m.mp4?tag=14"
+              }
+            ]
+          }
+        }
+      ],
+      "photos": [],
+      "video": {
+        "aspectRatio": [
+          1483,
+          862
+        ],
+        "contentType": "media_entity",
+        "durationMs": 21876,
+        "mediaAvailability": {
+          "status": "available"
+        },
+        "poster": "https://pbs.twimg.com/amplify_video_thumb/2034771158302957570/img/9tJydTPqiZGao8Oy.jpg",
+        "variants": [
+          {
+            "type": "application/x-mpegURL",
+            "src": "https://video.twimg.com/amplify_video/2034771158302957570/pl/UfgHchYrv01iDu2E.m3u8?tag=14&v=cfc"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2034771158302957570/vid/avc1/464x270/ZiCHF56eBTjmRNUC.mp4?tag=14"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2034771158302957570/vid/avc1/618x360/5yG_6M7SfG2hl8gj.mp4?tag=14"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2034771158302957570/vid/avc1/1238x720/SgUh7V2OuTlDXj4m.mp4?tag=14"
+          }
+        ],
+        "videoId": {
+          "type": "tweet",
+          "id": "2034771266914156986"
+        },
+        "viewCount": 0
+      },
+      "isEdited": false,
+      "isStaleEdit": false
+    },
+    "isEdited": false,
+    "isStaleEdit": false
+  }
+]
