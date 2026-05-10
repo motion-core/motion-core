@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { SvelteMap } from "svelte/reactivity";
+	import { SvelteMap, SvelteSet } from "svelte/reactivity";
 	import { cn } from "$lib/utils/cn";
 	import { page } from "$app/state";
 	import TableOfContents from "carbon-icons-svelte/lib/TableOfContents.svelte";
@@ -285,6 +285,7 @@
 		}
 
 		const slugCounts = new SvelteMap<string, number>();
+		const usedIds = new SvelteSet<string>();
 		const nodeList = Array.from(document.querySelectorAll(selector)).filter(
 			(node): node is HTMLElement => node instanceof HTMLElement,
 		);
@@ -310,8 +311,24 @@
 					slugCounts.set(baseSlug, 0);
 				}
 				id = baseSlug;
+			}
+
+			if (usedIds.has(id)) {
+				const baseId = id;
+				let nextCount = slugCounts.get(baseId) ?? 0;
+
+				do {
+					nextCount += 1;
+					id = `${baseId}-${nextCount}`;
+				} while (usedIds.has(id));
+
+				slugCounts.set(baseId, nextCount);
+			}
+
+			if (node.id !== id) {
 				node.id = id;
 			}
+			usedIds.add(id);
 
 			const level = Number(node.tagName.replace("H", "")) || 2;
 			parsed.push({

@@ -72,5 +72,8 @@
 		"apps/web/src/lib/config/navigation.ts": [
 			"bun scripts/validate-navigation.ts"
 		]
+	},
+	"dependencies": {
+		"rehype-slug": "^6.0.0"
 	}
 }

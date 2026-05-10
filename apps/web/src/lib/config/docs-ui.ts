@@ -129,9 +129,9 @@ export const docsUiConfig: DocsUiConfig = {
 		title: "On this page",
 		emptyLabel: "No headings",
 		minViewportWidth: 1280,
-		defaultSelector: "[data-doc-content] h2, [data-doc-content] h3",
+		defaultSelector: "[data-doc-content] > h2, [data-doc-content] > h3",
 		selectorOverrides: [
-			{ slugPrefix: "changelog/", selector: "[data-doc-content] h2" },
+			{ slugPrefix: "changelog/", selector: "[data-doc-content] > h2" },
 		],
 	},
 	docActions: {
