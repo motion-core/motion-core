@@ -1,20 +1,25 @@
-![Motion Core showcase banner](apps/web/static/og-image.jpg)
+<div align="center">
+  <img src="./icon.png" width="256" height="256" alt="Frame Icon" />
+  <h1>Motion Core</h1>
+</div>
 
 <div align="center">
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Svelte](https://img.shields.io/badge/Svelte-5-orange.svg)](https://svelte.dev)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/motion-core/motion-core/coverage.yml?branch=master&label=Tests&color=blue)](https://github.com/motion-core/motion-core/actions/workflows/coverage.yml)
 ![Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/66HEX/69a6278a738ed1ad949f1b3032854100/raw/motion-core-coverage.json&color=brightgreen)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-blue.svg)](https://www.typescriptlang.org)
+[![npm](https://img.shields.io/badge/npm-@motion--core%2Fcli-red.svg)](https://www.npmjs.com/package/@motion-core/cli)
+
 
 </div>
-
----
-
-## Overview
 
 **Motion Core** is not just a library; it's a curated collection of expressive, production-ready motion components designed for the experimental web. Born from a desire to make high-end motion design accessible, it wraps complex WebGL and timeline-based animations into simple, developer-friendly Svelte 5 components.
 
 We don't package everything into a massive npm dependency. Instead, we follow a **copy-paste architecture** (inspired by _shadcn/ui_). We encourage you to poke around the code, break things, and contribute back.
+
+---
 
 ### Why Motion Core?
 
