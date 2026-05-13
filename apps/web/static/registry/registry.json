@@ -1019,6 +1019,33 @@
 				}
 			]
 		},
+		"text-repel": {
+			"slug": "text-repel",
+			"name": "Text Repel",
+			"description": "A cursor-reactive text wrapper that splits content into words or characters and gently pushes each item away from the pointer.",
+			"category": "typography",
+			"dependencies": {
+				"gsap": "^3.14.2"
+			},
+			"devDependencies": {
+				"@types/gsap": "^3.0.0"
+			},
+			"internalDependencies": [],
+			"files": [
+				{
+					"path": "components/text-repel/TextRepel.svelte",
+					"kind": "entry"
+				},
+				{
+					"path": "utils/cn.ts",
+					"target": "utils"
+				},
+				{
+					"path": "helpers/gsap.ts",
+					"target": "helpers"
+				}
+			]
+		},
 		"text-scramble": {
 			"slug": "text-scramble",
 			"name": "Text Scramble",

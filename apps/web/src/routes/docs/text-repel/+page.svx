@@ -1,0 +1,118 @@
+---
+name: Text Repel
+description: A cursor-reactive text wrapper that splits content into words or characters and gently pushes each item away from the pointer.
+---
+
+<script lang="ts">
+	import ComponentPreview from "$lib/components/docs/ComponentPreview.svelte";
+	import { componentPreviewControls } from "$lib/components/docs/component-preview/presets";
+	import ApiTable from "$lib/components/docs/ApiTable.svelte"; import
+	InstallationTabs from "$lib/components/docs/LegacyInstallationTabs.svelte";
+	import Steps from "$lib/components/docs/markdown/Steps.svelte"; import Step
+	from "$lib/components/docs/markdown/Step.svelte"; import textRepelSource from
+	"motion-core/components/text-repel/TextRepel.svelte?raw"; import gsapHelperSource
+	from "motion-core/helpers/gsap.ts?raw"; import TextRepelDemo from
+	"./TextRepelDemo.svelte"; import textRepelDemoSource from
+	"./TextRepelDemo.svelte?raw";
+</script>
+
+## Installation
+
+<Steps>
+	<Step title="Install the component">
+		Run the following command to install the component and its dependencies:
+		<InstallationTabs component="text-repel" />
+	</Step>
+	<Step title="Import the component">
+		Import the component into your Svelte file:
+
+```ts
+import { TextRepel } from "$lib/motion-core";
+```
+
+    </Step>
+
+</Steps>
+
+## Usage
+
+<ComponentPreview
+	controls={componentPreviewControls["text-repel"]}
+	refreshOnControlChange
+	sources={[
+		{ name: "Example", code: textRepelDemoSource, language: "svelte" },
+		{ name: "TextRepel.svelte", code: textRepelSource, language: "svelte" },
+		{ name: "helpers/gsap.ts", code: gsapHelperSource, language: "typescript" },
+	]}
+>
+	{#snippet children(props)}
+		<TextRepelDemo {...props} />
+	{/snippet}
+</ComponentPreview>
+
+## Props
+
+### TextRepel
+
+<ApiTable
+	headers={["Prop", "Type", "Default"]}
+	keys={["prop", "type", "default"]}
+	data={[
+		{
+			prop: "children",
+			type: "Snippet",
+			default: "—",
+			description: "The text/content to split and repel from the cursor.",
+		},
+		{
+			prop: "mode",
+			type: '"words" | "chars"',
+			default: '"words"',
+			description: "Whether to split and animate words or characters.",
+		},
+		{
+			prop: "strength",
+			type: "number",
+			default: "18",
+			description: "Maximum translation distance in pixels near the cursor.",
+		},
+		{
+			prop: "radius",
+			type: "number",
+			default: "160",
+			description: "Cursor influence radius in pixels.",
+		},
+		{
+			prop: "falloffPower",
+			type: "number",
+			default: "1.5",
+			description:
+				"Controls how quickly the repulsion fades with distance.",
+		},
+		{
+			prop: "duration",
+			type: "number",
+			default: "0.45",
+			description: "Animation duration in seconds.",
+		},
+		{
+			prop: "ease",
+			type: "string",
+			default: '"power3.out"',
+			description: "GSAP ease identifier used by the translations.",
+		},
+		{
+			prop: "hoverTarget",
+			type: "HTMLElement | null",
+			default: "null",
+			description:
+				"Optional external element that should drive pointer movement.",
+		},
+		{
+			prop: "class",
+			type: "string",
+			default: '""',
+			description: "Additional classes for the wrapper element.",
+		},
+	]}
+/>

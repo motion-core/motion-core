@@ -15,6 +15,7 @@ export { default as LogoCarousel } from "./logo-carousel/LogoCarousel.svelte";
 export { default as Globe } from "./globe/Globe.svelte";
 export type { GlobeMarker, GlobeMarkerTooltipContext } from "./globe/types";
 export { default as TextLoop } from "./text-loop/TextLoop.svelte";
+export { default as TextRepel } from "./text-repel/TextRepel.svelte";
 export { default as Marquee } from "./marquee/Marquee.svelte";
 export { default as PixelatedImage } from "./pixelated-image/PixelatedImage.svelte";
 export { default as MacosDock } from "./macos-dock/MacosDock.svelte";

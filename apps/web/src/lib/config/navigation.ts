@@ -246,6 +246,10 @@ export const docsNavigation: DocItem[] = [
 				name: "Text Loop",
 			},
 			{
+				slug: "text-repel",
+				name: "Text Repel",
+			},
+			{
 				slug: "text-scramble",
 				name: "Text Scramble",
 			},

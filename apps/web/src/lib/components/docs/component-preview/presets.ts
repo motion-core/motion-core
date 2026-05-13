@@ -854,6 +854,45 @@ export const componentPreviewControls = {
 			unit: "ms",
 		}),
 	],
+	"text-repel": [
+		select("mode", "Mode", "words", [
+			{ label: "Words", value: "words" },
+			{ label: "Chars", value: "chars" },
+		]),
+		number("strength", "Strength", {
+			defaultValue: 18,
+			min: 0,
+			max: 60,
+			step: 1,
+			unit: "px",
+		}),
+		number("radius", "Radius", {
+			defaultValue: 160,
+			min: 40,
+			max: 360,
+			step: 1,
+			unit: "px",
+		}),
+		number("falloffPower", "Falloff", {
+			defaultValue: 1.5,
+			min: 0.25,
+			max: 4,
+			step: 0.01,
+		}),
+		number("duration", "Duration", {
+			defaultValue: 0.45,
+			min: 0.05,
+			max: 1.5,
+			step: 0.01,
+			unit: "s",
+		}),
+		select("ease", "Ease", "power3.out", [
+			{ label: "Power 3", value: "power3.out" },
+			{ label: "Expo", value: "expo.out" },
+			{ label: "Elastic", value: "elastic.out(1, 0.35)" },
+			{ label: "Back", value: "back.out(1.7)" },
+		]),
+	],
 	"text-scramble": [
 		number("scrambleDuration", "Duration", {
 			defaultValue: 0.6,

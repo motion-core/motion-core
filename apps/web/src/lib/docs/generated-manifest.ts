@@ -318,6 +318,14 @@ export const docsManifest: ComponentInfo[] = [
 		},
 	},
 	{
+		slug: "text-repel",
+		name: "Text Repel",
+		category: "typography",
+		dependencies: {
+			gsap: "^3.14.2",
+		},
+	},
+	{
 		slug: "text-scramble",
 		name: "Text Scramble",
 		category: "typography",
