@@ -1024,6 +1024,7 @@
 			"name": "Text Repel",
 			"description": "A cursor-reactive text wrapper that splits content into words or characters and gently pushes each item away from the pointer.",
 			"category": "typography",
+			"introducedAt": "2026-05-13",
 			"dependencies": {
 				"gsap": "^3.14.2"
 			},

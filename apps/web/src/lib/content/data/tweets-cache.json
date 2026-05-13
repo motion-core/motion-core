@@ -406,7 +406,7 @@
     "in_reply_to_status_id_str": "2038223362917282155",
     "in_reply_to_user_id_str": "1913155043919831040",
     "lang": "en",
-    "favorite_count": 0,
+    "favorite_count": 1,
     "created_at": "2026-03-29T19:16:08.000Z",
     "display_text_range": [
       11,
@@ -447,7 +447,7 @@
       "is_edit_eligible": false,
       "edits_remaining": "5"
     },
-    "conversation_count": 0,
+    "conversation_count": 1,
     "news_action_type": "conversation",
     "parent": {
       "lang": "en",
@@ -1987,7 +1987,7 @@
       "is_edit_eligible": false,
       "edits_remaining": "5"
     },
-    "conversation_count": 0,
+    "conversation_count": 1,
     "news_action_type": "conversation",
     "parent": {
       "lang": "en",
@@ -2166,7 +2166,7 @@
     "in_reply_to_status_id_str": "2034771266914156986",
     "in_reply_to_user_id_str": "1913155043919831040",
     "lang": "en",
-    "favorite_count": 2,
+    "favorite_count": 0,
     "created_at": "2026-03-20T10:24:16.000Z",
     "display_text_range": [
       11,
@@ -2386,7 +2386,7 @@
     "in_reply_to_status_id_str": "2034771266914156986",
     "in_reply_to_user_id_str": "1913155043919831040",
     "lang": "en",
-    "favorite_count": 1,
+    "favorite_count": 0,
     "created_at": "2026-03-20T22:29:27.000Z",
     "display_text_range": [
       11,
