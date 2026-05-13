@@ -27,12 +27,24 @@
 	onMount(() => {
 		ensureMotionCoreEase();
 	});
+	let rootRef: HTMLElement | undefined;
 	let slidesRef: HTMLElement[] = $state([]);
 	let innersRef: HTMLElement[] = $state([]);
 	let currentIndex = $state(0);
 	let isAnimating = false;
 	let activeTimeline: gsap.core.Timeline | null = null;
+	let ctx: gsap.Context | null = null;
 	const animationDuration = 1.5;
+
+	const attachRoot = (node: HTMLElement) => {
+		rootRef = node;
+		ctx = gsap.context(() => {}, node);
+		return () => {
+			ctx?.revert();
+			ctx = null;
+			rootRef = undefined;
+		};
+	};
 
 	const attachSlide = (index: number) => (node: HTMLElement) => {
 		slidesRef[index] = node;
@@ -51,26 +63,39 @@
 		const currentInner = innersRef[previousIndex];
 		const upcomingSlide = slidesRef[currentIndex];
 		const upcomingInner = innersRef[currentIndex];
+		if (!ctx) return;
 		activeTimeline?.kill();
-		gsap.set(upcomingSlide, { zIndex: 20 });
-		gsap.set(currentSlide, { zIndex: 10 });
-		const tl = gsap.timeline({
-			defaults: { duration: animationDuration, ease: "motion-core-ease" },
-			onComplete() {
-				isAnimating = false;
-				if (activeTimeline === tl) {
-					activeTimeline = null;
-				}
-				gsap.set(currentSlide, { zIndex: 0, xPercent: 0 });
-				gsap.set(currentInner, { xPercent: 0 });
-				gsap.set(upcomingSlide, { zIndex: 10 });
-			},
+		ctx.add(() => {
+			gsap.set(upcomingSlide, { zIndex: 20 });
+			gsap.set(currentSlide, { zIndex: 10 });
+			const tl = gsap.timeline({
+				defaults: { duration: animationDuration, ease: "motion-core-ease" },
+				onComplete() {
+					isAnimating = false;
+					if (activeTimeline === tl) {
+						activeTimeline = null;
+					}
+					gsap.set(currentSlide, { zIndex: 0, xPercent: 0 });
+					gsap.set(currentInner, { xPercent: 0 });
+					gsap.set(upcomingSlide, { zIndex: 10 });
+				},
+			});
+			activeTimeline = tl;
+			tl.to(currentSlide, { xPercent: -direction * 100 }, 0)
+				.to(currentInner, { xPercent: direction * 75 }, 0)
+				.fromTo(
+					upcomingSlide,
+					{ xPercent: direction * 100 },
+					{ xPercent: 0 },
+					0,
+				)
+				.fromTo(
+					upcomingInner,
+					{ xPercent: -direction * 75 },
+					{ xPercent: 0 },
+					0,
+				);
 		});
-		activeTimeline = tl;
-		tl.to(currentSlide, { xPercent: -direction * 100 }, 0)
-			.to(currentInner, { xPercent: direction * 75 }, 0)
-			.fromTo(upcomingSlide, { xPercent: direction * 100 }, { xPercent: 0 }, 0)
-			.fromTo(upcomingInner, { xPercent: -direction * 75 }, { xPercent: 0 }, 0);
 	}
 	onDestroy(() => {
 		activeTimeline?.kill();
@@ -78,12 +103,15 @@
 	});
 	$effect(() => {
 		if (slidesRef[currentIndex]) {
-			gsap.set(slidesRef[currentIndex], { zIndex: 10 });
+			ctx?.add(() => {
+				gsap.set(slidesRef[currentIndex], { zIndex: 10 });
+			});
 		}
 	});
 </script>
 
 <div
+	{@attach attachRoot}
 	class={cn("relative h-full w-full overflow-hidden", className)}
 	{...restProps}
 >

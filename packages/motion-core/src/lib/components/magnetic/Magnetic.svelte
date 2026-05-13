@@ -47,9 +47,10 @@
 	onMount(() => {
 		if (!element) return;
 		const currentElement = element;
-
-		xTo = gsap.quickTo(currentElement, "x", { duration, ease });
-		yTo = gsap.quickTo(currentElement, "y", { duration, ease });
+		const ctx = gsap.context(() => {
+			xTo = gsap.quickTo(currentElement, "x", { duration, ease });
+			yTo = gsap.quickTo(currentElement, "y", { duration, ease });
+		}, currentElement);
 
 		const mouseMove = (e: MouseEvent) => {
 			const { clientX, clientY } = e;
@@ -72,6 +73,7 @@
 		return () => {
 			currentElement.removeEventListener("mousemove", mouseMove);
 			currentElement.removeEventListener("mouseleave", mouseLeave);
+			ctx.revert();
 		};
 	});
 </script>

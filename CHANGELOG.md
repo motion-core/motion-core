@@ -6,6 +6,15 @@ and the project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- **1 component**:
+  - **Typography**: Text Repel.
+
+### Changed
+
+- **GSAP / Components**: Scoped GSAP animations with `gsap.context()` and component-root cleanup across Flip Card Stack, Flip Grid, Floating Menu, Image Trail, Magnetic, Marquee, MacOS Dock, Preloader, Radial Gallery, Slideshow, Split Hover, Split Reveal, Stacking Words, Text Scramble, Video Player, Video Slider, and Weight Wave.
+
 ## [0.11.2] - 2026-04-26
 
 ### Fixed

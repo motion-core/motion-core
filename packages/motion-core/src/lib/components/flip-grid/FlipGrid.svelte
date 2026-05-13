@@ -95,27 +95,32 @@
 		void computedStyle;
 
 		if (state && container) {
-			const items = container.querySelectorAll(".flip-grid-item");
+			const flipState = state;
+			const currentContainer = container;
+			const items = currentContainer.querySelectorAll(".flip-grid-item");
 
-			Flip.from(state, {
-				targets: [...items, container],
-				duration,
-				ease,
-				stagger,
-				absolute: ".flip-grid-item",
-				onEnter: (elements) => {
-					gsap.fromTo(
-						elements,
-						{ opacity: 0, scale: 0 },
-						{ opacity: 1, scale: 1, duration, ease },
-					);
-				},
-				onLeave: (elements) => {
-					gsap.to(elements, { opacity: 0, scale: 0, duration, ease });
-				},
-			});
+			const ctx = gsap.context(() => {
+				Flip.from(flipState, {
+					targets: [...items, currentContainer],
+					duration,
+					ease,
+					stagger,
+					absolute: ".flip-grid-item",
+					onEnter: (elements) => {
+						gsap.fromTo(
+							elements,
+							{ opacity: 0, scale: 0 },
+							{ opacity: 1, scale: 1, duration, ease },
+						);
+					},
+					onLeave: (elements) => {
+						gsap.to(elements, { opacity: 0, scale: 0, duration, ease });
+					},
+				});
+			}, currentContainer);
 
 			state = null;
+			return () => ctx.revert();
 		}
 	});
 </script>

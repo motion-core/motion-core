@@ -112,67 +112,74 @@
 			resolvedScroller instanceof HTMLElement ? resolvedScroller : window;
 
 		let cancelled = false;
+		let ctx: gsap.Context | null = null;
 
 		const init = async () => {
 			await waitForLayout();
 			if (cancelled || !wrapperRef) return;
 
+			ctx?.revert();
+			ctx = null;
 			splitInstance?.revert();
 			killLineTweens();
 
-			splitInstance = SplitText.create(wrapperRef, {
-				aria: "hidden",
-				autoSplit: true,
-				linesClass: "stacking-words-line",
-				onSplit: (self) => {
-					killLineTweens();
+			ctx = gsap.context(() => {
+				splitInstance = SplitText.create(wrapperRef, {
+					aria: "hidden",
+					autoSplit: true,
+					linesClass: "stacking-words-line",
+					onSplit: (self) => {
+						killLineTweens();
 
-					const words = (self.words ?? []) as HTMLElement[];
-					words.forEach((word) => {
-						const rect = word.getBoundingClientRect();
-						gsap.set(word, {
-							x:
-								window.innerWidth -
-								rect.left +
-								rect.width +
-								OFFSCREEN_MARGIN_PX,
+						const words = (self.words ?? []) as HTMLElement[];
+						words.forEach((word) => {
+							const rect = word.getBoundingClientRect();
+							gsap.set(word, {
+								x:
+									window.innerWidth -
+									rect.left +
+									rect.width +
+									OFFSCREEN_MARGIN_PX,
+							});
 						});
-					});
 
-					(self.lines ?? []).forEach((line) => {
-						const tween = gsap.to(
-							line.querySelectorAll(".stacking-words-word"),
-							{
-								ease: wordEase,
-								stagger: wordStagger,
-								x: 0,
-								scrollTrigger: {
-									trigger: line,
-									start: triggerStart,
-									end: triggerEnd,
-									scrub: triggerScrub,
-									scroller: triggerScroller,
-									invalidateOnRefresh: true,
+						(self.lines ?? []).forEach((line) => {
+							const tween = gsap.to(
+								line.querySelectorAll(".stacking-words-word"),
+								{
+									ease: wordEase,
+									stagger: wordStagger,
+									x: 0,
+									scrollTrigger: {
+										trigger: line,
+										start: triggerStart,
+										end: triggerEnd,
+										scrub: triggerScrub,
+										scroller: triggerScroller,
+										invalidateOnRefresh: true,
+									},
 								},
-							},
-						);
-						lineTweens.push(tween);
-					});
+							);
+							lineTweens.push(tween);
+						});
 
-					ScrollTrigger.refresh();
-				},
-				tag: "span",
-				type: "lines, words",
-				wordsClass: "stacking-words-word",
-			});
+						ScrollTrigger.refresh();
+					},
+					tag: "span",
+					type: "lines, words",
+					wordsClass: "stacking-words-word",
+				});
 
-			gsap.set(wrapperRef, { autoAlpha: 1 });
+				gsap.set(wrapperRef, { autoAlpha: 1 });
+			}, node);
 		};
 
 		void init();
 
 		return () => {
 			cancelled = true;
+			ctx?.revert();
+			ctx = null;
 			killLineTweens();
 			splitInstance?.revert();
 			splitInstance = null;

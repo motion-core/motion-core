@@ -41,6 +41,11 @@
 	let sliderRef: HTMLElement;
 	let thumbRef: HTMLElement;
 	let hoverTimeRef: HTMLElement;
+	let rootRef: HTMLElement;
+
+	const attachRootRef = (node: HTMLElement) => {
+		rootRef = node;
+	};
 
 	const attachSliderRef = (node: HTMLElement) => {
 		sliderRef = node;
@@ -158,47 +163,50 @@
 	$effect(() => {
 		if (!sliderRef || !thumbRef || !hoverTimeRef) return;
 
-		if (isHovered || isDragging) {
-			gsap.to(sliderRef, {
-				height: 28,
-				duration: 0.3,
-				ease: "power4.out",
-			});
-			gsap.to(thumbRef, {
-				opacity: 1,
-				x: hoverX,
-				duration: 0.1,
-				overwrite: true,
-			});
-			gsap.to(hoverTimeRef, {
-				opacity: 1,
-				x: hoverX,
-				duration: 0.1,
-				overwrite: true,
-			});
-		} else {
-			gsap.to(sliderRef, {
-				height: 6,
-				duration: 0.3,
-				ease: "power4.out",
-			});
-			gsap.to(thumbRef, {
-				opacity: 0,
-				duration: 0.2,
-			});
-			gsap.to(hoverTimeRef, {
-				opacity: 0,
-				duration: 0.2,
-			});
-		}
+		const ctx = gsap.context(() => {
+			if (isHovered || isDragging) {
+				gsap.to(sliderRef, {
+					height: 28,
+					duration: 0.3,
+					ease: "power4.out",
+				});
+				gsap.to(thumbRef, {
+					opacity: 1,
+					x: hoverX,
+					duration: 0.1,
+					overwrite: true,
+				});
+				gsap.to(hoverTimeRef, {
+					opacity: 1,
+					x: hoverX,
+					duration: 0.1,
+					overwrite: true,
+				});
+			} else {
+				gsap.to(sliderRef, {
+					height: 6,
+					duration: 0.3,
+					ease: "power4.out",
+				});
+				gsap.to(thumbRef, {
+					opacity: 0,
+					duration: 0.2,
+				});
+				gsap.to(hoverTimeRef, {
+					opacity: 0,
+					duration: 0.2,
+				});
+			}
+		}, rootRef);
 
 		return () => {
-			gsap.killTweensOf([sliderRef, thumbRef, hoverTimeRef]);
+			ctx.revert();
 		};
 	});
 </script>
 
 <div
+	{@attach attachRootRef}
 	class={cn(
 		"relative flex h-10 w-full touch-none items-center justify-center select-none",
 		className,

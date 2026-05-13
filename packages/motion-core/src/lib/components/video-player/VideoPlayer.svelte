@@ -70,6 +70,7 @@
 	let placeholder: HTMLElement | null = null;
 	let originalParent: ParentNode | null = null;
 	let originalNextSibling: Node | null = null;
+	let ctx: gsap.Context | null = null;
 	let currentTimeStr = $derived(formatTime(currentTime));
 	let durationStr = $derived(formatTime(duration));
 	let rafId: number;
@@ -80,6 +81,11 @@
 
 	const attachContainerRef = (node: HTMLElement) => {
 		containerRef = node;
+		ctx = gsap.context(() => {}, node);
+		return () => {
+			ctx?.revert();
+			ctx = null;
+		};
 	};
 
 	const attachControlsRef = (node: HTMLElement) => {
@@ -276,91 +282,103 @@
 	$effect(() => {
 		if (!playPathRef) return;
 
-		if (isPlaying) {
-			gsap.to(playPathRef, {
-				morphSVG: iconPause,
-				duration: 0.3,
-				ease: "power4.inOut",
-			});
-		} else {
-			gsap.to(playPathRef, {
-				morphSVG: iconPlay,
-				duration: 0.3,
-				ease: "power4.inOut",
-			});
-		}
+		const localCtx = gsap.context(() => {
+			if (isPlaying) {
+				gsap.to(playPathRef, {
+					morphSVG: iconPause,
+					duration: 0.3,
+					ease: "power4.inOut",
+				});
+			} else {
+				gsap.to(playPathRef, {
+					morphSVG: iconPlay,
+					duration: 0.3,
+					ease: "power4.inOut",
+				});
+			}
+		}, containerRef);
+		return () => localCtx.revert();
 	});
 
 	$effect(() => {
 		if (!mutePathRef) return;
 
-		if (muted) {
-			gsap.to(mutePathRef, {
-				morphSVG: iconMute,
-				duration: 0.3,
-				ease: "power4.inOut",
-			});
-		} else {
-			gsap.to(mutePathRef, {
-				morphSVG: iconVolume,
-				duration: 0.3,
-				ease: "power4.inOut",
-			});
-		}
+		const localCtx = gsap.context(() => {
+			if (muted) {
+				gsap.to(mutePathRef, {
+					morphSVG: iconMute,
+					duration: 0.3,
+					ease: "power4.inOut",
+				});
+			} else {
+				gsap.to(mutePathRef, {
+					morphSVG: iconVolume,
+					duration: 0.3,
+					ease: "power4.inOut",
+				});
+			}
+		}, containerRef);
+		return () => localCtx.revert();
 	});
 
 	$effect(() => {
 		if (!pathRef) return;
 
-		if (isExpanded) {
-			gsap.to(pathRef, {
-				morphSVG: exitPath,
-				duration: 0.3,
-				ease: "power4.inOut",
-			});
-		} else {
-			gsap.to(pathRef, {
-				morphSVG: enterPath,
-				duration: 0.3,
-				ease: "power4.inOut",
-			});
-		}
+		const localCtx = gsap.context(() => {
+			if (isExpanded) {
+				gsap.to(pathRef, {
+					morphSVG: exitPath,
+					duration: 0.3,
+					ease: "power4.inOut",
+				});
+			} else {
+				gsap.to(pathRef, {
+					morphSVG: enterPath,
+					duration: 0.3,
+					ease: "power4.inOut",
+				});
+			}
+		}, containerRef);
+		return () => localCtx.revert();
 	});
 
 	$effect(() => {
 		if (!controlsRef || !bgRef || hideControls) return;
 
-		if (isHovered || !isPlaying) {
-			gsap.to(bgRef, {
-				opacity: 1,
-				duration: 0.3,
-				ease: "power4.out",
-				overwrite: true,
-			});
-			gsap.to(controlsRef.children, {
-				y: 0,
-				opacity: 1,
-				duration: 0.3,
-				ease: "power4.out",
-				overwrite: true,
-			});
-			gsap.set(controlsRef, { pointerEvents: "auto" });
-		} else {
-			gsap.to(bgRef, {
-				opacity: 0,
-				duration: 0.3,
-				ease: "power4.in",
-				overwrite: true,
-			});
-			gsap.to(controlsRef.children, {
-				y: 20,
-				opacity: 0,
-				duration: 0.3,
-				ease: "power4.in",
-				overwrite: true,
-			});
-			gsap.set(controlsRef, { pointerEvents: "none" });
-		}
+		const localCtx = gsap.context(() => {
+			if (isHovered || !isPlaying) {
+				gsap.to(bgRef, {
+					opacity: 1,
+					duration: 0.3,
+					ease: "power4.out",
+					overwrite: true,
+				});
+				gsap.to(controlsRef.children, {
+					y: 0,
+					opacity: 1,
+					duration: 0.3,
+					ease: "power4.out",
+					overwrite: true,
+				});
+				gsap.set(controlsRef, { pointerEvents: "auto" });
+			} else {
+				gsap.to(bgRef, {
+					opacity: 0,
+					duration: 0.3,
+					ease: "power4.in",
+					overwrite: true,
+				});
+				gsap.to(controlsRef.children, {
+					y: 20,
+					opacity: 0,
+					duration: 0.3,
+					ease: "power4.in",
+					overwrite: true,
+				});
+				gsap.set(controlsRef, { pointerEvents: "none" });
+			}
+		}, containerRef);
+		return () => localCtx.revert();
 	});
 </script>
 

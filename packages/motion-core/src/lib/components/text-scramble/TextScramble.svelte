@@ -125,45 +125,50 @@
 		hoverTimeline = null;
 		splitInstance?.revert();
 
-		splitInstance = SplitText.create(node, {
-			type: "chars",
-			reduceWhiteSpace: false,
-			charsClass: "inline-block",
-		});
+		const ctx = gsap.context(() => {
+			splitInstance = SplitText.create(node, {
+				type: "chars",
+				reduceWhiteSpace: false,
+				charsClass: "inline-block",
+			});
 
-		const charNodes = (splitInstance.chars ?? []) as HTMLElement[];
+			const charNodes = (splitInstance.chars ?? []) as HTMLElement[];
 
-		charNodes.forEach((node) => {
-			node.style.display = "inline-block";
-			node.dataset.originalChar = node.textContent ?? "";
+			charNodes.forEach((node) => {
+				node.style.display = "inline-block";
+				node.dataset.originalChar = node.textContent ?? "";
 
-			if (!node.textContent?.trim()) {
-				node.style.whiteSpace = "pre";
-				node.style.pointerEvents = "none";
-			}
-		});
+				if (!node.textContent?.trim()) {
+					node.style.whiteSpace = "pre";
+					node.style.pointerEvents = "none";
+				}
+			});
 
-		hoverTimeline = createScrambleTimeline(charNodes);
+			hoverTimeline = createScrambleTimeline(charNodes);
 
-		const handleEnter = () => {
-			if (!hoverTimeline) {
-				hoverTimeline = createScrambleTimeline(charNodes);
-			}
+			const handleEnter = () => {
+				if (!hoverTimeline) {
+					hoverTimeline = createScrambleTimeline(charNodes);
+				}
 
-			hoverTimeline?.restart();
-		};
+				hoverTimeline?.restart();
+			};
 
-		const handleLeave = () => {
-			hoverTimeline?.progress(1);
-		};
+			const handleLeave = () => {
+				hoverTimeline?.progress(1);
+			};
 
-		target.addEventListener("mouseenter", handleEnter);
-		target.addEventListener("mouseleave", handleLeave);
+			target.addEventListener("mouseenter", handleEnter);
+			target.addEventListener("mouseleave", handleLeave);
+
+			return () => {
+				target.removeEventListener("mouseenter", handleEnter);
+				target.removeEventListener("mouseleave", handleLeave);
+			};
+		}, node);
 
 		return () => {
-			target.removeEventListener("mouseenter", handleEnter);
-			target.removeEventListener("mouseleave", handleLeave);
-			hoverTimeline?.kill();
+			ctx.revert();
 			hoverTimeline = null;
 			splitInstance?.revert();
 			splitInstance = null;

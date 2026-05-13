@@ -88,15 +88,18 @@
 
 	onMount(() => {
 		if (!container) return;
+		const currentContainer = container;
 
-		tween = gsap.to(container, {
-			rotation: reversed ? -360 : 360,
-			duration,
-			repeat: -1,
-			ease: "none",
-		});
+		const ctx = gsap.context(() => {
+			tween = gsap.to(currentContainer, {
+				rotation: reversed ? -360 : 360,
+				duration,
+				repeat: -1,
+				ease: "none",
+			});
+		}, currentContainer);
 
-		return () => tween?.kill();
+		return () => ctx.revert();
 	});
 
 	onDestroy(() => tween?.kill());

@@ -44,8 +44,22 @@
 	}: Props = $props();
 
 	let hoveredIndex: number | null = $state(null);
+	let rootRef: HTMLElement | undefined;
+	let ctx: gsap.Context | null = null;
 	let dockItems: (HTMLLIElement | null)[] = $state([]);
 	let dockTooltips: (HTMLDivElement | null)[] = $state([]);
+
+	const attachRoot = (node: HTMLElement) => {
+		rootRef = node;
+		ctx = gsap.context(() => {}, node);
+		return () => {
+			ctx?.revert();
+			ctx = null;
+			if (rootRef === node) {
+				rootRef = undefined;
+			}
+		};
+	};
 
 	const attachDockItem = (index: number) => (node: HTMLLIElement) => {
 		dockItems[index] = node;
@@ -65,50 +79,52 @@
 			(el): el is HTMLDivElement => el !== null,
 		);
 
-		dockItems.forEach((el, index) => {
-			if (!el) return;
+		ctx?.add(() => {
+			dockItems.forEach((el, index) => {
+				if (!el) return;
 
-			let targetWidth = baseWidth;
+				let targetWidth = baseWidth;
 
-			if (hoveredIndex !== null) {
-				const dist = Math.abs(hoveredIndex - index);
+				if (hoveredIndex !== null) {
+					const dist = Math.abs(hoveredIndex - index);
 
-				if (dist < influenceDistance) {
-					const ratio = (influenceDistance - dist) / influenceDistance;
-					targetWidth = baseWidth + (maxWidth - baseWidth) * ratio;
+					if (dist < influenceDistance) {
+						const ratio = (influenceDistance - dist) / influenceDistance;
+						targetWidth = baseWidth + (maxWidth - baseWidth) * ratio;
+					}
 				}
-			}
 
-			gsap.to(el, {
-				width: `${targetWidth}em`,
-				duration: 0.5,
-				ease: "power4.out",
-				overwrite: true,
+				gsap.to(el, {
+					width: `${targetWidth}em`,
+					duration: 0.5,
+					ease: "power4.out",
+					overwrite: true,
+				});
 			});
-		});
 
-		dockTooltips.forEach((el, index) => {
-			if (!el) return;
+			dockTooltips.forEach((el, index) => {
+				if (!el) return;
 
-			if (hoveredIndex === index) {
-				gsap.to(el, {
-					opacity: 1,
-					yPercent: -100,
-					xPercent: -50,
-					duration: 0.5,
-					ease: "power4.out",
-					overwrite: true,
-				});
-			} else {
-				gsap.to(el, {
-					opacity: 0,
-					yPercent: -80,
-					xPercent: -50,
-					duration: 0.5,
-					ease: "power4.out",
-					overwrite: true,
-				});
-			}
+				if (hoveredIndex === index) {
+					gsap.to(el, {
+						opacity: 1,
+						yPercent: -100,
+						xPercent: -50,
+						duration: 0.5,
+						ease: "power4.out",
+						overwrite: true,
+					});
+				} else {
+					gsap.to(el, {
+						opacity: 0,
+						yPercent: -80,
+						xPercent: -50,
+						duration: 0.5,
+						ease: "power4.out",
+						overwrite: true,
+					});
+				}
+			});
 		});
 
 		return () => {
@@ -122,7 +138,10 @@
 	});
 </script>
 
-<nav class={cn("flex items-end justify-center p-4", className)}>
+<nav
+	{@attach attachRoot}
+	class={cn("flex items-end justify-center p-4", className)}
+>
 	<ul
 		class="m-0 flex list-none items-end justify-center gap-0 p-0"
 		onmouseleave={() => (hoveredIndex = null)}

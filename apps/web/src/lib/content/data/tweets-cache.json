@@ -406,7 +406,7 @@
     "in_reply_to_status_id_str": "2038223362917282155",
     "in_reply_to_user_id_str": "1913155043919831040",
     "lang": "en",
-    "favorite_count": 1,
+    "favorite_count": 0,
     "created_at": "2026-03-29T19:16:08.000Z",
     "display_text_range": [
       11,
@@ -447,12 +447,12 @@
       "is_edit_eligible": false,
       "edits_remaining": "5"
     },
-    "conversation_count": 1,
+    "conversation_count": 0,
     "news_action_type": "conversation",
     "parent": {
       "lang": "en",
       "reply_count": 10,
-      "retweet_count": 48,
+      "retweet_count": 46,
       "favorite_count": 722,
       "possibly_sensitive": false,
       "created_at": "2026-03-29T11:54:52.000Z",
@@ -672,7 +672,7 @@
     "parent": {
       "lang": "en",
       "reply_count": 10,
-      "retweet_count": 48,
+      "retweet_count": 46,
       "favorite_count": 722,
       "possibly_sensitive": false,
       "created_at": "2026-03-29T11:54:52.000Z",
@@ -846,7 +846,7 @@
     "in_reply_to_status_id_str": "2005307712322879594",
     "in_reply_to_user_id_str": "1913155043919831040",
     "lang": "en",
-    "favorite_count": 0,
+    "favorite_count": 2,
     "created_at": "2025-12-29T04:27:54.000Z",
     "display_text_range": [
       11,
@@ -891,9 +891,9 @@
     "news_action_type": "conversation",
     "parent": {
       "lang": "en",
-      "reply_count": 0,
+      "reply_count": 1,
       "retweet_count": 0,
-      "favorite_count": 0,
+      "favorite_count": 3,
       "possibly_sensitive": false,
       "created_at": "2025-12-28T15:59:50.000Z",
       "display_text_range": [
@@ -1726,7 +1726,7 @@
     "in_reply_to_status_id_str": "2038000612252520472",
     "in_reply_to_user_id_str": "1913155043919831040",
     "lang": "en",
-    "favorite_count": 1,
+    "favorite_count": 0,
     "created_at": "2026-03-29T06:59:14.000Z",
     "display_text_range": [
       11,
@@ -1987,7 +1987,7 @@
       "is_edit_eligible": false,
       "edits_remaining": "5"
     },
-    "conversation_count": 1,
+    "conversation_count": 0,
     "news_action_type": "conversation",
     "parent": {
       "lang": "en",
@@ -2166,7 +2166,7 @@
     "in_reply_to_status_id_str": "2034771266914156986",
     "in_reply_to_user_id_str": "1913155043919831040",
     "lang": "en",
-    "favorite_count": 0,
+    "favorite_count": 2,
     "created_at": "2026-03-20T10:24:16.000Z",
     "display_text_range": [
       11,

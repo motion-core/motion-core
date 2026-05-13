@@ -54,75 +54,78 @@
 		};
 
 	onMount(() => {
+		if (!containerRef) return;
 		const middleIndex = Math.floor(images.length / 2);
 		const radiusTarget = isScaleUpRef[images.length + middleIndex];
 		const isScaleDownTargets = secondLoopImagesRef.filter(
 			(_, i) => i !== middleIndex,
 		);
 
-		const tl = gsap.timeline({
-			defaults: {
-				ease: "expo.inOut",
-			},
-			onComplete: () => {
-				if (onComplete) onComplete();
-				if (containerRef) containerRef.style.display = "none";
-			},
-		});
-
-		if (revealImagesRef.length) {
-			tl.fromTo(
-				revealImagesRef,
-				{
-					xPercent: 500,
+		const ctx = gsap.context(() => {
+			const tl = gsap.timeline({
+				defaults: {
+					ease: "expo.inOut",
 				},
-				{
-					xPercent: -500,
-					duration: 2.5,
-					stagger: 0.05,
+				onComplete: () => {
+					if (onComplete) onComplete();
+					if (containerRef) containerRef.style.display = "none";
 				},
-			);
-		}
+			});
 
-		if (isScaleDownTargets.length) {
-			tl.to(
-				isScaleDownTargets,
-				{
-					scale: 0.5,
-					duration: 2,
-					stagger: {
-						each: 0.05,
-						from: "edges",
-						ease: "none",
+			if (revealImagesRef.length) {
+				tl.fromTo(
+					revealImagesRef,
+					{
+						xPercent: 500,
 					},
-					onComplete: () => {
-						if (radiusTarget) {
-							radiusTarget.style.borderRadius = "0";
-						}
+					{
+						xPercent: -500,
+						duration: 2.5,
+						stagger: 0.05,
 					},
-				},
-				"-=0.1",
-			);
-		}
+				);
+			}
 
-		if (isScaleUpRef.length) {
-			tl.fromTo(
-				isScaleUpRef,
-				{
-					width: "10em",
-					height: "10em",
-				},
-				{
-					width: "100vw",
-					height: "100dvh",
-					duration: 2,
-				},
-				"< 0.5",
-			);
-		}
+			if (isScaleDownTargets.length) {
+				tl.to(
+					isScaleDownTargets,
+					{
+						scale: 0.5,
+						duration: 2,
+						stagger: {
+							each: 0.05,
+							from: "edges",
+							ease: "none",
+						},
+						onComplete: () => {
+							if (radiusTarget) {
+								radiusTarget.style.borderRadius = "0";
+							}
+						},
+					},
+					"-=0.1",
+				);
+			}
+
+			if (isScaleUpRef.length) {
+				tl.fromTo(
+					isScaleUpRef,
+					{
+						width: "10em",
+						height: "10em",
+					},
+					{
+						width: "100vw",
+						height: "100dvh",
+						duration: 2,
+					},
+					"< 0.5",
+				);
+			}
+		}, containerRef);
 
 		return () => {
-			tl.kill();
+			ctx.revert();
 		};
 	});
 </script>

@@ -88,24 +88,26 @@
 			splitInstance.revert();
 		}
 
-		splitInstance = new SplitText(node, {
-			type: "chars",
-			reduceWhiteSpace: false,
-		});
+		const ctx = gsap.context(() => {
+			splitInstance = SplitText.create(node, {
+				type: "chars",
+				reduceWhiteSpace: false,
+			});
 
-		charNodes = (splitInstance.chars ?? []) as HTMLElement[];
+			charNodes = (splitInstance?.chars ?? []) as HTMLElement[];
 
-		charNodes.forEach((node) => {
-			node.style.fontWeight = String(baseWeight);
-			node.style.fontVariationSettings = `"wght" ${baseWeight}`;
-			node.style.display = "inline-block";
+			charNodes.forEach((node) => {
+				node.style.fontWeight = String(baseWeight);
+				node.style.fontVariationSettings = `"wght" ${baseWeight}`;
+				node.style.display = "inline-block";
 
-			if (!node.textContent?.trim()) {
-				node.style.whiteSpace = "pre";
-				node.style.pointerEvents = "none";
-				node.style.minWidth = "0.25em";
-			}
-		});
+				if (!node.textContent?.trim()) {
+					node.style.whiteSpace = "pre";
+					node.style.pointerEvents = "none";
+					node.style.minWidth = "0.25em";
+				}
+			});
+		}, node);
 
 		tick().then(() => {
 			charPositions = charNodes.map((node) => {
@@ -170,6 +172,7 @@
 		return () => {
 			node.removeEventListener("pointermove", handleMove);
 			node.removeEventListener("pointerleave", handleLeave);
+			ctx.revert();
 			splitInstance?.revert();
 			splitInstance = null;
 			charNodes = [];

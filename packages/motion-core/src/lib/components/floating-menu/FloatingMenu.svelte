@@ -163,6 +163,7 @@
 
 		let cancelled = false;
 		let splits: SplitText[] = [];
+		let ctx: gsap.Context | null = null;
 
 		const init = async () => {
 			await document.fonts.ready;
@@ -183,61 +184,64 @@
 				maxWidthInitial = "70%";
 			}
 
-			gsap.set(overlayRef, { autoAlpha: 0 });
-			gsap.set(containerRef, { maxWidth: maxWidthInitial });
-			gsap.set(menuWrapperRef, { height: 0, autoAlpha: 0 });
+			ctx?.revert();
+			ctx = gsap.context(() => {
+				gsap.set(overlayRef, { autoAlpha: 0 });
+				gsap.set(containerRef, { maxWidth: maxWidthInitial });
+				gsap.set(menuWrapperRef, { height: 0, autoAlpha: 0 });
 
-			const linkElements = gsap.utils.toArray(
-				`[data-slot="link-text"]`,
-				menuWrapperRef,
-			) as HTMLElement[];
+				const linkElements = gsap.utils.toArray(
+					`[data-slot="link-text"]`,
+					menuWrapperRef,
+				) as HTMLElement[];
 
-			splits = linkElements.map((el) =>
-				SplitText.create(el, { type: "lines", mask: "lines" }),
-			);
-			const allLines = splits.flatMap((s) => s.lines);
-
-			timeline = gsap.timeline({
-				paused: true,
-				defaults: { ease: "motion-core-ease", duration: 0.5 },
-			});
-
-			timeline
-				.to(
-					containerRef,
-					{
-						maxWidth: maxWidthOpen,
-						...(isMobile
-							? {
-									top: 0,
-									paddingTop: "0.5rem",
-									borderTopLeftRadius: 0,
-									borderTopRightRadius: 0,
-								}
-							: {}),
-					},
-					0,
-				)
-				.to(overlayRef, { autoAlpha: 1 }, 0)
-				.to(menuWrapperRef, { height: "auto", autoAlpha: 1 }, 0.2)
-				.to([line1Ref, line2Ref], { y: 0, duration: 0.4 }, 0.2)
-				.to(line1Ref, { rotation: 45, duration: 0.4 }, 0.2)
-				.to(line2Ref, { rotation: -45, duration: 0.4 }, 0.2);
-
-			if (allLines.length) {
-				timeline.from(
-					allLines,
-					{
-						yPercent: 100,
-						autoAlpha: 0,
-						stagger: 0.02,
-					},
-					0.3,
+				splits = linkElements.map((el) =>
+					SplitText.create(el, { type: "lines", mask: "lines" }),
 				);
-			}
+				const allLines = splits.flatMap((s) => s.lines);
+
+				timeline = gsap.timeline({
+					paused: true,
+					defaults: { ease: "motion-core-ease", duration: 0.5 },
+				});
+
+				timeline
+					.to(
+						containerRef,
+						{
+							maxWidth: maxWidthOpen,
+							...(isMobile
+								? {
+										top: 0,
+										paddingTop: "0.5rem",
+										borderTopLeftRadius: 0,
+										borderTopRightRadius: 0,
+									}
+								: {}),
+						},
+						0,
+					)
+					.to(overlayRef, { autoAlpha: 1 }, 0)
+					.to(menuWrapperRef, { height: "auto", autoAlpha: 1 }, 0.2)
+					.to([line1Ref, line2Ref], { y: 0, duration: 0.4 }, 0.2)
+					.to(line1Ref, { rotation: 45, duration: 0.4 }, 0.2)
+					.to(line2Ref, { rotation: -45, duration: 0.4 }, 0.2);
+
+				if (allLines.length) {
+					timeline.from(
+						allLines,
+						{
+							yPercent: 100,
+							autoAlpha: 0,
+							stagger: 0.02,
+						},
+						0.3,
+					);
+				}
+			}, containerRef);
 
 			if (untrack(() => isOpen)) {
-				timeline.progress(1);
+				timeline?.progress(1);
 			}
 		};
 
@@ -245,10 +249,9 @@
 
 		return () => {
 			cancelled = true;
-			if (timeline) {
-				timeline.kill();
-				timeline = null;
-			}
+			ctx?.revert();
+			ctx = null;
+			timeline = null;
 			splits.forEach((s) => s.revert());
 		};
 	});

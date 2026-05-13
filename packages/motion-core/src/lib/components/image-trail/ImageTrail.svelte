@@ -111,10 +111,14 @@
 	});
 
 	let containerRef: HTMLDivElement | null = null;
+	let ctx: gsap.Context | null = null;
 
 	const attachContainerRef = (node: HTMLDivElement) => {
 		containerRef = node;
+		ctx = gsap.context(() => {}, node);
 		return () => {
+			ctx?.revert();
+			ctx = null;
 			if (containerRef === node) {
 				containerRef = null;
 			}
@@ -246,11 +250,13 @@
 
 		node.appendChild(img);
 
-		gsap.set(img, { rotation: rot });
-		gsap.to(img, {
-			scale: 1,
-			duration: cfg.inDuration / 1000,
-			ease: "power2.out",
+		ctx?.add(() => {
+			gsap.set(img, { rotation: rot });
+			gsap.to(img, {
+				scale: 1,
+				duration: cfg.inDuration / 1000,
+				ease: "power2.out",
+			});
 		});
 
 		trail.push({
@@ -282,12 +288,14 @@
 
 		expired.forEach((item, index) => {
 			const { el } = item;
-			gsap.to(el, {
-				duration: cfg.outDuration / 1000,
-				scale: 0,
-				ease: "power4.inOut",
-				delay: (index * cfg.staggerOut) / 1000,
-				onComplete: () => recycleImage(el),
+			ctx?.add(() => {
+				gsap.to(el, {
+					duration: cfg.outDuration / 1000,
+					scale: 0,
+					ease: "power4.inOut",
+					delay: (index * cfg.staggerOut) / 1000,
+					onComplete: () => recycleImage(el),
+				});
 			});
 		});
 

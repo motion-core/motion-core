@@ -118,45 +118,47 @@
 		const scroller =
 			resolvedScroller instanceof HTMLElement ? resolvedScroller : window;
 
-		const split = SplitText.create(node, {
-			type: "lines, words, chars",
-			tag: as,
-			mask: "lines",
-		});
+		let split: SplitText | null = null;
+		let targets: Element[] = [];
 
-		const targets =
-			mode === "lines"
-				? (split.lines ?? [])
-				: mode === "words"
-					? (split.words ?? [])
-					: (split.chars ?? []);
+		const ctx = gsap.context(() => {
+			split = SplitText.create(node, {
+				type: "lines, words, chars",
+				tag: as,
+				mask: "lines",
+			});
 
-		if (!targets.length) {
-			split.revert();
-			return;
-		}
+			targets =
+				mode === "lines"
+					? (split.lines ?? [])
+					: mode === "words"
+						? (split.words ?? [])
+						: (split.chars ?? []);
 
-		gsap.set(targets, { yPercent: 110 });
+			if (!targets.length) return;
 
-		const tween = gsap.to(targets, {
-			yPercent: 0,
-			duration: resolvedConfig.duration,
-			stagger: resolvedConfig.stagger,
-			ease: "motion-core-ease",
-			lazy: false,
-			delay: delay,
-			scrollTrigger: triggerOnScroll
-				? {
-						trigger: node,
-						scroller,
-						start: "top 85%",
-					}
-				: undefined,
-		});
+			gsap.set(targets, { yPercent: 110 });
+
+			gsap.to(targets, {
+				yPercent: 0,
+				duration: resolvedConfig.duration,
+				stagger: resolvedConfig.stagger,
+				ease: "motion-core-ease",
+				lazy: false,
+				delay: delay,
+				scrollTrigger: triggerOnScroll
+					? {
+							trigger: node,
+							scroller,
+							start: "top 85%",
+						}
+					: undefined,
+			});
+		}, node);
 
 		return () => {
-			tween.kill();
-			split.revert();
+			ctx.revert();
+			split?.revert();
 		};
 	});
 </script>

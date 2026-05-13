@@ -74,52 +74,54 @@
 
 		const node = hoverTarget ?? wrapperRef;
 		if (!node || !originalSpan || !cloneSpan) return;
+		const currentOriginalSpan = originalSpan;
 
 		let timeline: gsap.core.Timeline | null = null;
+		const ctx = gsap.context(() => {
+			originalSplit = SplitText.create(currentOriginalSpan, {
+				type: "chars",
+				charsClass: "inline-block",
+				onSplit: (self) => {
+					const cloneNode = cloneSpan;
+					if (!cloneNode) return;
 
-		originalSplit = SplitText.create(originalSpan, {
-			type: "chars",
-			charsClass: "inline-block",
-			onSplit: (self) => {
-				const cloneNode = cloneSpan;
-				if (!cloneNode) return;
+					if (cloneSplit) cloneSplit.revert();
+					cloneSplit = SplitText.create(cloneNode, {
+						type: "chars",
+						charsClass: "inline-block",
+					});
 
-				if (cloneSplit) cloneSplit.revert();
-				cloneSplit = SplitText.create(cloneNode, {
-					type: "chars",
-					charsClass: "inline-block",
-				});
+					gsap.set(self.chars, { yPercent: 0 });
+					gsap.set(cloneSplit.chars, { yPercent: 100 });
 
-				gsap.set(self.chars, { yPercent: 0 });
-				gsap.set(cloneSplit.chars, { yPercent: 100 });
+					timeline?.kill();
+					timeline = gsap
+						.timeline({ paused: true })
+						.to(
+							self.chars,
+							{
+								yPercent: -100,
+								stagger: 0.02,
+								duration: 0.35,
+								ease: "motion-core-ease",
+							},
+							0,
+						)
+						.to(
+							cloneSplit.chars,
+							{
+								yPercent: 0,
+								stagger: 0.02,
+								duration: 0.35,
+								ease: "motion-core-ease",
+							},
+							0,
+						);
 
-				timeline?.kill();
-				timeline = gsap
-					.timeline({ paused: true })
-					.to(
-						self.chars,
-						{
-							yPercent: -100,
-							stagger: 0.02,
-							duration: 0.35,
-							ease: "motion-core-ease",
-						},
-						0,
-					)
-					.to(
-						cloneSplit.chars,
-						{
-							yPercent: 0,
-							stagger: 0.02,
-							duration: 0.35,
-							ease: "motion-core-ease",
-						},
-						0,
-					);
-
-				return timeline;
-			},
-		});
+					return timeline;
+				},
+			});
+		}, currentOriginalSpan);
 
 		const handleEnter = () => timeline?.play();
 		const handleLeave = () => timeline?.reverse();
@@ -130,7 +132,7 @@
 		return () => {
 			node.removeEventListener("mouseenter", handleEnter);
 			node.removeEventListener("mouseleave", handleLeave);
-			timeline?.kill();
+			ctx.revert();
 			originalSplit?.revert();
 			cloneSplit?.revert();
 		};

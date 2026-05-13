@@ -73,6 +73,8 @@
 	}: Props<T> = $props();
 
 	let cardRefs = $state<Array<HTMLDivElement | null>>([]);
+	let rootRef: HTMLElement | undefined;
+	let ctx: gsap.Context | null = null;
 	let hasInitialized = false;
 	let draggingCardIndex = $state<number | null>(null);
 	let cardOrder = $state<number[]>([]);
@@ -80,6 +82,16 @@
 
 	const topCardIndex = $derived(cardOrder[cardOrder.length - 1] ?? -1);
 	const resolvedEase = $derived(ease);
+
+	const attachRoot = (node: HTMLElement) => {
+		rootRef = node;
+		ctx = gsap.context(() => {}, node);
+		return () => {
+			ctx?.revert();
+			ctx = null;
+			rootRef = undefined;
+		};
+	};
 
 	function getCardTransform(cardIndex: number): CardTransform | null {
 		const stackPosition = cardOrder.indexOf(cardIndex);
@@ -132,27 +144,33 @@
 			};
 
 			if (immediate) {
-				gsap.set(node, vars);
+				ctx?.add(() => {
+					gsap.set(node, vars);
+				});
 			} else {
-				gsap.to(node, {
-					...vars,
-					duration,
-					ease: resolvedEase,
-					overwrite: true,
+				ctx?.add(() => {
+					gsap.to(node, {
+						...vars,
+						duration,
+						ease: resolvedEase,
+						overwrite: true,
+					});
 				});
 			}
 		}
 	}
 
 	function resetDraggedCard(node: HTMLDivElement) {
-		gsap.to(node, {
-			x: 0,
-			y: 0,
-			rotation: 0,
-			scale: 1,
-			duration,
-			ease: resolvedEase,
-			overwrite: true,
+		ctx?.add(() => {
+			gsap.to(node, {
+				x: 0,
+				y: 0,
+				rotation: 0,
+				scale: 1,
+				duration,
+				ease: resolvedEase,
+				overwrite: true,
+			});
 		});
 	}
 
@@ -178,12 +196,14 @@
 		}
 
 		gsap.killTweensOf(node);
-		gsap.to(node, {
-			scale: 1.05,
-			rotation: 0,
-			duration: 0.05,
-			ease: "power2.out",
-			overwrite: true,
+		ctx?.add(() => {
+			gsap.to(node, {
+				scale: 1.05,
+				rotation: 0,
+				duration: 0.05,
+				ease: "power2.out",
+				overwrite: true,
+			});
 		});
 	}
 
@@ -202,11 +222,13 @@
 		dragState.currentX = x;
 		dragState.currentY = y;
 
-		gsap.set(node, {
-			x,
-			y,
-			rotation: 0,
-			scale: 1.05,
+		ctx?.add(() => {
+			gsap.set(node, {
+				x,
+				y,
+				rotation: 0,
+				scale: 1.05,
+			});
 		});
 	}
 
@@ -291,6 +313,7 @@
 </script>
 
 <div
+	{@attach attachRoot}
 	class={cn("relative inline-grid [perspective:1000px]", className)}
 	{...restProps}
 >
