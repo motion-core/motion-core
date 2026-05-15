@@ -5,8 +5,8 @@
 	import LogoGithub from "carbon-icons-svelte/lib/LogoGithub.svelte";
 	import Button from "../ui/Button.svelte";
 	import { siteConfig } from "$lib/config/site";
-	import SpecularBand from "motion-core/components/specular-band/SpecularBand.svelte";
-	import { onMount } from "svelte";
+	import { themeStore } from "$lib/stores/theme.svelte";
+	import { GlitterCloth } from "motion-core";
 
 	type Props = {
 		githubStars?: number | null;
@@ -23,44 +23,22 @@
 				}).format(githubStars)
 			: "--",
 	);
-
-	const COLOR_PRESETS = {
-		dark: {
-			backgroundColor: "#17181A",
-		},
-		light: {
-			backgroundColor: "#f0f0f2",
-		},
-	};
-
-	let isDark = $state(false);
-
-	onMount(() => {
-		isDark = document.documentElement.classList.contains("dark");
-
-		const observer = new MutationObserver(() => {
-			isDark = document.documentElement.classList.contains("dark");
-		});
-
-		observer.observe(document.documentElement, {
-			attributes: true,
-			attributeFilter: ["class"],
-		});
-
-		return () => observer.disconnect();
-	});
+	const glitterBrightness = $derived(themeStore.isDark ? 1 : 20);
 </script>
 
 <section
 	id="home"
 	class="relative flex h-dvh w-full flex-col items-center justify-center gap-4 p-4"
 >
-	<SpecularBand
-		class="absolute inset-0"
-		intensity={isDark ? 1 : 20}
-		backgroundColor={isDark
-			? COLOR_PRESETS.dark.backgroundColor
-			: COLOR_PRESETS.light.backgroundColor}
+	<GlitterCloth
+		class="absolute inset-0 h-full min-h-96 w-full"
+		color="#222326"
+		speed={1}
+		brightness={glitterBrightness}
+		blendStrength={0.05}
+		noiseScale={4}
+		vignetteStrength={0.1}
+		vignettePower={0.0}
 	/>
 	<div
 		class="absolute inset-x-0 bottom-0 z-10 h-200 bg-linear-to-t from-background-inset to-transparent"
