@@ -14,4 +14,4 @@ fi
 export PATH="$HOME/.cargo/bin:$PATH"
 
 echo "Running Nx web build..."
-bun run build
+pnpm run build

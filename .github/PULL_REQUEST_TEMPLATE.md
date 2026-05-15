@@ -27,5 +27,5 @@ Please describe the tests that you ran to verify your changes.
 - [ ] I have commented my code, particularly in hard-to-understand areas
 - [ ] I have made corresponding changes to the documentation
 - [ ] My changes generate no new warnings
-- [ ] I have run `bun run lint`, `bun run check` and `bun run format` before committing
+- [ ] I have run `pnpm run lint`, `pnpm run check` and `pnpm run format` before committing
 - [ ] New and existing unit tests pass locally with my changes

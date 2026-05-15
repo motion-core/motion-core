@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env tsx
 /* eslint-disable no-console */
 
 import { readFile, readdir, stat, writeFile } from "node:fs/promises";

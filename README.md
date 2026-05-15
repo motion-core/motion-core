@@ -12,7 +12,6 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-blue.svg)](https://www.typescriptlang.org)
 [![npm](https://img.shields.io/badge/npm-@motion--core%2Fcli-red.svg)](https://www.npmjs.com/package/@motion-core/cli)
 
-
 </div>
 
 **Motion Core** is not just a library; it's a curated collection of expressive, production-ready motion components designed for the experimental web. Born from a desire to make high-end motion design accessible, it wraps complex WebGL and timeline-based animations into simple, developer-friendly Svelte 5 components.
@@ -57,7 +56,7 @@ This will download the component source code and place it in your configured com
 
 ## Monorepo Architecture
 
-This repository is a **monorepo** managed by **Bun** and **Nx**. It houses the entire ecosystem:
+This repository is a **monorepo** managed by **pnpm** and **Nx**. It houses the entire ecosystem:
 
 - **`packages/motion-core`**: The source of truth for all components.
 - **`apps/docs`**: The documentation site and development playground.
@@ -65,7 +64,7 @@ This repository is a **monorepo** managed by **Bun** and **Nx**. It houses the e
 
 ### Prerequisites for Contributors
 
-- **[Bun](https://bun.sh/)** (v1.3.3+) - _Strictly required for workspace management._
+- **[pnpm](https://pnpm.io/)** (v10.33.3) - _Required for workspace management._
 - **[Rust](https://www.rust-lang.org/)** (Latest) - _Required for CLI development._
 - **Node.js** - _Required for certain internal tooling._
 
@@ -76,20 +75,20 @@ This repository is a **monorepo** managed by **Bun** and **Nx**. It houses the e
     ```bash
     git clone https://github.com/motion-core/motion-core.git
     cd motion-core
-    bun install
+    pnpm install
     ```
 
 2.  **Bootstrap Workspace**
     This script generates the internal registry manifest and performs initial checks on the CLI.
 
     ```bash
-    bun run workspace:bootstrap
+    pnpm run workspace:bootstrap
     ```
 
 3.  **Start Development**
     We use the documentation app as our dev environment to test components in real-time.
     ```bash
-    bun run dev
+    pnpm run dev
     ```
     Open [http://localhost:5173](http://localhost:5173) to view the playground.
 
@@ -99,13 +98,13 @@ If you are contributing to the CLI tool (written in Rust):
 
 ```bash
 # Check for compilation errors
-bun run cli:check
+pnpm run cli:check
 
 # Build the binary
-bun run cli:build
+pnpm run cli:build
 
 # Run the test suite
-bun run cli:test
+pnpm run cli:test
 ```
 
 ---
@@ -117,7 +116,7 @@ We welcome contributions! Whether it's a new motion component, a bug fix, or a d
 1.  Fork the repo.
 2.  Create your feature branch (`git checkout -b feature/amazing-motion`).
 3.  Commit your changes.
-4.  **Lint & Format**: Run `bun run lint` and `bun run format`.
+4.  **Lint & Format**: Run `pnpm run lint` and `pnpm run format`.
 5.  Push to the branch and open a PR.
 
 ## License

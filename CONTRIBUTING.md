@@ -8,11 +8,11 @@ By participating in this project, you agree to abide by our [Code of Conduct](CO
 
 ## Getting Started
 
-Motion Core is a monorepo managed by [Nx](https://nx.dev) and [Bun](https://bun.sh). It contains the core library, documentation, and a Rust-based CLI.
+Motion Core is a monorepo managed by [Nx](https://nx.dev) and [pnpm](https://pnpm.io). It contains the core library, documentation, and a Rust-based CLI.
 
 ### Prerequisites
 
-- **Bun** (v1.3.3+) - Required for workspace management.
+- **pnpm** (v10.33.3) - Required for workspace management.
 - **Rust** (Latest) - Required for CLI development.
 - **Node.js** - Required for some internal tooling.
 
@@ -21,11 +21,11 @@ Motion Core is a monorepo managed by [Nx](https://nx.dev) and [Bun](https://bun.
 1. Fork and clone the repository.
 2. Install dependencies:
    ```bash
-   bun install
+   pnpm install
    ```
 3. Bootstrap the workspace:
    ```bash
-   bun run workspace:bootstrap
+   pnpm run workspace:bootstrap
    ```
 
 ## Development Workflow
@@ -36,7 +36,7 @@ Most contributions will happen in `packages/motion-core`. We use SvelteKit (in `
 
 1. Start the dev server:
    ```bash
-   bun run dev
+   pnpm run dev
    ```
 2. Navigate to `http://localhost:5173`.
 3. Modify components in `packages/motion-core/src/lib/components`.
@@ -48,7 +48,7 @@ Most contributions will happen in `packages/motion-core`. We use SvelteKit (in `
 3. Create a `component.json` file in the same directory. Use the existing components as a reference.
 4. Run the registry builder to update the manifest:
    ```bash
-   bun run workspace:bootstrap
+   pnpm run workspace:bootstrap
    ```
 5. Add a demo page in `apps/docs/src/routes/docs/[slug]/`.
 
@@ -56,9 +56,9 @@ Most contributions will happen in `packages/motion-core`. We use SvelteKit (in `
 
 The CLI is written in Rust and located in `motion-core-cli`.
 
-- `bun run cli:check`: Check for compilation errors.
-- `bun run cli:test`: Run Rust tests.
-- `bun run cli:build`: Build the binary.
+- `pnpm run cli:check`: Check for compilation errors.
+- `pnpm run cli:test`: Run Rust tests.
+- `pnpm run cli:build`: Build the binary.
 
 ## Coding Standards
 
@@ -85,7 +85,7 @@ We follow [Conventional Commits](https://www.conventionalcommits.org/):
 1. Create a new branch from `main`.
 2. Ensure your code passes linting and formatting:
    ```bash
-   bun run lint && check && format
+   pnpm run lint && pnpm run check && pnpm run format
    ```
 3. If you added a component, ensure it has a proper `component.json` and a demo in the docs.
 4. Submit a PR with a clear description of the changes.
