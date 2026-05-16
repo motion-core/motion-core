@@ -1,4 +1,5 @@
 import type { ComponentPreviewControl } from "./types";
+import defaultGlassLogoSvg from "$lib/assets/motion-core-logo.svg?raw";
 
 type PreviewControlPreset = ComponentPreviewControl[];
 
@@ -65,6 +66,19 @@ const select = (
 	type: "select",
 	defaultValue,
 	options,
+});
+
+const file = (
+	name: string,
+	label: string,
+	defaultValue: string,
+	accept?: string,
+): ComponentPreviewControl => ({
+	name,
+	label,
+	type: "file",
+	defaultValue,
+	accept,
 });
 
 export const componentPreviewControls = {
@@ -291,6 +305,60 @@ export const componentPreviewControls = {
 			step: 0.01,
 		}),
 		number("rods", "Rods", { defaultValue: 3, min: 1, max: 12, step: 1 }),
+	],
+	"glass-logo": [
+		file("svgSource", "Logo SVG", defaultGlassLogoSvg, "image/svg+xml,.svg"),
+		color("swirlColorA", "Swirl Dark", "#222326"),
+		color("swirlColorB", "Swirl Light", "#ff6900"),
+		number("speed", "Speed", {
+			defaultValue: 1,
+			min: 0,
+			max: 3,
+			step: 0.01,
+		}),
+		number("scale", "Scale", {
+			defaultValue: 1,
+			min: 0.2,
+			max: 2,
+			step: 0.01,
+		}),
+		number("offsetX", "Offset X", {
+			defaultValue: 0,
+			min: -0.5,
+			max: 0.5,
+			step: 0.01,
+		}),
+		number("offsetY", "Offset Y", {
+			defaultValue: 0,
+			min: -0.5,
+			max: 0.5,
+			step: 0.01,
+		}),
+		number("rotation", "Rotation", {
+			defaultValue: 0,
+			min: -180,
+			max: 180,
+			step: 1,
+			unit: "deg",
+		}),
+		number("refraction", "Refraction", {
+			defaultValue: 1,
+			min: 0,
+			max: 2,
+			step: 0.01,
+		}),
+		number("chromaticAberration", "Chromatic Aberration", {
+			defaultValue: 1,
+			min: 0,
+			max: 3,
+			step: 0.01,
+		}),
+		number("blur", "Blur", {
+			defaultValue: 1,
+			min: 0,
+			max: 2,
+			step: 0.01,
+		}),
 	],
 	"glitter-cloth": [
 		color("color", "Color", "#222326"),

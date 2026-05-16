@@ -78,6 +78,10 @@ export const docsNavigation: DocItem[] = [
 				name: "Fluid Simulation",
 			},
 			{
+				slug: "glass-logo",
+				name: "Glass Logo",
+			},
+			{
 				slug: "glass-pane",
 				name: "Glass Pane",
 			},

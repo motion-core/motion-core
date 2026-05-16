@@ -95,6 +95,15 @@ export const docsManifest: ComponentInfo[] = [
 		},
 	},
 	{
+		slug: "glass-logo",
+		name: "Glass Logo",
+		category: "canvas",
+		introducedAt: "2026-05-15",
+		dependencies: {
+			ogl: "^1.0.11",
+		},
+	},
+	{
 		slug: "glass-pane",
 		name: "Glass Pane",
 		category: "canvas",

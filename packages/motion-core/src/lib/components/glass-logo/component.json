@@ -1,0 +1,33 @@
+{
+	"introducedAt": "2026-05-15",
+	"name": "Glass Logo",
+	"slug": "glass-logo",
+	"description": "A refractive glass logo rendered from SVG input with a signed-distance-field shader.",
+	"category": "canvas",
+	"dependencies": {
+		"ogl": "^1.0.11"
+	},
+	"devDependencies": {},
+	"internalDependencies": [],
+	"files": [
+		{
+			"path": "GlassLogo.svelte",
+			"kind": "entry"
+		},
+		{
+			"path": "GlassLogoScene.svelte"
+		},
+		{
+			"path": "../../utils/cn.ts",
+			"target": "utils"
+		},
+		{
+			"path": "../../helpers/svg-sdf.ts",
+			"target": "helpers"
+		},
+		{
+			"path": "../../helpers/color.ts",
+			"target": "helpers"
+		}
+	]
+}

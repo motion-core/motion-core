@@ -186,11 +186,22 @@
 
 		onChange(control.name, matchedOption?.value ?? rawValue);
 	};
+
+	const updateFile = async (event: Event) => {
+		if (control.type !== "file") return;
+
+		const input = event.currentTarget as HTMLInputElement;
+		const file = input.files?.[0];
+		if (!file) return;
+
+		onChange(control.name, await file.text());
+		input.value = "";
+	};
 </script>
 
 <div
 	class={cn(
-		"group/control relative flex h-11 min-w-0 items-center rounded-md bg-background-inset pr-1.5 pl-4 inset-shadow transition-[border-color,background-color] duration-150 ease-out",
+		"group/control inset-shadow relative flex h-11 min-w-0 items-center rounded-md bg-background-inset pr-1.5 pl-4 transition-[border-color,background-color] duration-150 ease-out",
 		control.type === "color" ? "overflow-visible" : "overflow-hidden",
 	)}
 	title={control.description}
@@ -253,7 +264,7 @@
 				aria-label={control.label}
 				aria-checked={booleanValue}
 				class={cn(
-					"relative h-8 w-14 shrink-0 rounded-sm p-1 inset-shadow transition-colors duration-150 ease-out",
+					"inset-shadow relative h-8 w-14 shrink-0 rounded-sm p-1 transition-colors duration-150 ease-out",
 					booleanValue ? "bg-accent" : "bg-background-inset",
 				)}
 				onclick={() => onChange(control.name, !booleanValue)}
@@ -275,8 +286,22 @@
 				type="text"
 				placeholder={control.placeholder}
 				value={stringValue}
-				class="h-8 w-36 rounded-sm bg-background px-3 text-right font-mono text-sm text-foreground inset-shadow transition-colors duration-150 ease-out outline-none focus:outline-none"
+				class="inset-shadow h-8 w-36 rounded-sm bg-background px-3 text-right font-mono text-sm text-foreground transition-colors duration-150 ease-out outline-none focus:outline-none"
 				oninput={(event) => onChange(control.name, event.currentTarget.value)}
+			/>
+		{:else if control.type === "file"}
+			<label
+				for={inputId}
+				class="flex h-8 cursor-pointer items-center rounded-sm bg-background px-3 text-sm text-foreground card transition-colors duration-150 ease-out hover:bg-background-muted"
+			>
+				Choose SVG
+			</label>
+			<input
+				id={inputId}
+				type="file"
+				accept={control.accept}
+				class="sr-only"
+				onchange={updateFile}
 			/>
 		{:else if control.type === "color"}
 			<ColorPicker

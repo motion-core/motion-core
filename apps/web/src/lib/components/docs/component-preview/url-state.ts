@@ -54,6 +54,11 @@ export const readControlValuesFromSearch = (
 	const values: ComponentPreviewValues = {};
 
 	for (const control of controls) {
+		if (control.type === "file") {
+			values[control.name] = getDefaultControlValue(control);
+			continue;
+		}
+
 		const parsed = parseControlValue(control, params.get(control.name));
 		values[control.name] = parsed ?? getDefaultControlValue(control);
 	}
@@ -69,6 +74,11 @@ export const writeControlValuesToSearch = (
 	const params = new URLSearchParams(search);
 
 	for (const control of controls) {
+		if (control.type === "file") {
+			params.delete(control.name);
+			continue;
+		}
+
 		const value = values[control.name] ?? getDefaultControlValue(control);
 		const defaultValue = getDefaultControlValue(control);
 

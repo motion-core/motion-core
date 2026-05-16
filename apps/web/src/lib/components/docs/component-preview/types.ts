@@ -40,11 +40,17 @@ export type SelectPreviewControl = BasePreviewControl & {
 	}>;
 };
 
+export type FilePreviewControl = BasePreviewControl & {
+	type: "file";
+	accept?: string;
+};
+
 export type ComponentPreviewControl =
 	| BooleanPreviewControl
 	| NumberPreviewControl
 	| TextPreviewControl
-	| SelectPreviewControl;
+	| SelectPreviewControl
+	| FilePreviewControl;
 
 export type ComponentPreviewValues = Record<string, ComponentPreviewValue>;
 

@@ -1,0 +1,134 @@
+---
+name: Glass Logo
+description: A refractive glass logo rendered from SVG input with a signed-distance-field shader.
+---
+
+<script lang="ts">
+	import ComponentPreview from "$lib/components/docs/ComponentPreview.svelte";
+	import { componentPreviewControls } from "$lib/components/docs/component-preview/presets";
+	import ApiTable from "$lib/components/docs/ApiTable.svelte";
+	import InstallationTabs from "$lib/components/docs/LegacyInstallationTabs.svelte";
+	import Steps from "$lib/components/docs/markdown/Steps.svelte";
+	import Step from "$lib/components/docs/markdown/Step.svelte";
+	import glassLogoSource from "motion-core/components/glass-logo/GlassLogo.svelte?raw";
+	import sceneSource from "motion-core/components/glass-logo/GlassLogoScene.svelte?raw";
+	import sdfSource from "motion-core/helpers/svg-sdf.ts?raw";
+	import GlassLogoDemo from "./GlassLogoDemo.svelte";
+	import glassLogoDemoSource from "./GlassLogoDemo.svelte?raw";
+</script>
+
+## Installation
+
+<Steps>
+	<Step title="Install the component">
+		Run the following command to install the component and its dependencies:
+		<InstallationTabs component="glass-logo" />
+	</Step>
+	<Step title="Import the component">
+		Import the component into your Svelte file:
+
+```ts
+import { GlassLogo } from "$lib/motion-core";
+```
+
+	</Step>
+</Steps>
+
+## Usage
+
+<ComponentPreview
+	controls={componentPreviewControls["glass-logo"]}
+	sources={[
+		{ name: "Example", code: glassLogoDemoSource, language: "svelte" },
+		{ name: "GlassLogo.svelte", code: glassLogoSource, language: "svelte" },
+		{ name: "GlassLogoScene.svelte", code: sceneSource, language: "svelte" },
+		{ name: "helpers/svg-sdf.ts", code: sdfSource, language: "typescript" },
+	]}
+>
+	{#snippet children(props)}
+		<GlassLogoDemo {...props} />
+	{/snippet}
+</ComponentPreview>
+
+## Props
+
+### GlassLogo
+
+<ApiTable
+	headers={["Prop", "Type", "Default"]}
+	keys={["prop", "type", "default"]}
+	data={[
+		{
+			prop: "svgSource",
+			type: "string",
+			default: "Motion Core logo SVG",
+			description: "Inline SVG markup used as the logo silhouette.",
+		},
+		{
+			prop: "speed",
+			type: "number",
+			default: "1.0",
+			description: "Animation speed multiplier.",
+		},
+		{
+			prop: "scale",
+			type: "number",
+			default: "1.0",
+			description: "Scale multiplier for the logo silhouette.",
+		},
+		{
+			prop: "offsetX",
+			type: "number",
+			default: "0.0",
+			description: "Horizontal logo offset in normalized viewport units.",
+		},
+		{
+			prop: "offsetY",
+			type: "number",
+			default: "0.0",
+			description: "Vertical logo offset in normalized viewport units.",
+		},
+		{
+			prop: "rotation",
+			type: "number",
+			default: "0.0",
+			description: "Logo rotation in degrees.",
+		},
+		{
+			prop: "refraction",
+			type: "number",
+			default: "1.0",
+			description: "Strength of the glass refraction.",
+		},
+		{
+			prop: "chromaticAberration",
+			type: "number",
+			default: "1.0",
+			description: "Strength of the RGB separation inside the glass.",
+		},
+		{
+			prop: "blur",
+			type: "number",
+			default: "1.0",
+			description: "Radius multiplier for the internal blur sampling.",
+		},
+		{
+			prop: "swirlColorA",
+			type: "ColorRepresentation",
+			default: '"#222326"',
+			description: "Dark color used by the procedural swirl.",
+		},
+		{
+			prop: "swirlColorB",
+			type: "ColorRepresentation",
+			default: '"#ff6900"',
+			description: "Light color used by the procedural swirl.",
+		},
+		{
+			prop: "class",
+			type: "string",
+			default: '""',
+			description: "Additional CSS classes for the container.",
+		},
+	]}
+/>
