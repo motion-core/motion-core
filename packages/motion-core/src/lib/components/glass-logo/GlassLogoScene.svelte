@@ -240,10 +240,10 @@
 			vec3 n = normalize(vec3(gradX, gradY, 2.0));
 			vec3 h = normalize(vec3(lightDir, 2.0));
 			float shininess = exp2(8.0 - 0.5 * 7.0);
-			float spec = pow(clamp(dot(n, h), 0.0, 1.0), shininess) * 0.6 * refrStrength;
-			float fresnelDepth = clamp(-rawSdf / max(0.31 * 0.06, 0.001), 0.0, 1.0);
-			float fresnel = pow(1.0 - fresnelDepth, 2.0) * 0.2 * rb1;
-			vec3 lighting = blurred + vec3(rb2 + spec + fresnel);
+            float spec = pow(clamp(dot(n, h), 0.0, 1.0), shininess) * 0.3 * refrStrength;
+            float fresnelDepth = clamp(-rawSdf / max(0.31 * 0.06, 0.001), 0.0, 1.0);
+            float fresnel = pow(1.0 - fresnelDepth, 2.0) * 0.02 * rb1;
+            vec3 lighting = blurred + vec3(rb2 + spec + fresnel);
 			float transition = smoothstep(0.0, 1.0, rb1);
 			return vec4(mix(swirl(uv), lighting, transition), transition);
 		}
