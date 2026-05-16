@@ -15,6 +15,7 @@ description: A refractive glass logo rendered from SVG input with a signed-dista
 	import sdfSource from "motion-core/helpers/svg-sdf.ts?raw";
 	import GlassLogoDemo from "./GlassLogoDemo.svelte";
 	import glassLogoDemoSource from "./GlassLogoDemo.svelte?raw";
+	import colorHelperSource from "motion-core/helpers/color.ts?raw";
 </script>
 
 ## Installation
@@ -43,6 +44,7 @@ import { GlassLogo } from "$lib/motion-core";
 		{ name: "GlassLogo.svelte", code: glassLogoSource, language: "svelte" },
 		{ name: "GlassLogoScene.svelte", code: sceneSource, language: "svelte" },
 		{ name: "helpers/svg-sdf.ts", code: sdfSource, language: "typescript" },
+		{ name: "helpers/color.ts", code: colorHelperSource, language: "typescript" },
 	]}
 >
 	{#snippet children(props)}
