@@ -5,6 +5,17 @@ description: All notable changes to Motion Core Component Registry.
 
 ## [Unreleased]
 
+## [0.13.0] - 2026-05-30
+
+### Added
+
+- **1 component**:
+  - **Canvas**: Glass Logo.
+
+### Fixed
+
+- **Canvas / Water Ripple**: Brush size changes now update the active OGL brush meshes immediately without requiring a preview remount or page refresh.
+
 ## [0.12.0] - 2026-05-13
 
 ### Added

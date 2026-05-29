@@ -175,8 +175,8 @@
 		const fullscreenGeometry = new Triangle(gl);
 		let brushPixelSize = Math.max(1, brushSize);
 		const brushGeometry = new Plane(gl, {
-			width: brushPixelSize,
-			height: brushPixelSize,
+			width: 1,
+			height: 1,
 		});
 
 		const imageTexture = new Texture(gl, {
@@ -324,7 +324,11 @@
 			wave.opacityUniform.value = 1;
 			wave.scaleX = 1.5;
 			wave.scaleY = 1.5;
-			wave.mesh.scale.set(wave.scaleX, wave.scaleY, 1.5);
+			wave.mesh.scale.set(
+				wave.scaleX * brushPixelSize,
+				wave.scaleY * brushPixelSize,
+				1,
+			);
 		};
 
 		const onPointerMove = (event: PointerEvent) => {
@@ -380,7 +384,11 @@
 				wave.opacityUniform.value *= decay;
 				wave.scaleX = 0.982 * wave.scaleX + 0.108;
 				wave.scaleY = 0.982 * wave.scaleY + 0.108;
-				wave.mesh.scale.set(wave.scaleX, wave.scaleY, 1.5);
+				wave.mesh.scale.set(
+					wave.scaleX * brushPixelSize,
+					wave.scaleY * brushPixelSize,
+					1,
+				);
 
 				if (wave.opacityUniform.value < 0.002) {
 					wave.mesh.visible = false;
