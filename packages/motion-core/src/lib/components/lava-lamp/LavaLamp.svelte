@@ -11,6 +11,26 @@
 		 */
 		class?: string;
 		/**
+		 * Scale multiplier for the lava field.
+		 * @default 1
+		 */
+		scale?: SceneProps["scale"];
+		/**
+		 * Horizontal lava offset in normalized viewport units.
+		 * @default 0
+		 */
+		offsetX?: SceneProps["offsetX"];
+		/**
+		 * Vertical lava offset in normalized viewport units.
+		 * @default 0
+		 */
+		offsetY?: SceneProps["offsetY"];
+		/**
+		 * Lava field rotation in degrees.
+		 * @default 0
+		 */
+		rotation?: SceneProps["rotation"];
+		/**
 		 * Base color of the lava blobs.
 		 * @default "#17181A"
 		 */
@@ -45,6 +65,10 @@
 
 	let {
 		class: className = "",
+		scale = 1,
+		offsetX = 0,
+		offsetY = 0,
+		rotation = 0,
 		color = "#17181A",
 		fresnelColor = "#ff6900",
 		speed = 1.0,
@@ -58,6 +82,10 @@
 <div class={cn("relative h-full w-full overflow-hidden", className)} {...rest}>
 	<div class="absolute inset-0 z-0">
 		<Scene
+			{scale}
+			{offsetX}
+			{offsetY}
+			{rotation}
 			{color}
 			{fresnelColor}
 			{speed}

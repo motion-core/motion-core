@@ -68,6 +68,30 @@ import { LavaLamp } from "$lib/motion-core";
 	keys={["prop", "type", "default"]}
 	data={[
 		{
+			prop: "scale",
+			type: "number",
+			default: "1",
+			description: "Scale multiplier for the lava field.",
+		},
+		{
+			prop: "offsetX",
+			type: "number",
+			default: "0",
+			description: "Horizontal lava offset in normalized viewport units.",
+		},
+		{
+			prop: "offsetY",
+			type: "number",
+			default: "0",
+			description: "Vertical lava offset in normalized viewport units.",
+		},
+		{
+			prop: "rotation",
+			type: "number",
+			default: "0",
+			description: "Lava field rotation in degrees.",
+		},
+		{
 			prop: "color",
 			type: "string",
 			default: '"#17181A"',

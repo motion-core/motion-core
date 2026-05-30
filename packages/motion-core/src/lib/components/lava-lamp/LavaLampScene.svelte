@@ -14,6 +14,26 @@
 
 	interface Props {
 		/**
+		 * Scale multiplier for the lava field.
+		 * @default 1
+		 */
+		scale?: number;
+		/**
+		 * Horizontal lava offset in normalized viewport units.
+		 * @default 0
+		 */
+		offsetX?: number;
+		/**
+		 * Vertical lava offset in normalized viewport units.
+		 * @default 0
+		 */
+		offsetY?: number;
+		/**
+		 * Lava field rotation in degrees.
+		 * @default 0
+		 */
+		rotation?: number;
+		/**
 		 * Base color of the lava blobs.
 		 * @default "#17181A"
 		 */
@@ -46,6 +66,10 @@
 	}
 
 	let {
+		scale = 1,
+		offsetX = 0,
+		offsetY = 0,
+		rotation = 0,
 		color = "#17181A",
 		fresnelColor = "#ff6900",
 		speed = 1.0,
@@ -58,6 +82,8 @@
 	let uniforms = $state.raw<{
 		uTime: { value: number };
 		uResolution: { value: Vec4 };
+		uScale: { value: number };
+		uOffset: { value: Vec3 };
 		uColor: { value: Vec3 };
 		uFresnelColor: { value: Vec3 };
 		uFresnelPower: { value: number };
@@ -90,6 +116,8 @@
 		varying vec2 vUv;
 		uniform float uTime;
 		uniform vec4 uResolution;
+		uniform float uScale;
+		uniform vec3 uOffset;
 		uniform vec3 uColor;
 		uniform vec3 uFresnelColor;
 		uniform float uFresnelPower;
@@ -114,6 +142,11 @@
 			return (m * vec4(v, 1.0)).xyz;
 		}
 
+		vec3 transformRayPoint(vec3 p) {
+			vec3 translated = p - vec3(uOffset.x * 2.0, uOffset.y * 2.0, 0.0);
+			return rotate(translated, vec3(0.0, 0.0, 1.0), -uOffset.z) / max(uScale, 0.001);
+		}
+
 		float smin(float a, float b, float k) {
 			k *= 6.0;
 			float h = max(k-abs(a-b), 0.0)/k;
@@ -125,6 +158,7 @@
 		}
 
 		float sdf(vec3 p) {
+			p = transformRayPoint(p);
 			vec3 p1 = rotate(p, vec3(0.0, 0.0, 1.0), uTime/5.0);
 			vec3 p2 = rotate(p, vec3(1.), -uTime/5.0);
 			vec3 p3 = rotate(p, vec3(1., 1., 0.), -uTime/4.5);
@@ -142,7 +176,7 @@
 			nextSphere = sphereSDF(p4 - vec3(0.45, -0.45, 0.0), 0.15 * r);
 			final = smin(final, nextSphere, uSmoothness);
 
-			return final;
+			return final * max(uScale, 0.001);
 		}
 
 		vec3 getNormal(vec3 p) {
@@ -195,6 +229,8 @@
 		if (!uniforms) return;
 		applyColor(uniforms.uColor.value, color, [24 / 255, 24 / 255, 27 / 255]);
 		applyColor(uniforms.uFresnelColor.value, fresnelColor, [1, 105 / 255, 0]);
+		uniforms.uScale.value = scale;
+		uniforms.uOffset.value.set(offsetX, offsetY, (rotation * Math.PI) / 180);
 		uniforms.uFresnelPower.value = fresnelPower;
 		uniforms.uRadius.value = radius;
 		uniforms.uSmoothness.value = smoothness;
@@ -226,6 +262,10 @@
 		const localUniforms = {
 			uTime: { value: 0 },
 			uResolution: { value: new Vec4(1, 1, 1, 1) },
+			uScale: { value: scale },
+			uOffset: {
+				value: new Vec3(offsetX, offsetY, (rotation * Math.PI) / 180),
+			},
 			uColor: {
 				value: new Vec3(initialColor[0], initialColor[1], initialColor[2]),
 			},
