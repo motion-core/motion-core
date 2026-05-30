@@ -10,7 +10,10 @@
 	type Props = Partial<ComponentProps<typeof Globe>>;
 
 	let {
-		radius = 2,
+		scale = 1,
+		offsetX = 0,
+		offsetY = 0,
+		rotation = 0,
 		pointCount = 25000,
 		pointSize = 0.05,
 		landPointColor = "#f77114",
@@ -58,7 +61,10 @@
 	markers={locations}
 	{markerTooltip}
 	{focusOn}
-	{radius}
+	{scale}
+	{offsetX}
+	{offsetY}
+	{rotation}
 	{pointCount}
 	{pointSize}
 	{landPointColor}
@@ -66,7 +72,7 @@
 	{lockedPolarAngle}
 />
 <div
-	class="absolute bottom-4 left-1/2 z-10 flex w-fit -translate-x-1/2 justify-center gap-1 rounded-sm bg-background-inset p-1 inset-shadow"
+	class="inset-shadow absolute bottom-4 left-1/2 z-10 flex w-fit -translate-x-1/2 justify-center gap-1 rounded-sm bg-background-inset p-1"
 >
 	<button
 		class={cn(

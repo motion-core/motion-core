@@ -12,10 +12,25 @@
 		 */
 		class?: string;
 		/**
-		 * Radius of the sphere.
-		 * @default 2
+		 * Scale multiplier for the globe field.
+		 * @default 1
 		 */
-		radius?: SceneProps["radius"];
+		scale?: SceneProps["scale"];
+		/**
+		 * Horizontal globe offset in normalized viewport units.
+		 * @default 0
+		 */
+		offsetX?: SceneProps["offsetX"];
+		/**
+		 * Vertical globe offset in normalized viewport units.
+		 * @default 0
+		 */
+		offsetY?: SceneProps["offsetY"];
+		/**
+		 * Globe field rotation in degrees.
+		 * @default 0
+		 */
+		rotation?: SceneProps["rotation"];
 		/**
 		 * Optional overrides for the Fresnel shader uniforms.
 		 */
@@ -70,7 +85,10 @@
 
 	let {
 		class: className = "",
-		radius = 2,
+		scale = 1,
+		offsetX = 0,
+		offsetY = 0,
+		rotation = 0,
 		fresnelConfig,
 		atmosphereConfig,
 		pointCount,
@@ -88,7 +106,10 @@
 <div class={cn("relative h-full w-full overflow-hidden", className)} {...rest}>
 	<div class="absolute inset-0 z-0">
 		<Scene
-			{radius}
+			{scale}
+			{offsetX}
+			{offsetY}
+			{rotation}
 			{fresnelConfig}
 			{atmosphereConfig}
 			{pointCount}

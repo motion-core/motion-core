@@ -73,10 +73,25 @@
 
 	interface Props {
 		/**
-		 * Radius of the sphere.
-		 * @default 2
+		 * Scale multiplier for the globe field.
+		 * @default 1
 		 */
-		radius: number;
+		scale?: number;
+		/**
+		 * Horizontal globe offset in normalized viewport units.
+		 * @default 0
+		 */
+		offsetX?: number;
+		/**
+		 * Vertical globe offset in normalized viewport units.
+		 * @default 0
+		 */
+		offsetY?: number;
+		/**
+		 * Globe field rotation in degrees.
+		 * @default 0
+		 */
+		rotation?: number;
 		/**
 		 * Optional overrides for the Fresnel shader uniforms.
 		 */
@@ -133,7 +148,10 @@
 	}
 
 	interface UniformUpdaterState {
-		radius: number;
+		scale: number;
+		offsetX: number;
+		offsetY: number;
+		rotation: number;
 		pointCount: number;
 		pointSize: number;
 		landPointColor: ColorRepresentation;
@@ -145,6 +163,7 @@
 	const DEG2RAD = PI / 180;
 	const EPSILON = 1e-6;
 	const COBE_GLOBE_RADIUS = 0.8;
+	const DEFAULT_GLOBE_SCALE = 1;
 	const AUTO_ROTATE_SPEED = (2 * PI) / 30;
 	const ROTATE_SENSITIVITY = 0.005;
 	const SMOOTHING_STRENGTH = 14;
@@ -175,7 +194,10 @@
 	};
 
 	let {
-		radius,
+		scale = 1,
+		offsetX = 0,
+		offsetY = 0,
+		rotation = 0,
 		fresnelConfig = {},
 		atmosphereConfig = {},
 		pointCount = 15000,
@@ -222,7 +244,6 @@
 		return t * t * (3 - 2 * t);
 	};
 
-	const toScale = (nextRadius: number) => Math.max(0.001, nextRadius / 2);
 	const toPointRadius = (nextPointSize: number) =>
 		Math.max(0.001, nextPointSize * 0.16);
 
@@ -320,10 +341,27 @@
 		return cubicBezierAt(t, 0, 0.05, 1, 1);
 	}
 
+	function applyDisplayTransform(x: number, y: number, aspect: number) {
+		const nextScale = Math.max(0.001, scale);
+		const angle = rotation * DEG2RAD;
+		const cos = Math.cos(angle);
+		const sin = Math.sin(angle);
+		const ax = x * aspect * nextScale;
+		const ay = y * nextScale;
+
+		return {
+			x: (ax * cos - ay * sin + offsetX * aspect * 2) / aspect,
+			y: ax * sin + ay * cos - offsetY * 2,
+		};
+	}
+
 	$effect(() => {
 		if (!updateUniforms) return;
 		updateUniforms({
-			radius,
+			scale,
+			offsetX,
+			offsetY,
+			rotation,
 			pointCount,
 			pointSize,
 			landPointColor,
@@ -375,9 +413,13 @@
 		});
 
 		const uniforms = {
+			uTime: { value: 0 },
 			uResolution: { value: new Vec2(1, 1) },
 			uRotation: { value: new Vec2(0, clampTheta(0, lockedPolarAngle)) },
-			uScale: { value: toScale(radius) },
+			uScale: { value: DEFAULT_GLOBE_SCALE },
+			uDisplayScale: { value: scale },
+			uDisplayOffset: { value: new Vec2(offsetX, offsetY) },
+			uDisplayRotation: { value: rotation },
 			uDots: { value: Math.max(1, Math.floor(pointCount)) },
 			uPointRadius: { value: toPointRadius(pointSize) },
 			uBaseColor: { value: new Vec3(0, 0, 0) },
@@ -412,9 +454,13 @@
 
 			varying vec2 vUv;
 
+			uniform float uTime;
 			uniform vec2 uResolution;
 			uniform vec2 uRotation;
 			uniform float uScale;
+			uniform float uDisplayScale;
+			uniform vec2 uDisplayOffset;
+			uniform float uDisplayRotation;
 			uniform float uDots;
 			uniform float uPointRadius;
 			uniform vec3 uBaseColor;
@@ -435,6 +481,22 @@
 			const int kMaxMarkers = ${MAX_SHADER_MARKERS};
 
 			float byDots;
+
+			vec2 rotate2(vec2 p, float angle) {
+				float c = cos(angle);
+				float s = sin(angle);
+				return vec2(p.x * c - p.y * s, p.x * s + p.y * c);
+			}
+
+			vec2 transformUv(vec2 uv) {
+				float aspect = uResolution.x / max(1.0, uResolution.y);
+				vec2 centered = vec2((uv.x - 0.5) * aspect, uv.y - 0.5);
+				vec2 transformed = rotate2(
+					centered - vec2(uDisplayOffset.x * aspect, uDisplayOffset.y),
+					-radians(uDisplayRotation)
+				) / max(uDisplayScale, 0.001);
+				return vec2(transformed.x / aspect + 0.5, transformed.y + 0.5);
+			}
 
 			mat3 rotate(float theta, float phi) {
 				float cx = cos(theta);
@@ -544,7 +606,7 @@
 			void main() {
 				byDots = 1.0 / max(1.0, uDots);
 
-				vec2 uv = vUv * 2.0 - 1.0;
+				vec2 uv = transformUv(vUv) * 2.0 - 1.0;
 				uv.x *= uResolution.x / max(1.0, uResolution.y);
 				uv /= max(0.0001, uScale);
 
@@ -582,7 +644,19 @@
 
 						vec4 marker = uMarkerData[i];
 						float markerDist = length(globePoint - marker.xyz);
-						float markerDot = smoothstep(marker.w, marker.w * 0.62, markerDist);
+						float markerCore = smoothstep(marker.w, marker.w * 0.62, markerDist);
+						float pulse = fract(uTime * 0.85 + float(i) * 0.173);
+						float pulseRadius = marker.w * mix(1.15, 2.8, pulse);
+						float pulseWidth = marker.w * 0.42;
+						float pulseInner = smoothstep(
+							pulseRadius - pulseWidth,
+							pulseRadius,
+							markerDist
+						);
+						float pulseOuter =
+							1.0 - smoothstep(pulseRadius, pulseRadius + pulseWidth, markerDist);
+						float markerPulse = pulseInner * pulseOuter * (1.0 - pulse);
+						float markerDot = max(markerCore, markerPulse * 0.72);
 						markerMask = max(markerMask, markerDot);
 						markerWeightSum += markerDot;
 						markerColor += uMarkerColor[i] * markerDot;
@@ -615,6 +689,9 @@
 
 			uniform vec2 uResolution;
 			uniform float uScale;
+			uniform float uDisplayScale;
+			uniform vec2 uDisplayOffset;
+			uniform float uDisplayRotation;
 			uniform vec3 uAtmosphereColor;
 			uniform float uAtmosphereScale;
 			uniform float uAtmospherePower;
@@ -622,6 +699,22 @@
 			uniform float uAtmosphereIntensity;
 
 			const float kSphereRadius = 0.8;
+
+			vec2 rotate2(vec2 p, float angle) {
+				float c = cos(angle);
+				float s = sin(angle);
+				return vec2(p.x * c - p.y * s, p.x * s + p.y * c);
+			}
+
+			vec2 transformUv(vec2 uv) {
+				float aspect = uResolution.x / max(1.0, uResolution.y);
+				vec2 centered = vec2((uv.x - 0.5) * aspect, uv.y - 0.5);
+				vec2 transformed = rotate2(
+					centered - vec2(uDisplayOffset.x * aspect, uDisplayOffset.y),
+					-radians(uDisplayRotation)
+				) / max(uDisplayScale, 0.001);
+				return vec2(transformed.x / aspect + 0.5, transformed.y + 0.5);
+			}
 
 			vec3 linearToSrgb(vec3 color) {
 				vec3 safe = max(color, vec3(0.0));
@@ -632,7 +725,7 @@
 			}
 
 			void main() {
-				vec2 uv = vUv * 2.0 - 1.0;
+				vec2 uv = transformUv(vUv) * 2.0 - 1.0;
 				uv.x *= uResolution.x / max(1.0, uResolution.y);
 				uv /= max(0.0001, uScale);
 
@@ -696,7 +789,7 @@
 		});
 		atmosphereMesh.setParent(atmosphereScene);
 
-		let currentScale = toScale(radius);
+		let currentScale = DEFAULT_GLOBE_SCALE;
 		const tempColor = new Vec3();
 		const setColor = (
 			target: Vec3,
@@ -708,8 +801,11 @@
 		};
 
 		updateUniforms = (state) => {
-			currentScale = toScale(state.radius);
+			currentScale = DEFAULT_GLOBE_SCALE;
 			uniforms.uScale.value = currentScale;
+			uniforms.uDisplayScale.value = Math.max(0.001, state.scale);
+			uniforms.uDisplayOffset.value.set(state.offsetX, state.offsetY);
+			uniforms.uDisplayRotation.value = state.rotation;
 			uniforms.uDots.value = Math.max(1, Math.floor(state.pointCount));
 			uniforms.uPointRadius.value = toPointRadius(state.pointSize);
 
@@ -760,7 +856,10 @@
 		};
 
 		updateUniforms({
-			radius,
+			scale,
+			offsetX,
+			offsetY,
+			rotation,
 			pointCount,
 			pointSize,
 			landPointColor,
@@ -807,8 +906,9 @@
 
 				const ndcX = (rotated.rx / aspect) * currentScaleValue;
 				const ndcY = -rotated.ry * currentScaleValue;
-				const screenX = (ndcX + 1) * 0.5;
-				const screenY = (ndcY + 1) * 0.5;
+				const transformed = applyDisplayTransform(ndcX, ndcY, aspect);
+				const screenX = (transformed.x + 1) * 0.5;
+				const screenY = (transformed.y + 1) * 0.5;
 
 				const frontDot = rotated.rz / markerRadius;
 				const rawVisibility = smoothstep(
@@ -962,6 +1062,7 @@
 			}
 			const delta = previous ? (now - previous) / 1000 : 0;
 			previous = now;
+			uniforms.uTime.value += delta;
 
 			if (autoRotate) {
 				targetPhi -= AUTO_ROTATE_SPEED * delta;

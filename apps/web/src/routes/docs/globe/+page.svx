@@ -68,10 +68,28 @@ import { Globe } from "$lib/motion-core";
 	keys={["prop", "type", "default"]}
 	data={[
 		{
-			prop: "radius",
+			prop: "scale",
 			type: "number",
-			default: "2",
-			description: "Radius of the rendered sphere.",
+			default: "1",
+			description: "Scale multiplier for the globe field.",
+		},
+		{
+			prop: "offsetX",
+			type: "number",
+			default: "0",
+			description: "Horizontal globe offset in normalized viewport units.",
+		},
+		{
+			prop: "offsetY",
+			type: "number",
+			default: "0",
+			description: "Vertical globe offset in normalized viewport units.",
+		},
+		{
+			prop: "rotation",
+			type: "number",
+			default: "0",
+			description: "Globe field rotation in degrees.",
 		},
 		{
 			prop: "fresnelConfig",
