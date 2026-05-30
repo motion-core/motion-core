@@ -133,7 +133,6 @@
 			root: "rounded-none",
 			underlay: "rounded-none",
 			panel: "rounded-none",
-			foreground: "overflow-y-auto",
 		}}
 	>
 		{#snippet brand()}

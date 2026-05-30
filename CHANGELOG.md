@@ -6,6 +6,13 @@ and the project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.14.1] - 2026-05-30
+
+### Changed
+
+- **Navigation / Underlay Navigation**: Foreground content now allows vertical scrolling while the menu is closed and locks scrolling while the menu is open.
+- **Navigation / Underlay Navigation**: Foreground border radius now animates from `0` to the configurable `foregroundRadius` value when opening the menu.
+
 ## [0.14.0] - 2026-05-30
 
 ### Added

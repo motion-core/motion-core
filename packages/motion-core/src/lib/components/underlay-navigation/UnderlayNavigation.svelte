@@ -102,6 +102,11 @@
 		 */
 		panelWidth?: string;
 		/**
+		 * Target border radius for the foreground content while the menu is open.
+		 * @default "1rem"
+		 */
+		foregroundRadius?: string;
+		/**
 		 * Controlled open state. Supports bind:open.
 		 * @default false
 		 */
@@ -126,6 +131,7 @@
 		closeLabel = "Close",
 		ariaLabel = "Primary navigation",
 		panelWidth = "clamp(18rem, 32vw, 24rem)",
+		foregroundRadius = "1rem",
 		open = $bindable(false),
 		class: className = "",
 		classes,
@@ -216,6 +222,7 @@
 				x: 0,
 				scaleX: 1,
 				scaleY: 1,
+				borderRadius: 0,
 				transformOrigin: "50% 50%",
 				force3D: true,
 			});
@@ -244,6 +251,7 @@
 							const height = rootRef.getBoundingClientRect().height;
 							return height > 0 ? (height - 32) / height : 1;
 						},
+						borderRadius: () => foregroundRadius,
 					},
 					0,
 				)
@@ -304,7 +312,7 @@
 	data-slot="root"
 	data-open={open}
 	class={cn(
-		"relative isolate h-full min-h-96 w-full overflow-hidden rounded-lg bg-background text-foreground",
+		"relative isolate h-full min-h-96 w-full overflow-hidden bg-background text-foreground",
 		className,
 		classes?.root,
 	)}
@@ -459,7 +467,7 @@
 		data-slot="foreground"
 		data-open={open}
 		class={cn(
-			"bg-fixed-dark absolute inset-0 z-20 flex flex-col overflow-hidden rounded-lg text-fixed-light shadow-sm will-change-transform",
+			"bg-fixed-dark absolute inset-0 z-20 flex flex-col overflow-hidden text-fixed-light shadow-sm will-change-transform",
 			classes?.foreground,
 		)}
 	>
@@ -477,7 +485,11 @@
 
 		<div
 			data-slot="content"
-			class={cn("relative z-10 min-h-0 flex-1", classes?.content)}
+			class={cn(
+				"relative z-10 min-h-0 flex-1",
+				open ? "overflow-hidden" : "overflow-y-auto",
+				classes?.content,
+			)}
 		>
 			{@render children?.()}
 		</div>

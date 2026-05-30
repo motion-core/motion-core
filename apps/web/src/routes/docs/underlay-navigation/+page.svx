@@ -110,6 +110,13 @@ import { UnderlayNavigation } from "$lib/motion-core";
 			description: "Width of the underlay panel as any valid CSS length.",
 		},
 		{
+			prop: "foregroundRadius",
+			type: "string",
+			default: '"1rem"',
+			description:
+				"Target border radius for the foreground content while the menu is open.",
+		},
+		{
 			prop: "open",
 			type: "boolean",
 			default: "false",
