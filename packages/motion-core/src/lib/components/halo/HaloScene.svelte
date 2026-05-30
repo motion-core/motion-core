@@ -14,6 +14,26 @@
 
 	interface Props {
 		/**
+		 * Scale multiplier for the halo field.
+		 * @default 1
+		 */
+		scale?: number;
+		/**
+		 * Horizontal halo offset in normalized viewport units.
+		 * @default 0
+		 */
+		offsetX?: number;
+		/**
+		 * Vertical halo offset in normalized viewport units.
+		 * @default 0
+		 */
+		offsetY?: number;
+		/**
+		 * Halo rotation in degrees.
+		 * @default 0
+		 */
+		rotation?: number;
+		/**
 		 * Camera rotation speed multiplier.
 		 * @default 0.5
 		 */
@@ -28,11 +48,6 @@
 		 * @default 3.0
 		 */
 		cameraDistance?: number;
-		/**
-		 * Field of View (FOV) of the camera in degrees.
-		 * @default 55.0
-		 */
-		fov?: number;
 		/**
 		 * Sun light direction vector (X).
 		 * @default 0.0
@@ -56,10 +71,13 @@
 	}
 
 	let {
+		scale = 1,
+		offsetX = 0,
+		offsetY = 0,
+		rotation = 0,
 		rotationSpeed = 0.5,
 		backgroundColor = "#17181A",
 		cameraDistance = 3.0,
-		fov = 55.0,
 		sunX = 0.0,
 		sunY = 0.0,
 		sunZ = 1.0,
@@ -70,10 +88,12 @@
 	let uniforms = $state.raw<{
 		uTime: { value: number };
 		uResolution: { value: Vec2 };
+		uScale: { value: number };
+		uOffset: { value: Vec2 };
+		uRotation: { value: number };
 		uBackgroundColor: { value: Vec3 };
 		uRotationSpeed: { value: number };
 		uCameraDistance: { value: number };
-		uFov: { value: number };
 		uSunDir: { value: Vec3 };
 		uIntensity: { value: number };
 	}>();
@@ -112,10 +132,12 @@
 
 		uniform float uTime;
 		uniform vec2 uResolution;
+		uniform float uScale;
+		uniform vec2 uOffset;
+		uniform float uRotation;
 		uniform vec3 uBackgroundColor;
 		uniform float uRotationSpeed;
 		uniform float uCameraDistance;
-		uniform float uFov;
 		uniform vec3 uSunDir;
 		uniform float uIntensity;
 
@@ -123,8 +145,25 @@
 		const float MAX = 10000.0;
 		const float R_INNER = 1.0;
 		const float R = 1.5;
+		const float FOV = 55.0;
 		const int NUM_OUT_SCATTER = 8;
 		const int NUM_IN_SCATTER = 40;
+
+		vec2 rotate2(vec2 p, float angle) {
+			float c = cos(angle);
+			float s = sin(angle);
+			return vec2(p.x * c - p.y * s, p.x * s + p.y * c);
+		}
+
+		vec2 transformUv(vec2 uv) {
+			float aspect = uResolution.x / max(uResolution.y, 1.0);
+			vec2 centered = vec2((uv.x - 0.5) * aspect, uv.y - 0.5);
+			vec2 transformed = rotate2(
+				centered - vec2(uOffset.x * aspect, uOffset.y),
+				-radians(uRotation)
+			) / max(uScale, 0.001);
+			return vec2(transformed.x / aspect + 0.5, transformed.y + 0.5);
+		}
 
 		vec2 ray_vs_sphere(vec3 p, vec3 dir, float r) {
 			float b = dot(p, dir);
@@ -251,7 +290,7 @@
 		}
 
 		void mainImage(out vec4 fragColor, in vec2 uv) {
-			vec3 dir = ray_dir(uFov, uResolution.xy, uv);
+			vec3 dir = ray_dir(FOV, uResolution.xy, transformUv(uv));
 			vec3 eye = vec3(0.0, 0.0, uCameraDistance);
 			mat3 rot = rot3xy(vec2(0.0, uTime * uRotationSpeed));
 			dir = rot * dir;
@@ -286,9 +325,11 @@
 			backgroundColor,
 			[0, 0, 0],
 		);
+		uniforms.uScale.value = scale;
+		uniforms.uOffset.value.set(offsetX, offsetY);
+		uniforms.uRotation.value = rotation;
 		uniforms.uRotationSpeed.value = rotationSpeed;
 		uniforms.uCameraDistance.value = cameraDistance;
-		uniforms.uFov.value = fov;
 		setSunDirection(uniforms.uSunDir.value, sunX, sunY, sunZ);
 		uniforms.uIntensity.value = intensity;
 	});
@@ -325,6 +366,9 @@
 		const localUniforms = {
 			uTime: { value: 0.0 },
 			uResolution: { value: new Vec2(1, 1) },
+			uScale: { value: scale },
+			uOffset: { value: new Vec2(offsetX, offsetY) },
+			uRotation: { value: rotation },
 			uBackgroundColor: {
 				value: new Vec3(
 					initialBackground[0],
@@ -334,7 +378,6 @@
 			},
 			uRotationSpeed: { value: rotationSpeed },
 			uCameraDistance: { value: cameraDistance },
-			uFov: { value: fov },
 			uSunDir: { value: initialSun },
 			uIntensity: { value: intensity },
 		};

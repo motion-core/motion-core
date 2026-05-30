@@ -11,6 +11,26 @@
 		 */
 		class?: string;
 		/**
+		 * Scale multiplier for the halo field.
+		 * @default 1
+		 */
+		scale?: SceneProps["scale"];
+		/**
+		 * Horizontal halo offset in normalized viewport units.
+		 * @default 0
+		 */
+		offsetX?: SceneProps["offsetX"];
+		/**
+		 * Vertical halo offset in normalized viewport units.
+		 * @default 0
+		 */
+		offsetY?: SceneProps["offsetY"];
+		/**
+		 * Halo rotation in degrees.
+		 * @default 0
+		 */
+		rotation?: SceneProps["rotation"];
+		/**
 		 * Camera rotation speed multiplier.
 		 * @default 0.5
 		 */
@@ -25,11 +45,6 @@
 		 * @default 3.0
 		 */
 		cameraDistance?: SceneProps["cameraDistance"];
-		/**
-		 * Field of View (FOV) of the camera in degrees.
-		 * @default 55.0
-		 */
-		fov?: SceneProps["fov"];
 		/**
 		 * Sun light direction vector (X).
 		 * @default 0.0
@@ -55,10 +70,13 @@
 
 	let {
 		class: className = "",
+		scale = 1,
+		offsetX = 0,
+		offsetY = 0,
+		rotation = 0,
 		rotationSpeed = 0.5,
 		backgroundColor = "#17181A",
 		cameraDistance = 3.0,
-		fov = 55.0,
 		sunX = 0.0,
 		sunY = 0.0,
 		sunZ = 1.0,
@@ -70,10 +88,13 @@
 <div class={cn("relative h-full w-full overflow-hidden", className)} {...rest}>
 	<div class="absolute inset-0 z-0">
 		<Scene
+			{scale}
+			{offsetX}
+			{offsetY}
+			{rotation}
 			{rotationSpeed}
 			{backgroundColor}
 			{cameraDistance}
-			{fov}
 			{sunX}
 			{sunY}
 			{sunZ}
