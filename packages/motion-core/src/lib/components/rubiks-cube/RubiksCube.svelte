@@ -11,10 +11,25 @@
 		 */
 		class?: string;
 		/**
-		 * The size of the individual cubelets.
+		 * Scale multiplier for the cube.
 		 * @default 1
 		 */
-		size?: SceneProps["size"];
+		scale?: SceneProps["scale"];
+		/**
+		 * Horizontal cube offset in normalized viewport units.
+		 * @default 0
+		 */
+		offsetX?: SceneProps["offsetX"];
+		/**
+		 * Vertical cube offset in normalized viewport units.
+		 * @default 0
+		 */
+		offsetY?: SceneProps["offsetY"];
+		/**
+		 * Cube rotation in degrees.
+		 * @default 0
+		 */
+		rotation?: SceneProps["rotation"];
 		/**
 		 * Duration of the rotation animation in seconds.
 		 * @default 1.5
@@ -40,7 +55,10 @@
 
 	let {
 		class: className = "",
-		size = 1,
+		scale = 1,
+		offsetX = 0,
+		offsetY = 0,
+		rotation = 0,
 		duration = 1.5,
 		gap = 0.015,
 		radius = 0.125,
@@ -51,6 +69,15 @@
 
 <div class={cn("relative h-full w-full overflow-hidden", className)} {...rest}>
 	<div class="absolute inset-0 z-0">
-		<Scene {size} {duration} {gap} {radius} {fresnelConfig} />
+		<Scene
+			{scale}
+			{offsetX}
+			{offsetY}
+			{rotation}
+			{duration}
+			{gap}
+			{radius}
+			{fresnelConfig}
+		/>
 	</div>
 </div>

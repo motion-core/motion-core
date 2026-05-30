@@ -60,10 +60,28 @@ import { RubiksCube } from "$lib/motion-core";
 	keys={["prop", "type", "default"]}
 	data={[
 		{
-			prop: "size",
+			prop: "scale",
 			type: "number",
 			default: "1",
-			description: "The size of the individual cubelets.",
+			description: "Scale multiplier for the cube.",
+		},
+		{
+			prop: "offsetX",
+			type: "number",
+			default: "0",
+			description: "Horizontal cube offset in normalized viewport units.",
+		},
+		{
+			prop: "offsetY",
+			type: "number",
+			default: "0",
+			description: "Vertical cube offset in normalized viewport units.",
+		},
+		{
+			prop: "rotation",
+			type: "number",
+			default: "0",
+			description: "Cube rotation in degrees.",
 		},
 		{
 			prop: "duration",

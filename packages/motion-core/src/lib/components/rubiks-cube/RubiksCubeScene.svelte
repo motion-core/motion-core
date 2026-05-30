@@ -41,10 +41,25 @@
 
 	interface Props {
 		/**
-		 * Size of an individual cubelet edge.
+		 * Scale multiplier for the cube.
 		 * @default 1
 		 */
-		size: number;
+		scale?: number;
+		/**
+		 * Horizontal cube offset in normalized viewport units.
+		 * @default 0
+		 */
+		offsetX?: number;
+		/**
+		 * Vertical cube offset in normalized viewport units.
+		 * @default 0
+		 */
+		offsetY?: number;
+		/**
+		 * Cube rotation in degrees.
+		 * @default 0
+		 */
+		rotation?: number;
 		/**
 		 * Seconds it takes to complete a face rotation.
 		 * @default 1.5
@@ -66,7 +81,16 @@
 		fresnelConfig?: FresnelConfig;
 	}
 
-	let { size, duration, gap, radius, fresnelConfig = {} }: Props = $props();
+	let {
+		scale = 1,
+		offsetX = 0,
+		offsetY = 0,
+		rotation = 0,
+		duration,
+		gap,
+		radius,
+		fresnelConfig = {},
+	}: Props = $props();
 
 	type Move = {
 		axis: "x" | "y" | "z";
@@ -103,6 +127,9 @@
 		rimPower: 6,
 		rimIntensity: 1.5,
 	};
+	const CUBELET_SIZE = 1;
+	const CAMERA_FOV = 32;
+	const CAMERA_DISTANCE = 18.2;
 
 	const createRoundedBoxGeometry = (
 		gl: Renderer["gl"],
@@ -175,18 +202,31 @@
 	};
 
 	let canvas = $state<HTMLCanvasElement>();
-	let setDimensions =
-		$state<(next: { size: number; gap: number; radius: number }) => void>();
+	let setDimensions = $state<(next: { gap: number; radius: number }) => void>();
 	let setFresnelUniforms = $state<(config: FresnelConfig) => void>();
+	let setSceneTransform = $state<
+		| ((next: {
+				scale: number;
+				offsetX: number;
+				offsetY: number;
+				rotation: number;
+		  }) => void)
+		| undefined
+	>();
 
 	$effect(() => {
 		if (!setDimensions) return;
-		setDimensions({ size, gap, radius });
+		setDimensions({ gap, radius });
 	});
 
 	$effect(() => {
 		if (!setFresnelUniforms) return;
 		setFresnelUniforms(fresnelConfig ?? {});
+	});
+
+	$effect(() => {
+		if (!setSceneTransform) return;
+		setSceneTransform({ scale, offsetX, offsetY, rotation });
 	});
 
 	onMount(() => {
@@ -206,16 +246,18 @@
 		targetCanvas.style.height = "100%";
 
 		const camera = new Camera(gl, {
-			fov: 55,
+			fov: CAMERA_FOV,
 			aspect: 1,
 			near: 0.1,
 			far: 100,
 		});
-		camera.position.set(0, 0, 10);
+		camera.position.set(0, 0, CAMERA_DISTANCE);
 
 		const scene = new Transform();
+		const transformGroup = new Transform();
+		transformGroup.setParent(scene);
 		const mainGroup = new Transform();
-		mainGroup.setParent(scene);
+		mainGroup.setParent(transformGroup);
 		const layerGroup = new Transform();
 		layerGroup.setParent(mainGroup);
 
@@ -227,7 +269,7 @@
 			inertia: 0.85,
 		});
 
-		let cubeSize = size;
+		let cubeSize = CUBELET_SIZE;
 		let cubeGap = gap;
 		let cubeRadius = radius;
 
@@ -449,19 +491,12 @@
 		};
 		setFresnelUniforms = applyFresnelConfig;
 
-		const applyDimensions = (next: {
-			size: number;
-			gap: number;
-			radius: number;
-		}) => {
-			const nextSize = Math.max(0.0001, next.size);
+		const applyDimensions = (next: { gap: number; radius: number }) => {
 			const nextGap = Math.max(0, next.gap);
 			const nextRadius = Math.max(0, next.radius);
 
-			const shouldRebuild =
-				nextSize !== cubeSize || Math.abs(nextRadius - cubeRadius) > 1e-6;
+			const shouldRebuild = Math.abs(nextRadius - cubeRadius) > 1e-6;
 
-			cubeSize = nextSize;
 			cubeGap = nextGap;
 			cubeRadius = nextRadius;
 
@@ -480,6 +515,32 @@
 		};
 		setDimensions = applyDimensions;
 
+		let width = 1;
+		let height = 1;
+
+		const applySceneTransform = (next: {
+			scale: number;
+			offsetX: number;
+			offsetY: number;
+			rotation: number;
+		}) => {
+			const nextScale = Math.max(0.001, next.scale);
+			const aspect = width / Math.max(1, height);
+			const visibleHeight =
+				2 * CAMERA_DISTANCE * Math.tan((CAMERA_FOV * Math.PI) / 360);
+			const visibleWidth = visibleHeight * aspect;
+
+			transformGroup.scale.set(nextScale, nextScale, nextScale);
+			transformGroup.position.set(
+				next.offsetX * visibleWidth,
+				next.offsetY * visibleHeight,
+				0,
+			);
+			transformGroup.rotation.z = (next.rotation * Math.PI) / 180;
+		};
+		setSceneTransform = applySceneTransform;
+		applySceneTransform({ scale, offsetX, offsetY, rotation });
+
 		let raf = 0;
 		let previous = 0;
 		const tick = (now: number) => {
@@ -493,12 +554,15 @@
 				renderer.width = w;
 				renderer.height = h;
 				renderer.state.viewport = { x: 0, y: 0, width: null, height: null };
+				width = w;
+				height = h;
 				camera.perspective({
-					fov: 55,
+					fov: CAMERA_FOV,
 					aspect: w / Math.max(1, h),
 					near: 0.1,
 					far: 100,
 				});
+				applySceneTransform({ scale, offsetX, offsetY, rotation });
 			}
 			const delta = previous ? (now - previous) / 1000 : 0;
 			previous = now;
@@ -547,6 +611,7 @@
 			orbit.remove();
 			setDimensions = undefined;
 			setFresnelUniforms = undefined;
+			setSceneTransform = undefined;
 
 			material.remove();
 			geometry.remove();
