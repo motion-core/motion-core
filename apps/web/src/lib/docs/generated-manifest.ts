@@ -347,6 +347,7 @@ export const docsManifest: ComponentInfo[] = [
 		slug: "underlay-navigation",
 		name: "Underlay Navigation",
 		category: "navigation",
+		introducedAt: "2026-05-30",
 		dependencies: {
 			gsap: "^3.14.2",
 		},

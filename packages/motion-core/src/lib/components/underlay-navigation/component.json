@@ -1,4 +1,5 @@
 {
+	"introducedAt": "2026-05-30",
 	"name": "Underlay Navigation",
 	"slug": "underlay-navigation",
 	"description": "A fixed underlay navigation panel revealed by sliding the foreground content aside.",

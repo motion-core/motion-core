@@ -1,7 +1,7 @@
 {
 	"name": "Motion Core Registry",
 	"description": "Curated Motion Core Svelte components",
-	"version": "0.14.0",
+	"version": "0.14.1",
 	"requirements": {
 		"svelte": "^5.0.0",
 		"tailwindcss": "^4.1.0"
@@ -1112,6 +1112,7 @@
 			"name": "Underlay Navigation",
 			"description": "A fixed underlay navigation panel revealed by sliding the foreground content aside.",
 			"category": "navigation",
+			"introducedAt": "2026-05-30",
 			"dependencies": {
 				"gsap": "^3.14.2"
 			},
