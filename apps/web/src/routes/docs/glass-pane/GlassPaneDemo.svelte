@@ -6,20 +6,30 @@
 	type Props = Partial<ComponentProps<typeof GlassPane>>;
 
 	let {
-		distortion = 0.5,
-		chromaticAberration = 0.005,
-		waviness = 0,
-		speed = 0.5,
-		rods = 3,
+		scale = 1,
+		rotation = 0,
+		offsetX = 0,
+		offsetY = 0,
+		refraction = 1,
+		chromaticAberration = 1,
+		panelWidth = 0.82,
+		waveFrequency = 0.0,
+		waveAmplitude = 0.0,
+		speed = 0.65,
 	}: Props = $props();
 </script>
 
 <GlassPane
 	image={demoImage}
 	class="h-full min-h-96 w-full"
-	{distortion}
+	{scale}
+	{rotation}
+	{offsetX}
+	{offsetY}
+	{refraction}
 	{chromaticAberration}
-	{waviness}
+	{panelWidth}
+	{waveFrequency}
+	{waveAmplitude}
 	{speed}
-	{rods}
 />

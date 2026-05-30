@@ -340,7 +340,7 @@
 		"glass-pane": {
 			"slug": "glass-pane",
 			"name": "Glass Pane",
-			"description": "A refractive view simulating moving glass rods that distort the underlying texture with chromatic aberration.",
+			"description": "An image-backed refractive view with animated diagonal glass panels, chromatic aberration, and specular highlights.",
 			"category": "canvas",
 			"dependencies": {
 				"ogl": "^1.0.11"

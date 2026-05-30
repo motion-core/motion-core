@@ -6,6 +6,14 @@ and the project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.15.0] - 2026-05-30
+
+### Changed
+
+- **Canvas / Glass Pane**: Rebuilt the glass effect around image-backed refractive vertical panels with chromatic aberration and specular highlights.
+- **Canvas / Glass Pane**: Replaced the previous `distortion`, `waviness`, `frequency`, and `rods` controls with panel-focused controls: `scale`, `rotation`, `offsetX`, `offsetY`, `refraction`, `chromaticAberration`, `panelWidth`, `waveFrequency`, `waveAmplitude`, and `speed`.
+- **Canvas / Glass Pane**: `rotation` is now expressed in degrees, matching Glass Logo, with `0deg` rendering panels vertically by default.
+
 ## [0.14.1] - 2026-05-30
 
 ### Changed

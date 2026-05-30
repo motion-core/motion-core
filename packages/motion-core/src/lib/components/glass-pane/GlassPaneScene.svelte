@@ -17,45 +17,69 @@
 		 */
 		image: string;
 		/**
-		 * Strength of the refraction/distortion effect.
-		 * @default 1.0
+		 * Scale multiplier for the glass field.
+		 * @default 1
 		 */
-		distortion?: number;
+		scale?: number;
+		/**
+		 * Glass field rotation in degrees.
+		 * @default 0
+		 */
+		rotation?: number;
+		/**
+		 * Horizontal glass field offset.
+		 * @default 0
+		 */
+		offsetX?: number;
+		/**
+		 * Vertical glass field offset.
+		 * @default 0
+		 */
+		offsetY?: number;
+		/**
+		 * Strength of the glass refraction.
+		 * @default 1
+		 */
+		refraction?: number;
 		/**
 		 * Amount of chromatic aberration (color splitting).
-		 * @default 0.005
+		 * @default 1
 		 */
 		chromaticAberration?: number;
 		/**
-		 * Speed of the wave animation.
-		 * @default 1.0
+		 * Width of the diagonal glass panels.
+		 * @default 0.82
+		 */
+		panelWidth?: number;
+		/**
+		 * Frequency of the panel wave.
+		 * @default 0.0
+		 */
+		waveFrequency?: number;
+		/**
+		 * Amplitude of the panel wave.
+		 * @default 0.0
+		 */
+		waveAmplitude?: number;
+		/**
+		 * Animation speed multiplier.
+		 * @default 0.65
 		 */
 		speed?: number;
-		/**
-		 * Amplitude of the wave distortion.
-		 * @default 0.05
-		 */
-		waviness?: number;
-		/**
-		 * Frequency of the wave distortion.
-		 * @default 6.0
-		 */
-		frequency?: number;
-		/**
-		 * Density of the glass rods.
-		 * @default 5.0
-		 */
-		rods?: number;
 	}
 
 	let {
 		image,
-		distortion = 1.0,
-		chromaticAberration = 0.005,
-		speed = 1.0,
-		waviness = 0.05,
-		frequency = 6.0,
-		rods = 5.0,
+		scale = 1,
+		rotation = 0,
+		offsetX = 0,
+		offsetY = 0,
+		refraction = 1,
+		chromaticAberration = 1,
+		panelWidth = 0.82,
+		waveFrequency = 0.0,
+		waveAmplitude = 0.0,
+		speed = 0.65,
 	}: Props = $props();
 
 	type UniformState = {
@@ -63,11 +87,14 @@
 		uResolution: { value: Vec2 };
 		uTextureSize: { value: Vec2 };
 		uTexture: { value: Texture };
-		uDistortion: { value: number };
+		uScale: { value: number };
+		uRotation: { value: number };
+		uOffset: { value: Vec2 };
+		uRefraction: { value: number };
 		uChromaticAberration: { value: number };
-		uWaviness: { value: number };
-		uFrequency: { value: number };
-		uRods: { value: number };
+		uPanelWidth: { value: number };
+		uWaveFrequency: { value: number };
+		uWaveAmplitude: { value: number };
 	};
 
 	let canvas = $state<HTMLCanvasElement>();
@@ -92,16 +119,22 @@
 		uniform vec2 uResolution;
 		uniform vec2 uTextureSize;
 		uniform sampler2D uTexture;
-		uniform float uDistortion;
+		uniform float uScale;
+		uniform float uRotation;
+		uniform vec2 uOffset;
+		uniform float uRefraction;
 		uniform float uChromaticAberration;
-		uniform float uWaviness;
-		uniform float uFrequency;
-		uniform float uRods;
+		uniform float uPanelWidth;
+		uniform float uWaveFrequency;
+		uniform float uWaveAmplitude;
 		varying vec2 vUv;
 
-		vec2 mirrored(vec2 value) {
-			vec2 m = mod(value, 2.0);
-			return mix(m, 2.0 - m, step(1.0, m));
+		const float PI = 3.141592653589793;
+
+		vec2 rotate2(vec2 p, float angle) {
+			float c = cos(angle);
+			float s = sin(angle);
+			return vec2(p.x * c - p.y * s, p.x * s + p.y * c);
 		}
 
 		vec2 getCoverUV(vec2 uv, vec2 textureSize) {
@@ -113,61 +146,83 @@
 			return (uv * uResolution - offset) / scaledSize;
 		}
 
+		vec2 transformUv(vec2 uv, float aspect, float scale, float rotation, vec2 offset) {
+			vec2 centered = vec2((uv.x - 0.5) * aspect, uv.y - 0.5);
+			vec2 transformed = rotate2(
+				centered / max(scale, 0.001) + vec2(-offset.x * aspect, offset.y),
+				-rotation
+			);
+			return vec2(transformed.x / aspect + 0.5, transformed.y + 0.5);
+		}
+
+		vec4 panelOptics(vec2 uv, float panelWidth, float waveFrequency, float waveAmplitude) {
+			float aspect = uResolution.x / max(uResolution.y, 1.0);
+			float angle = 0.0;
+			float cosA = cos(angle);
+			float sinA = sin(angle);
+			vec2 centered = uv - vec2(0.5);
+			vec2 asp = vec2(centered.x * aspect, centered.y);
+			float u = asp.x * cosA + asp.y * sinA;
+			float v = -asp.x * sinA + asp.y * cosA;
+			float frequency = 9.02 / max(panelWidth, 0.001);
+			float cell = fract((u + sin(v * waveFrequency * PI * 2.0) * waveAmplitude) * frequency) - 0.5;
+			float cellPos = cell * 2.0;
+			float slope = sign(cellPos) * pow(max(abs(cellPos), 0.0001), 3.0);
+			float refrU = -(slope * 3.37) * (0.5 / frequency);
+			return vec4(cellPos, slope, refrU, frequency);
+		}
+
+		vec3 imageField(vec2 uv) {
+			return texture2D(uTexture, getCoverUV(uv, uTextureSize)).rgb;
+		}
+
+		vec3 refractedImage(vec2 uv, vec2 chroma) {
+			float r = imageField(uv + chroma).r;
+			float g = imageField(uv).g;
+			float b = imageField(uv - chroma).b;
+			return vec3(r, g, b);
+		}
+
 		void main() {
-			vec2 p = (vUv * 2.0 - 1.0);
-			p.x *= uResolution.x / uResolution.y;
-
-			float angle = radians(45.0);
-			mat2 rot = mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
-			vec2 p_rot = rot * p;
-
-			float wave = uWaviness * sin(p_rot.y * uFrequency);
-			float rod_x = fract((p_rot.x + wave) * uRods) * 2.0 - 1.0;
-
-			float rod_z_sq = 1.0 - rod_x * rod_x;
-			float rod_z = sqrt(max(rod_z_sq, 0.0));
-
-			vec3 n = vec3(rod_x, 0.0, -rod_z);
-			vec3 rd = vec3(0.0, 0.0, -1.0);
-			float refractive_index = 0.6;
-			vec3 refracted_ray = mix(n, rd, refractive_index);
-
-			float z_dist = 0.5 / (abs(refracted_ray.z) + 0.001);
-			vec3 hit_pos = vec3(p_rot, 0.0) + (z_dist * uDistortion) * refracted_ray;
-
-			mat2 rot_inv = mat2(cos(-angle), -sin(-angle), sin(-angle), cos(-angle));
-			vec2 uv_hit = rot_inv * hit_pos.xy;
-
-			uv_hit.x /= (uResolution.x / uResolution.y);
-			uv_hit = uv_hit * 0.5 + 0.5;
-
-			vec2 coverUv = getCoverUV(uv_hit, uTextureSize);
-
-			float t = uTime * 0.1;
-			vec2 flow = vec2(sin(t), cos(t * 0.8)) * 0.05;
-			float dispersion = uChromaticAberration;
-
-			vec2 coverUvFlow = mirrored(coverUv + flow);
-			float r = texture2D(uTexture, mirrored(coverUvFlow + vec2(dispersion, 0.0))).r;
-			float g = texture2D(uTexture, coverUvFlow).g;
-			float b = texture2D(uTexture, mirrored(coverUvFlow - vec2(dispersion, 0.0))).b;
-
-			float g_factor = 1.0 - abs(n.z);
-			g_factor = smoothstep(0.0, 1.0, g_factor);
-			float glass = g_factor * 0.0025;
-
-			vec3 finalColor = vec3(r, g, b) + glass;
+			float aspect = uResolution.x / max(uResolution.y, 1.0);
+			float angle = 0.0;
+			float cosA = cos(angle);
+			float sinA = sin(angle);
+			vec2 effectUv = transformUv(vUv, aspect, uScale, radians(uRotation), uOffset);
+			float animatedWave = uWaveAmplitude * (0.75 + 0.25 * sin(uTime * 0.22));
+			vec4 optics = panelOptics(effectUv, uPanelWidth, uWaveFrequency, animatedWave);
+			float slope = optics.y;
+			float refrU = optics.z * uRefraction;
+			vec2 refractedUv = vec2(
+				vUv.x + (refrU * cosA) / aspect,
+				vUv.y + refrU * sinA
+			);
+			float chromaU = refrU * 0.15 * uChromaticAberration;
+			vec2 chroma = vec2((chromaU * cosA) / aspect, chromaU * sinA);
+			vec3 color = refractedImage(refractedUv, chroma);
+			float nz = sqrt(1.0 - min(slope * slope, 1.0));
+			float halfLight = (-90.0 * PI / 180.0) * 0.5;
+			float hx = sin(halfLight);
+			float hy = cos(halfLight);
+			float nDotH = max(slope * hx + nz * hy, 0.0);
+			float shininess = exp2(8.0 - 0.11 * 7.0);
+			float fresnel = pow(1.0 - nz, 5.0);
+			float spec = pow(nDotH, shininess) * (0.04 + 0.96 * fresnel) * 2.0 * max(uRefraction, 0.0);
+			vec3 finalColor = clamp(color + vec3(spec), vec3(0.0), vec3(1.0));
 			gl_FragColor = vec4(finalColor, 1.0);
 		}
 	`;
 
 	$effect(() => {
 		if (!uniforms) return;
-		uniforms.uDistortion.value = distortion;
+		uniforms.uScale.value = scale;
+		uniforms.uRotation.value = rotation;
+		uniforms.uOffset.value.set(offsetX, offsetY);
+		uniforms.uRefraction.value = refraction;
 		uniforms.uChromaticAberration.value = chromaticAberration;
-		uniforms.uWaviness.value = waviness;
-		uniforms.uFrequency.value = frequency;
-		uniforms.uRods.value = rods;
+		uniforms.uPanelWidth.value = panelWidth;
+		uniforms.uWaveFrequency.value = waveFrequency;
+		uniforms.uWaveAmplitude.value = waveAmplitude;
 	});
 
 	$effect(() => {
@@ -215,11 +270,14 @@
 			uResolution: { value: new Vec2(1, 1) },
 			uTextureSize: { value: new Vec2(1, 1) },
 			uTexture: { value: imageTexture },
-			uDistortion: { value: distortion },
+			uScale: { value: scale },
+			uRotation: { value: rotation },
+			uOffset: { value: new Vec2(offsetX, offsetY) },
+			uRefraction: { value: refraction },
 			uChromaticAberration: { value: chromaticAberration },
-			uWaviness: { value: waviness },
-			uFrequency: { value: frequency },
-			uRods: { value: rods },
+			uPanelWidth: { value: panelWidth },
+			uWaveFrequency: { value: waveFrequency },
+			uWaveAmplitude: { value: waveAmplitude },
 		};
 		uniforms = localUniforms;
 

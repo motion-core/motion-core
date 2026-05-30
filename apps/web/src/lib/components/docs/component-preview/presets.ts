@@ -280,31 +280,67 @@ export const componentPreviewControls = {
 		}),
 	],
 	"glass-pane": [
-		number("distortion", "Distortion", {
-			defaultValue: 0.5,
+		number("scale", "Scale", {
+			defaultValue: 1,
+			min: 0.35,
+			max: 3,
+			step: 0.01,
+		}),
+		number("rotation", "Rotation", {
+			defaultValue: 50,
+			min: -180,
+			max: 180,
+			step: 1,
+			unit: "deg",
+		}),
+		number("offsetX", "Offset X", {
+			defaultValue: 0,
+			min: -1,
+			max: 1,
+			step: 0.01,
+		}),
+		number("offsetY", "Offset Y", {
+			defaultValue: 0,
+			min: -1,
+			max: 1,
+			step: 0.01,
+		}),
+		number("refraction", "Refraction", {
+			defaultValue: 1,
 			min: 0,
 			max: 2,
 			step: 0.01,
 		}),
 		number("chromaticAberration", "Chromatic Aberration", {
-			defaultValue: 0.005,
-			min: 0,
-			max: 0.03,
-			step: 0.001,
-		}),
-		number("waviness", "Waviness", {
-			defaultValue: 0,
-			min: 0,
-			max: 0.25,
-			step: 0.01,
-		}),
-		number("speed", "Speed", {
-			defaultValue: 0.5,
+			defaultValue: 1,
 			min: 0,
 			max: 2,
 			step: 0.01,
 		}),
-		number("rods", "Rods", { defaultValue: 3, min: 1, max: 12, step: 1 }),
+		number("panelWidth", "Panel Width", {
+			defaultValue: 0.82,
+			min: 0.4,
+			max: 2.4,
+			step: 0.01,
+		}),
+		number("waveFrequency", "Wave Frequency", {
+			defaultValue: 0.0,
+			min: 0,
+			max: 5,
+			step: 0.01,
+		}),
+		number("waveAmplitude", "Wave Amplitude", {
+			defaultValue: 0.0,
+			min: 0,
+			max: 0.2,
+			step: 0.001,
+		}),
+		number("speed", "Speed", {
+			defaultValue: 0.65,
+			min: 0,
+			max: 3,
+			step: 0.01,
+		}),
 	],
 	"glass-logo": [
 		file("svgSource", "Logo SVG", defaultGlassLogoSvg, "image/svg+xml,.svg"),

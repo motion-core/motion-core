@@ -1,6 +1,6 @@
 ---
 name: Glass Pane
-description: A refractive view simulating moving glass rods that distort the underlying texture with chromatic aberration.
+description: An image-backed refractive view with animated diagonal glass panels, chromatic aberration, and specular highlights.
 ---
 
 <script lang="ts">
@@ -64,39 +64,63 @@ import { GlassPane } from "$lib/motion-core";
 			description: "URL of the image to be used as the background.",
 		},
 		{
-			prop: "distortion",
+			prop: "scale",
 			type: "number",
-			default: "1.0",
-			description: "Strength of the refraction.",
+			default: "1",
+			description: "Scale multiplier for the glass field.",
+		},
+		{
+			prop: "rotation",
+			type: "number",
+			default: "0",
+			description: "Rotation of the glass field in degrees.",
+		},
+		{
+			prop: "offsetX",
+			type: "number",
+			default: "0",
+			description: "Horizontal offset of the glass field.",
+		},
+		{
+			prop: "offsetY",
+			type: "number",
+			default: "0",
+			description: "Vertical offset of the glass field.",
+		},
+		{
+			prop: "refraction",
+			type: "number",
+			default: "1",
+			description: "Strength of the glass refraction.",
 		},
 		{
 			prop: "chromaticAberration",
 			type: "number",
-			default: "0.005",
+			default: "1",
 			description: "Strength of the chromatic aberration (RGB shift).",
 		},
 		{
-			prop: "waviness",
+			prop: "panelWidth",
 			type: "number",
-			default: "0.05",
-			description: "Intensity of the sine wave distortion of the glass panels.",
+			default: "0.82",
+			description: "Width of the diagonal glass panels.",
 		},
 		{
-			prop: "frequency",
+			prop: "waveFrequency",
 			type: "number",
-			default: "6.0",
-			description: "Frequency of the sine wave distortion.",
+			default: "0.0",
+			description: "Frequency of the panel wave.",
 		},
 		{
-			prop: "rods",
+			prop: "waveAmplitude",
 			type: "number",
-			default: "5.0",
-			description: "Density of the glass rods.",
+			default: "0.0",
+			description: "Amplitude of the panel wave.",
 		},
 		{
 			prop: "speed",
 			type: "number",
-			default: "1.0",
+			default: "0.65",
 			description: "Animation speed multiplier.",
 		},
 		{
