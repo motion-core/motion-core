@@ -280,30 +280,12 @@ export const componentPreviewControls = {
 		}),
 	],
 	"glass-pane": [
-		number("scale", "Scale", {
-			defaultValue: 1,
-			min: 0.35,
-			max: 3,
-			step: 0.01,
-		}),
 		number("rotation", "Rotation", {
 			defaultValue: 50,
 			min: -180,
 			max: 180,
 			step: 1,
 			unit: "deg",
-		}),
-		number("offsetX", "Offset X", {
-			defaultValue: 0,
-			min: -1,
-			max: 1,
-			step: 0.01,
-		}),
-		number("offsetY", "Offset Y", {
-			defaultValue: 0,
-			min: -1,
-			max: 1,
-			step: 0.01,
 		}),
 		number("refraction", "Refraction", {
 			defaultValue: 1,
@@ -319,8 +301,8 @@ export const componentPreviewControls = {
 		}),
 		number("panelWidth", "Panel Width", {
 			defaultValue: 0.82,
-			min: 0.4,
-			max: 2.4,
+			min: 0.15,
+			max: 5,
 			step: 0.01,
 		}),
 		number("waveFrequency", "Wave Frequency", {
@@ -431,11 +413,30 @@ export const componentPreviewControls = {
 		}),
 	],
 	globe: [
-		number("radius", "Radius", {
-			defaultValue: 2,
-			min: 1,
-			max: 3,
-			step: 0.1,
+		number("scale", "Scale", {
+			defaultValue: 1,
+			min: 0.2,
+			max: 2,
+			step: 0.01,
+		}),
+		number("offsetX", "Offset X", {
+			defaultValue: 0,
+			min: -0.5,
+			max: 0.5,
+			step: 0.01,
+		}),
+		number("offsetY", "Offset Y", {
+			defaultValue: 0,
+			min: -0.5,
+			max: 0.5,
+			step: 0.01,
+		}),
+		number("rotation", "Rotation", {
+			defaultValue: 0,
+			min: -180,
+			max: 180,
+			step: 1,
+			unit: "deg",
 		}),
 		number("pointCount", "Point Count", {
 			defaultValue: 25000,
@@ -477,6 +478,31 @@ export const componentPreviewControls = {
 		bool("pulsating", "Pulsating", false),
 	],
 	halo: [
+		number("scale", "Scale", {
+			defaultValue: 1,
+			min: 0.2,
+			max: 2,
+			step: 0.01,
+		}),
+		number("offsetX", "Offset X", {
+			defaultValue: 0,
+			min: -0.5,
+			max: 0.5,
+			step: 0.01,
+		}),
+		number("offsetY", "Offset Y", {
+			defaultValue: 0,
+			min: -0.5,
+			max: 0.5,
+			step: 0.01,
+		}),
+		number("rotation", "Rotation", {
+			defaultValue: 0,
+			min: -180,
+			max: 180,
+			step: 1,
+			unit: "deg",
+		}),
 		number("rotationSpeed", "Rotation Speed", {
 			defaultValue: 0.5,
 			min: 0,
@@ -490,7 +516,6 @@ export const componentPreviewControls = {
 			max: 8,
 			step: 0.1,
 		}),
-		number("fov", "FOV", { defaultValue: 55, min: 20, max: 90, step: 1 }),
 		number("intensity", "Intensity", {
 			defaultValue: 2.2,
 			min: 0,
@@ -693,6 +718,31 @@ export const componentPreviewControls = {
 		}),
 	],
 	"lava-lamp": [
+		number("scale", "Scale", {
+			defaultValue: 1,
+			min: 0.2,
+			max: 2,
+			step: 0.01,
+		}),
+		number("offsetX", "Offset X", {
+			defaultValue: 0,
+			min: -0.5,
+			max: 0.5,
+			step: 0.01,
+		}),
+		number("offsetY", "Offset Y", {
+			defaultValue: 0,
+			min: -0.5,
+			max: 0.5,
+			step: 0.01,
+		}),
+		number("rotation", "Rotation", {
+			defaultValue: 0,
+			min: -180,
+			max: 180,
+			step: 1,
+			unit: "deg",
+		}),
 		color("color", "Color", "#17181A"),
 		color("fresnelColor", "Fresnel Color", "#ff6900"),
 		number("speed", "Speed", { defaultValue: 1, min: 0, max: 3, step: 0.01 }),
@@ -820,7 +870,31 @@ export const componentPreviewControls = {
 		color("highlightColor", "Highlight", "#572400"),
 	],
 	"rubiks-cube": [
-		number("size", "Size", { defaultValue: 1, min: 0.5, max: 2, step: 0.1 }),
+		number("scale", "Scale", {
+			defaultValue: 1,
+			min: 0.2,
+			max: 2,
+			step: 0.01,
+		}),
+		number("offsetX", "Offset X", {
+			defaultValue: 0,
+			min: -0.5,
+			max: 0.5,
+			step: 0.01,
+		}),
+		number("offsetY", "Offset Y", {
+			defaultValue: 0,
+			min: -0.5,
+			max: 0.5,
+			step: 0.01,
+		}),
+		number("rotation", "Rotation", {
+			defaultValue: 0,
+			min: -180,
+			max: 180,
+			step: 1,
+			unit: "deg",
+		}),
 		number("duration", "Duration", {
 			defaultValue: 1.5,
 			min: 0.2,
