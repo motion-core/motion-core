@@ -2,7 +2,7 @@
 	import "./layout.css";
 	import { page } from "$app/state";
 	import { siteConfig } from "$lib/config/site";
-	import FloatingMenu from "motion-core/components/floating-menu/FloatingMenu.svelte";
+	import UnderlayNavigation from "motion-core/components/underlay-navigation/UnderlayNavigation.svelte";
 	import { brandingConfig } from "$lib/config/branding";
 
 	const { children } = $props();
@@ -48,41 +48,31 @@
 		}),
 	);
 
-	const menuGroups = [
-		{
-			title: "Getting Started",
-			variant: "muted" as const,
-			links: [
-				{ label: "Home", href: "/" },
-				{ label: "Introduction", href: "/docs/introduction" },
-				{ label: "CLI Quick Start", href: "/docs/cli-guide/quick-start" },
-			],
-		},
-		{
-			title: "CLI Commands",
-			variant: "default" as const,
-			links: [
-				{ label: "init", href: "/docs/cli-guide/init" },
-				{ label: "add", href: "/docs/cli-guide/add" },
-				{ label: "list", href: "/docs/cli-guide/list" },
-				{ label: "cache", href: "/docs/cli-guide/cache" },
-			],
-		},
+	const navigationLinks = [
+		{ label: "Home", href: "/" },
+		{ label: "Introduction", href: "/docs/introduction" },
+		{ label: "Quick Start", href: "/docs/cli-guide/quick-start" },
+		{ label: "Components", href: "/docs/floating-menu" },
+	];
+
+	const footerGroups = [
 		{
 			title: "Resources",
-			variant: "muted" as const,
 			links: [
 				{
-					label: "Registry Changelog",
-					href: "/docs/changelog/registry",
+					label: "GitHub",
+					href: "https://github.com/motion-core/motion-core",
+					target: "_blank",
 				},
 				{
-					label: "CLI Changelog",
-					href: "/docs/changelog/cli",
+					label: "Discord",
+					href: "https://discord.gg/stZ8hqAvpE",
+					target: "_blank",
 				},
 				{
 					label: "NPM",
 					href: "https://www.npmjs.com/package/@motion-core/cli",
+					target: "_blank",
 				},
 			],
 		},
@@ -133,24 +123,20 @@
 </svelte:head>
 
 {#if isHomeRoute}
-	<FloatingMenu
+	<UnderlayNavigation
+		class="fixed inset-0 h-dvh w-full rounded-none bg-background-inset"
+		links={navigationLinks}
+		{footerGroups}
+		activeHref={currentPath}
+		panelWidth="clamp(19rem, 34vw, 26rem)"
 		classes={{
-			root: "bg-background-inset/40 dark:bg-background-inset/80 backdrop-blur-xl card border-none rounded-sm",
-			groupMuted: "bg-foreground/5 dark:bg-background-muted/40 rounded-xd",
-			secondaryButton:
-				"hover:bg-foreground/10 dark:hover:bg-foreground/5 rounded-xs",
-			primaryButton: "rounded-xs",
-			divider: "border-foreground/5",
-			menuWrapper: "border-foreground/5",
+			root: "rounded-none",
+			underlay: "rounded-none",
+			panel: "rounded-none",
+			foreground: "overflow-y-auto",
 		}}
-		primaryButton={{ label: "Discord", href: "https://discord.gg/stZ8hqAvpE" }}
-		secondaryButton={{
-			label: "GitHub",
-			href: "https://github.com/motion-core/motion-core",
-		}}
-		{menuGroups}
 	>
-		{#snippet logo()}
+		{#snippet brand()}
 			<a href="/" class="flex items-center">
 				<span
 					class="inline-flex shrink-0 items-center text-accent [&>svg]:h-6 [&>svg]:w-auto [&>svg]:fill-current"
@@ -160,6 +146,8 @@
 				</span>
 			</a>
 		{/snippet}
-	</FloatingMenu>
+		{@render children()}
+	</UnderlayNavigation>
+{:else}
+	{@render children()}
 {/if}
-{@render children()}

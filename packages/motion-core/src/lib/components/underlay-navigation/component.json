@@ -1,0 +1,27 @@
+{
+	"name": "Underlay Navigation",
+	"slug": "underlay-navigation",
+	"description": "A fixed underlay navigation panel revealed by sliding the foreground content aside.",
+	"category": "navigation",
+	"dependencies": {
+		"gsap": "^3.14.2"
+	},
+	"devDependencies": {
+		"@types/gsap": "^3.0.0"
+	},
+	"internalDependencies": [],
+	"files": [
+		{
+			"path": "UnderlayNavigation.svelte",
+			"kind": "entry"
+		},
+		{
+			"path": "../../utils/cn.ts",
+			"target": "utils"
+		},
+		{
+			"path": "../../helpers/gsap.ts",
+			"target": "helpers"
+		}
+	]
+}

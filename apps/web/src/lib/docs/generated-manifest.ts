@@ -344,6 +344,14 @@ export const docsManifest: ComponentInfo[] = [
 		},
 	},
 	{
+		slug: "underlay-navigation",
+		name: "Underlay Navigation",
+		category: "navigation",
+		dependencies: {
+			gsap: "^3.14.2",
+		},
+	},
+	{
 		slug: "video-player",
 		name: "Video Player",
 		category: "showcase",

@@ -1,0 +1,216 @@
+---
+name: Underlay Navigation
+description: A fixed underlay navigation panel revealed by sliding the foreground content aside.
+---
+
+<script lang="ts">
+	import ComponentPreview from "$lib/components/docs/ComponentPreview.svelte";
+	import ApiTable from "$lib/components/docs/ApiTable.svelte";
+	import InstallationTabs from "$lib/components/docs/LegacyInstallationTabs.svelte";
+	import Steps from "$lib/components/docs/markdown/Steps.svelte";
+	import Step from "$lib/components/docs/markdown/Step.svelte";
+
+	import underlayNavigationSource from "motion-core/components/underlay-navigation/UnderlayNavigation.svelte?raw";
+	import UnderlayNavigationDemo from "./UnderlayNavigationDemo.svelte";
+	import underlayNavigationDemoSource from "./UnderlayNavigationDemo.svelte?raw";
+</script>
+
+## Installation
+
+<Steps>
+	<Step title="Install the component">
+		Run the following command to install the component and its dependencies:
+		<InstallationTabs component="underlay-navigation" />
+	</Step>
+	<Step title="Import the component">
+		Import the component into your Svelte file:
+
+```ts
+import { UnderlayNavigation } from "$lib/motion-core";
+```
+
+	</Step>
+</Steps>
+
+## Usage
+
+<ComponentPreview
+	sources={[
+		{ name: "Example", code: underlayNavigationDemoSource, language: "svelte" },
+		{
+			name: "UnderlayNavigation.svelte",
+			code: underlayNavigationSource,
+			language: "svelte",
+		},
+	]}
+>
+	<UnderlayNavigationDemo />
+</ComponentPreview>
+
+## Props
+
+### UnderlayNavigation
+
+<ApiTable
+	headers={["Prop", "Type", "Default"]}
+	keys={["prop", "type", "default"]}
+	data={[
+		{
+			prop: "links",
+			type: "NavigationLink[]",
+			default: "—",
+			description: "Primary navigation links shown in the underlay panel.",
+		},
+		{
+			prop: "footerGroups",
+			type: "FooterGroup[]",
+			default: "[]",
+			description: "Optional footer link groups shown below the primary links.",
+		},
+		{
+			prop: "brand",
+			type: "Snippet",
+			default: "undefined",
+			description: "Snippet rendered in the foreground header.",
+		},
+		{
+			prop: "children",
+			type: "Snippet",
+			default: "undefined",
+			description: "Foreground content that slides over the underlay panel.",
+		},
+		{
+			prop: "activeHref",
+			type: "string",
+			default: "undefined",
+			description: "Href used to mark the matching primary link as active.",
+		},
+		{
+			prop: "menuLabel",
+			type: "string",
+			default: '"Menu"',
+			description: "Accessible and visible label for the menu trigger.",
+		},
+		{
+			prop: "closeLabel",
+			type: "string",
+			default: '"Close"',
+			description: "Accessible and visible label for the close trigger.",
+		},
+		{
+			prop: "ariaLabel",
+			type: "string",
+			default: '"Primary navigation"',
+			description: "Accessible label for the navigation region.",
+		},
+		{
+			prop: "panelWidth",
+			type: "string",
+			default: '"clamp(18rem, 32vw, 24rem)"',
+			description: "Width of the underlay panel as any valid CSS length.",
+		},
+		{
+			prop: "open",
+			type: "boolean",
+			default: "false",
+			description: "Controlled open state. Supports bind:open.",
+		},
+		{
+			prop: "class",
+			type: "string",
+			default: '""',
+			description: "Additional classes for the root container.",
+		},
+		{
+			prop: "classes",
+			type: "UnderlayNavigationClasses",
+			default: "undefined",
+			description: "Optional class overrides for internal slots.",
+		},
+	]}
+/>
+
+### NavigationLink
+
+<ApiTable
+	headers={["Key", "Type", "Default"]}
+	keys={["key", "type", "default"]}
+	data={[
+		{
+			key: "label",
+			type: "string",
+			default: "—",
+			description: "Display text for the link.",
+		},
+		{
+			key: "href",
+			type: "string",
+			default: "—",
+			description: "Destination URL.",
+		},
+		{
+			key: "active",
+			type: "boolean",
+			default: "false",
+			description: "Marks the link as active.",
+		},
+		{
+			key: "target",
+			type: "string",
+			default: "undefined",
+			description: "Optional link target.",
+		},
+		{
+			key: "rel",
+			type: "string",
+			default: "undefined",
+			description: "Optional rel attribute.",
+		},
+	]}
+/>
+
+### FooterGroup
+
+<ApiTable
+	headers={["Key", "Type", "Default"]}
+	keys={["key", "type", "default"]}
+	data={[
+		{
+			key: "title",
+			type: "string",
+			default: "—",
+			description: "Footer group title.",
+		},
+		{
+			key: "links",
+			type: "NavigationLink[]",
+			default: "—",
+			description: "Links rendered inside the group.",
+		},
+	]}
+/>
+
+### UnderlayNavigationClasses
+
+Use the `classes` prop to style internal slots without replacing the component structure or animation logic.
+
+```ts
+type UnderlayNavigationClasses = Partial<{
+	root: string;
+	underlay: string;
+	panel: string;
+	toggleButton: string;
+	toggleLine: string;
+	navList: string;
+	navLink: string;
+	activeLink: string;
+	footer: string;
+	footerGroup: string;
+	footerTitle: string;
+	footerLink: string;
+	foreground: string;
+	header: string;
+	brand: string;
+	content: string;
+}>;
+```

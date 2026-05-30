@@ -1,7 +1,7 @@
 {
 	"name": "Motion Core Registry",
 	"description": "Curated Motion Core Svelte components",
-	"version": "0.13.0",
+	"version": "0.14.0",
 	"requirements": {
 		"svelte": "^5.0.0",
 		"tailwindcss": "^4.1.0"
@@ -1095,6 +1095,33 @@
 			"files": [
 				{
 					"path": "components/text-scramble/TextScramble.svelte",
+					"kind": "entry"
+				},
+				{
+					"path": "utils/cn.ts",
+					"target": "utils"
+				},
+				{
+					"path": "helpers/gsap.ts",
+					"target": "helpers"
+				}
+			]
+		},
+		"underlay-navigation": {
+			"slug": "underlay-navigation",
+			"name": "Underlay Navigation",
+			"description": "A fixed underlay navigation panel revealed by sliding the foreground content aside.",
+			"category": "navigation",
+			"dependencies": {
+				"gsap": "^3.14.2"
+			},
+			"devDependencies": {
+				"@types/gsap": "^3.0.0"
+			},
+			"internalDependencies": [],
+			"files": [
+				{
+					"path": "components/underlay-navigation/UnderlayNavigation.svelte",
 					"kind": "entry"
 				},
 				{

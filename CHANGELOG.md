@@ -6,6 +6,13 @@ and the project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.14.0] - 2026-05-30
+
+### Added
+
+- **1 component**:
+  - **Navigation**: Underlay Navigation.
+
 ## [0.13.0] - 2026-05-30
 
 ### Added

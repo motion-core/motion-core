@@ -161,6 +161,10 @@ export const docsNavigation: DocItem[] = [
 				slug: "floating-menu",
 				name: "Floating Menu",
 			},
+			{
+				slug: "underlay-navigation",
+				name: "Underlay Navigation",
+			},
 		],
 	},
 	{
