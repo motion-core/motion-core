@@ -15,25 +15,10 @@
 		 */
 		class?: string;
 		/**
-		 * Scale multiplier for the glass field.
-		 * @default 1
-		 */
-		scale?: SceneProps["scale"];
-		/**
 		 * Glass field rotation in degrees.
 		 * @default 0
 		 */
 		rotation?: SceneProps["rotation"];
-		/**
-		 * Horizontal glass field offset.
-		 * @default 0
-		 */
-		offsetX?: SceneProps["offsetX"];
-		/**
-		 * Vertical glass field offset.
-		 * @default 0
-		 */
-		offsetY?: SceneProps["offsetY"];
 		/**
 		 * Strength of the glass refraction.
 		 * @default 1
@@ -70,10 +55,7 @@
 	let {
 		image,
 		class: className = "",
-		scale = 1,
 		rotation = 0,
-		offsetX = 0,
-		offsetY = 0,
 		refraction = 1,
 		chromaticAberration = 1,
 		panelWidth = 0.82,
@@ -88,10 +70,7 @@
 	<div class="absolute inset-0 z-0">
 		<Scene
 			{image}
-			{scale}
 			{rotation}
-			{offsetX}
-			{offsetY}
 			{refraction}
 			{chromaticAberration}
 			{panelWidth}

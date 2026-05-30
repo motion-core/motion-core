@@ -64,28 +64,10 @@ import { GlassPane } from "$lib/motion-core";
 			description: "URL of the image to be used as the background.",
 		},
 		{
-			prop: "scale",
-			type: "number",
-			default: "1",
-			description: "Scale multiplier for the glass field.",
-		},
-		{
 			prop: "rotation",
 			type: "number",
 			default: "0",
 			description: "Rotation of the glass field in degrees.",
-		},
-		{
-			prop: "offsetX",
-			type: "number",
-			default: "0",
-			description: "Horizontal offset of the glass field.",
-		},
-		{
-			prop: "offsetY",
-			type: "number",
-			default: "0",
-			description: "Vertical offset of the glass field.",
 		},
 		{
 			prop: "refraction",

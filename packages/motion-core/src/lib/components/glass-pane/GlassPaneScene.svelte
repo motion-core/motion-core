@@ -17,25 +17,10 @@
 		 */
 		image: string;
 		/**
-		 * Scale multiplier for the glass field.
-		 * @default 1
-		 */
-		scale?: number;
-		/**
 		 * Glass field rotation in degrees.
 		 * @default 0
 		 */
 		rotation?: number;
-		/**
-		 * Horizontal glass field offset.
-		 * @default 0
-		 */
-		offsetX?: number;
-		/**
-		 * Vertical glass field offset.
-		 * @default 0
-		 */
-		offsetY?: number;
 		/**
 		 * Strength of the glass refraction.
 		 * @default 1
@@ -70,10 +55,7 @@
 
 	let {
 		image,
-		scale = 1,
 		rotation = 0,
-		offsetX = 0,
-		offsetY = 0,
 		refraction = 1,
 		chromaticAberration = 1,
 		panelWidth = 0.82,
@@ -87,9 +69,7 @@
 		uResolution: { value: Vec2 };
 		uTextureSize: { value: Vec2 };
 		uTexture: { value: Texture };
-		uScale: { value: number };
 		uRotation: { value: number };
-		uOffset: { value: Vec2 };
 		uRefraction: { value: number };
 		uChromaticAberration: { value: number };
 		uPanelWidth: { value: number };
@@ -119,9 +99,7 @@
 		uniform vec2 uResolution;
 		uniform vec2 uTextureSize;
 		uniform sampler2D uTexture;
-		uniform float uScale;
 		uniform float uRotation;
-		uniform vec2 uOffset;
 		uniform float uRefraction;
 		uniform float uChromaticAberration;
 		uniform float uPanelWidth;
@@ -146,12 +124,9 @@
 			return (uv * uResolution - offset) / scaledSize;
 		}
 
-		vec2 transformUv(vec2 uv, float aspect, float scale, float rotation, vec2 offset) {
+		vec2 transformUv(vec2 uv, float aspect, float rotation) {
 			vec2 centered = vec2((uv.x - 0.5) * aspect, uv.y - 0.5);
-			vec2 transformed = rotate2(
-				centered / max(scale, 0.001) + vec2(-offset.x * aspect, offset.y),
-				-rotation
-			);
+			vec2 transformed = rotate2(centered, -rotation);
 			return vec2(transformed.x / aspect + 0.5, transformed.y + 0.5);
 		}
 
@@ -188,7 +163,7 @@
 			float angle = 0.0;
 			float cosA = cos(angle);
 			float sinA = sin(angle);
-			vec2 effectUv = transformUv(vUv, aspect, uScale, radians(uRotation), uOffset);
+			vec2 effectUv = transformUv(vUv, aspect, radians(uRotation));
 			float animatedWave = uWaveAmplitude * (0.75 + 0.25 * sin(uTime * 0.22));
 			vec4 optics = panelOptics(effectUv, uPanelWidth, uWaveFrequency, animatedWave);
 			float slope = optics.y;
@@ -215,9 +190,7 @@
 
 	$effect(() => {
 		if (!uniforms) return;
-		uniforms.uScale.value = scale;
 		uniforms.uRotation.value = rotation;
-		uniforms.uOffset.value.set(offsetX, offsetY);
 		uniforms.uRefraction.value = refraction;
 		uniforms.uChromaticAberration.value = chromaticAberration;
 		uniforms.uPanelWidth.value = panelWidth;
@@ -270,9 +243,7 @@
 			uResolution: { value: new Vec2(1, 1) },
 			uTextureSize: { value: new Vec2(1, 1) },
 			uTexture: { value: imageTexture },
-			uScale: { value: scale },
 			uRotation: { value: rotation },
-			uOffset: { value: new Vec2(offsetX, offsetY) },
 			uRefraction: { value: refraction },
 			uChromaticAberration: { value: chromaticAberration },
 			uPanelWidth: { value: panelWidth },

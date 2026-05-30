@@ -6,10 +6,7 @@
 	type Props = Partial<ComponentProps<typeof GlassPane>>;
 
 	let {
-		scale = 1,
 		rotation = 0,
-		offsetX = 0,
-		offsetY = 0,
 		refraction = 1,
 		chromaticAberration = 1,
 		panelWidth = 0.82,
@@ -22,10 +19,7 @@
 <GlassPane
 	image={demoImage}
 	class="h-full min-h-96 w-full"
-	{scale}
 	{rotation}
-	{offsetX}
-	{offsetY}
 	{refraction}
 	{chromaticAberration}
 	{panelWidth}
