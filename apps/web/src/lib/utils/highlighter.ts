@@ -1,6 +1,5 @@
-import { createHighlighterCore } from "shiki/core";
-import { createOnigurumaEngine } from "shiki/engine/oniguruma";
-import getWasm from "shiki/wasm";
+import { createHighlighterCoreSync } from "shiki/core";
+import { createJavaScriptRegexEngine } from "shiki/engine/javascript";
 import githubLight from "shiki/themes/github-light.mjs";
 import githubDark from "shiki/themes/github-dark.mjs";
 
@@ -11,15 +10,14 @@ import bash from "shiki/langs/bash.mjs";
 import json from "shiki/langs/json.mjs";
 import wgsl from "shiki/langs/wgsl.mjs";
 
-let highlighter: Awaited<ReturnType<typeof createHighlighterCore>> | null =
-	null;
+let highlighter: ReturnType<typeof createHighlighterCoreSync> | null = null;
 
-export async function getHighlighter() {
+export function getHighlighter() {
 	if (!highlighter) {
-		highlighter = await createHighlighterCore({
+		highlighter = createHighlighterCoreSync({
 			themes: [githubLight, githubDark],
 			langs: [typescript, svelte, xml, bash, json, wgsl],
-			engine: createOnigurumaEngine(getWasm),
+			engine: createJavaScriptRegexEngine(),
 		});
 	}
 	return highlighter;

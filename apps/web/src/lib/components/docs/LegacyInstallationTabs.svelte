@@ -35,31 +35,28 @@
 
 	const activeCommand = $derived(commands[packageManagerStore.active]);
 
-	let highlightedCommands = $state<
-		Record<PackageManager, { light: string; dark: string } | null>
-	>({
-		npm: null,
-		pnpm: null,
-		bun: null,
-		yarn: null,
-	});
+	const highlightedCommands = $derived.by(() => {
+		const highlighter = getHighlighter();
+		const highlighted = {} as Record<
+			PackageManager,
+			{ light: string; dark: string }
+		>;
 
-	$effect(() => {
-		getHighlighter().then((highlighter) => {
-			for (const pm of packageManagers) {
-				const cmd = commands[pm];
-				highlightedCommands[pm] = {
-					light: highlighter.codeToHtml(cmd, {
-						lang: "bash",
-						theme: "github-light",
-					}),
-					dark: highlighter.codeToHtml(cmd, {
-						lang: "bash",
-						theme: "github-dark",
-					}),
-				};
-			}
-		});
+		for (const pm of packageManagers) {
+			const cmd = commands[pm];
+			highlighted[pm] = {
+				light: highlighter.codeToHtml(cmd, {
+					lang: "bash",
+					theme: "github-light",
+				}),
+				dark: highlighter.codeToHtml(cmd, {
+					lang: "bash",
+					theme: "github-dark",
+				}),
+			};
+		}
+
+		return highlighted;
 	});
 </script>
 
@@ -95,20 +92,12 @@
 		<div
 			class="min-h-12.5 p-4 [&>div]:mt-0 [&>div]:rounded-none [&>div]:border-0 [&>div]:bg-transparent [&>div]:p-0 [&>div]:shadow-none [&>div]:[box-shadow:none]!"
 		>
-			{#if highlightedCommands[packageManagerStore.active]}
-				<ShikiCodeBlock
-					code=""
-					htmlLight={highlightedCommands[packageManagerStore.active]!.light}
-					htmlDark={highlightedCommands[packageManagerStore.active]!.dark}
-					unstyled={true}
-				/>
-			{:else}
-				<code
-					class="block font-mono text-sm leading-relaxed whitespace-pre text-foreground"
-				>
-					{activeCommand}
-				</code>
-			{/if}
+			<ShikiCodeBlock
+				code=""
+				htmlLight={highlightedCommands[packageManagerStore.active].light}
+				htmlDark={highlightedCommands[packageManagerStore.active].dark}
+				unstyled={true}
+			/>
 		</div>
 	</div>
 </div>

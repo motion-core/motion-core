@@ -14,9 +14,25 @@
 
 	let { tabs, codeSlot }: Props = $props();
 	let activeTab = $state(0);
-	let highlightedSources = $state<
-		Record<string, { light: string; dark: string }>
-	>({});
+	const highlightedSources = $derived.by(() => {
+		const highlighter = getHighlighter();
+		const highlighted: Record<string, { light: string; dark: string }> = {};
+
+		tabs.forEach((tab) => {
+			const lang = tab.language ?? "typescript";
+			const light = highlighter.codeToHtml(tab.code, {
+				lang,
+				theme: "github-light",
+			});
+			const dark = highlighter.codeToHtml(tab.code, {
+				lang,
+				theme: "github-dark",
+			});
+			highlighted[tab.name] = { light, dark };
+		});
+
+		return highlighted;
+	});
 
 	$effect(() => {
 		void tabs;
@@ -28,25 +44,6 @@
 	const activeSource = $derived(
 		(tabs.at(activeTab) ?? null) as SourceTab | null,
 	);
-
-	$effect(() => {
-		getHighlighter().then((highlighter) => {
-			tabs.forEach((tab) => {
-				if (!highlightedSources[tab.name]) {
-					const lang = tab.language ?? "typescript";
-					const light = highlighter.codeToHtml(tab.code, {
-						lang,
-						theme: "github-light",
-					});
-					const dark = highlighter.codeToHtml(tab.code, {
-						lang,
-						theme: "github-dark",
-					});
-					highlightedSources[tab.name] = { light, dark };
-				}
-			});
-		});
-	});
 </script>
 
 <div
@@ -84,16 +81,12 @@
 			class="p-4 text-sm *:mt-0 *:rounded-none *:border-0 *:bg-transparent *:p-0 *:inset-shadow-none"
 		>
 			{#if activeSource}
-				{#if highlightedSources[activeSource.name]}
-					<ShikiCodeBlock
-						code=""
-						htmlLight={highlightedSources[activeSource.name].light}
-						htmlDark={highlightedSources[activeSource.name].dark}
-						unstyled={true}
-					/>
-				{:else}
-					<pre class="p-4">{activeSource.code}</pre>
-				{/if}
+				<ShikiCodeBlock
+					code=""
+					htmlLight={highlightedSources[activeSource.name].light}
+					htmlDark={highlightedSources[activeSource.name].dark}
+					unstyled={true}
+				/>
 			{:else}
 				{@render codeSlot?.()}
 			{/if}
