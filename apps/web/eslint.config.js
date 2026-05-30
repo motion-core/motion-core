@@ -3,6 +3,8 @@ import ts from "typescript-eslint";
 import svelte from "eslint-plugin-svelte";
 import globals from "globals";
 
+const tsconfigRootDir = import.meta.dirname;
+
 /** @type {import('eslint').Linter.Config[]} */
 export default [
 	js.configs.recommended,
@@ -10,6 +12,9 @@ export default [
 	...svelte.configs["flat/recommended"],
 	{
 		languageOptions: {
+			parserOptions: {
+				tsconfigRootDir,
+			},
 			globals: {
 				...globals.browser,
 				...globals.node,
@@ -21,6 +26,7 @@ export default [
 		languageOptions: {
 			parserOptions: {
 				parser: ts.parser,
+				tsconfigRootDir,
 			},
 		},
 	},
