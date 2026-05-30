@@ -6,6 +6,12 @@ and the project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.15.1] - 2026-05-30
+
+### Fixed
+
+- **Canvas / Dithered Image**: Initialized the threshold map size from the active `ditherMap`, so the default Halftone effect renders correctly on first load instead of only after switching dithering modes.
+
 ## [0.15.0] - 2026-05-30
 
 ### Changed

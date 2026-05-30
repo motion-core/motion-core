@@ -334,6 +334,7 @@
 		};
 
 		let thresholdState = createThresholdTexture(gl, ditherMap);
+		mapSizeUniform.set(thresholdState.size, thresholdState.size);
 		let currentDitherMap = ditherMap;
 		const setThresholdMapTexture = (map: DitherMap) => {
 			if (map === currentDitherMap) return;
