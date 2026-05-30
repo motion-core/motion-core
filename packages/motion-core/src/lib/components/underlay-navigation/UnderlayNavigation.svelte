@@ -218,6 +218,9 @@
 				rootRef,
 			) as HTMLElement[];
 
+			gsap.set([menuLabelRef, closeLabelRef, line1Ref, line2Ref], {
+				clearProps: "transform",
+			});
 			gsap.set(foregroundRef, {
 				x: 0,
 				scaleX: 1,
@@ -428,12 +431,17 @@
 			{@attach attachButtonLabelRef}
 			class="grid overflow-hidden leading-none"
 		>
-			<span {@attach attachMenuLabelRef} class="col-start-1 row-start-1 block">
+			<span
+				{@attach attachMenuLabelRef}
+				class="col-start-1 row-start-1 block"
+				style="transform: translateY(0%);"
+			>
 				{menuLabel}
 			</span>
 			<span
 				{@attach attachCloseLabelRef}
 				class="pointer-events-none col-start-1 row-start-1 block"
+				style="transform: translateY(100%);"
 				aria-hidden="true"
 			>
 				{closeLabel}
@@ -450,6 +458,7 @@
 					"absolute h-px w-6 bg-current transition-[background-color] duration-400 ease-[cubic-bezier(0.625,0.05,0,1)] group-hover:text-accent",
 					classes?.toggleLine,
 				)}
+				style="transform: translateY(4px);"
 			></span>
 			<span
 				{@attach attachLine2Ref}
@@ -458,6 +467,7 @@
 					"absolute h-px w-6 bg-current transition-[background-color] duration-400 ease-[cubic-bezier(0.625,0.05,0,1)] group-hover:text-accent",
 					classes?.toggleLine,
 				)}
+				style="transform: translateY(-4px);"
 			></span>
 		</span>
 	</button>
