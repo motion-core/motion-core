@@ -5,6 +5,13 @@ description: All notable changes to Motion Core Component Registry.
 
 ## [Unreleased]
 
+## [0.14.0] - 2026-05-30
+
+### Added
+
+- **1 component**:
+  - **Navigation**: Underlay Navigation.
+
 ## [0.13.0] - 2026-05-30
 
 ### Added
