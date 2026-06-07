@@ -6,6 +6,15 @@ and the project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.16.0] - 2026-06-07
+
+### Added
+
+- **1 component**:
+  - **Canvas**: Watercolor Image.
+
+- **Transition / Preloader**: Replaced offset-based timing with a shared scalePhase label in Preloader to ensure the side images' scale-down and the center element's scale-up begin at exactly the same point in the timeline.
+
 ## [0.15.1] - 2026-05-30
 
 ### Fixed
