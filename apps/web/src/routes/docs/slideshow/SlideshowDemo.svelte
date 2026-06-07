@@ -3,15 +3,15 @@
 
 	const images = [
 		{
-			src: "/images/demos/sample-1.jpg",
+			src: "/images/photos/sample-image-1.webp",
 			alt: "Alt 1",
 		},
 		{
-			src: "/images/demos/sample-2.jpg",
+			src: "/images/photos/sample-image-2.webp",
 			alt: "Alt 2",
 		},
 		{
-			src: "/images/demos/sample-3.jpg",
+			src: "/images/photos/sample-image-3.webp",
 			alt: "Alt 3",
 		},
 	];

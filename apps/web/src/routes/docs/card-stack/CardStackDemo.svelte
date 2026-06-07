@@ -9,10 +9,10 @@
 	};
 
 	const items = [
-		"/images/demos/sample-9.jpg",
-		"/images/demos/sample-12.jpg",
-		"/images/demos/sample-15.jpg",
-		"/images/demos/sample-5.jpg",
+		"/images/photos/sample-image-1.webp",
+		"/images/photos/sample-image-2.webp",
+		"/images/photos/sample-image-3.webp",
+		"/images/photos/sample-image-4.webp",
 	];
 	let scrollElement = $state<HTMLElement | null>(null);
 	let { scaleFactor = 0.05, offset = 32, topOffset = 32 }: Props = $props();
@@ -36,7 +36,7 @@
 >
 	{#each items as item (item)}
 		<CardStackItem
-			class="mx-auto flex h-96 w-80 flex-col rounded-lg bg-background-inset p-1.5 inset-shadow md:w-120 md:group-data-[fullscreen=true]/preview:h-dvh md:group-data-[fullscreen=true]/preview:w-7xl"
+			class="inset-shadow mx-auto flex h-96 w-80 flex-col rounded-lg bg-background-inset p-1.5 md:w-120 md:group-data-[fullscreen=true]/preview:h-dvh md:group-data-[fullscreen=true]/preview:w-7xl"
 		>
 			<div class="relative flex-1 overflow-hidden rounded-md card">
 				<img

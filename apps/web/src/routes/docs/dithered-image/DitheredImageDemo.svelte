@@ -14,7 +14,7 @@
 </script>
 
 <DitheredImage
-	src="/images/demos/sample-6.jpg"
+	src="/images/photos/sample-image-9.webp"
 	class="h-full min-h-96 w-full"
 	{ditherMap}
 	{pixelSize}

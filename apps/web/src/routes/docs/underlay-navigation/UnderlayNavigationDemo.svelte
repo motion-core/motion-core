@@ -54,7 +54,7 @@
 
 	<div class="bg-fixed-dark relative h-full overflow-hidden">
 		<img
-			src="/images/demos/sample-16.jpg"
+			src="/images/photos/sample-image-6.webp"
 			alt=""
 			class="absolute inset-0 h-full w-full object-cover"
 		/>

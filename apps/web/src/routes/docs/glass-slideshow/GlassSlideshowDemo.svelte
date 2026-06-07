@@ -5,9 +5,9 @@
 	type Props = Partial<ComponentProps<typeof GlassSlideshow>>;
 
 	const images = [
-		"/images/demos/sample-7.jpg",
-		"/images/demos/sample-5.jpg",
-		"/images/demos/sample-4.jpg",
+		"/images/photos/sample-image-6.webp",
+		"/images/photos/sample-image-7.webp",
+		"/images/photos/sample-image-9.webp",
 	];
 
 	let {

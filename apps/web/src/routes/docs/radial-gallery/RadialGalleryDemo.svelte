@@ -11,14 +11,14 @@
 	};
 
 	const images = [
-		"/images/demos/sample-1.jpg",
-		"/images/demos/sample-2.jpg",
-		"/images/demos/sample-3.jpg",
-		"/images/demos/sample-4.jpg",
-		"/images/demos/sample-5.jpg",
-		"/images/demos/sample-6.jpg",
-		"/images/demos/sample-7.jpg",
-		"/images/demos/sample-8.jpg",
+		"/images/photos/sample-image-6.webp",
+		"/images/photos/sample-image-7.webp",
+		"/images/photos/sample-image-8.webp",
+		"/images/photos/sample-image-9.webp",
+		"/images/photos/sample-image-10.webp",
+		"/images/photos/sample-image-11.webp",
+		"/images/photos/sample-image-12.webp",
+		"/images/photos/sample-image-13.webp",
 	];
 
 	let {
@@ -43,7 +43,7 @@
 >
 	{#snippet children(item)}
 		<div
-			class="relative h-48 w-48 rounded-lg bg-background-inset p-1.5 inset-shadow group-data-[fullscreen=true]/preview:h-96 group-data-[fullscreen=true]/preview:w-96"
+			class="inset-shadow relative h-48 w-48 rounded-lg bg-background-inset p-1.5 group-data-[fullscreen=true]/preview:h-96 group-data-[fullscreen=true]/preview:w-96"
 		>
 			<div class="h-full overflow-hidden rounded-md bg-background card">
 				<img src={item} class="h-full w-full object-cover" alt="Gallery item" />

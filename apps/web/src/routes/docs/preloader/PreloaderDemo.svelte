@@ -3,23 +3,23 @@
 
 	const images = [
 		{
-			src: "/images/demos/sample-1.jpg",
+			src: "/images/photos/sample-image-1.webp",
 			alt: "Alt 1",
 		},
 		{
-			src: "/images/demos/sample-2.jpg",
+			src: "/images/photos/sample-image-2.webp",
 			alt: "Alt 2",
 		},
 		{
-			src: "/images/demos/sample-6.jpg",
+			src: "/images/photos/sample-image-3.webp",
 			alt: "Alt 3",
 		},
 		{
-			src: "/images/demos/sample-4.jpg",
+			src: "/images/photos/sample-image-4.webp",
 			alt: "Alt 4",
 		},
 		{
-			src: "/images/demos/sample-5.jpg",
+			src: "/images/photos/sample-image-5.webp",
 			alt: "Alt 5",
 		},
 	];
@@ -45,7 +45,7 @@
 <div class="flex flex-col items-center justify-center">
 	<button
 		onclick={startPreloader}
-		class="card h-8 gap-1.5 rounded-sm bg-background-muted px-3 text-xs font-medium tracking-wide text-foreground uppercase"
+		class="h-8 gap-1.5 rounded-sm bg-background-muted px-3 text-xs font-medium tracking-wide text-foreground uppercase card"
 	>
 		Trigger Preloader
 	</button>

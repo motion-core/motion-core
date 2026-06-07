@@ -2,7 +2,7 @@
 	import { InteractiveGrid } from "motion-core";
 	import type { ComponentProps } from "svelte";
 
-	const demoImage = "/images/demos/sample-14.jpg";
+	const demoImage = "/images/photos/sample-image-9.webp";
 	type Props = Partial<ComponentProps<typeof InteractiveGrid>>;
 
 	let {

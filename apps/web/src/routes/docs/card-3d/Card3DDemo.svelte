@@ -15,7 +15,7 @@
 
 <Card3D
 	class="h-full min-h-96 w-full"
-	image="/images/demos/sample-2.jpg"
+	image="/images/photos/sample-image-17.webp"
 	{width}
 	{height}
 	{depth}

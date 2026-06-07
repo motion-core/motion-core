@@ -8,7 +8,7 @@
 </script>
 
 <PixelatedImage
-	src="/images/demos/sample-13.jpg"
+	src="/images/photos/sample-image-14.webp"
 	class="h-full min-h-96 w-full"
 	{initialGridSize}
 	{stepDuration}

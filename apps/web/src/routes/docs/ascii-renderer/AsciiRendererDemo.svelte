@@ -2,7 +2,7 @@
 	import { AsciiRenderer } from "motion-core";
 	import type { ComponentProps } from "svelte";
 
-	const demoImage = "/images/demos/sample-11.jpg";
+	const demoImage = "/images/photos/sample-image-17.webp";
 	type Props = Partial<ComponentProps<typeof AsciiRenderer>>;
 
 	let {

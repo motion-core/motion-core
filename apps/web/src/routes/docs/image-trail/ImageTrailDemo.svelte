@@ -13,13 +13,13 @@
 	};
 
 	const demoImages = [
-		"/images/demos/sample-1.jpg",
-		"/images/demos/sample-2.jpg",
-		"/images/demos/sample-3.jpg",
-		"/images/demos/sample-4.jpg",
-		"/images/demos/sample-5.jpg",
-		"/images/demos/sample-6.jpg",
-		"/images/demos/sample-7.jpg",
+		"/images/photos/sample-image-12.webp",
+		"/images/photos/sample-image-13.webp",
+		"/images/photos/sample-image-14.webp",
+		"/images/photos/sample-image-15.webp",
+		"/images/photos/sample-image-16.webp",
+		"/images/photos/sample-image-17.webp",
+		"/images/photos/sample-image-18.webp",
 	];
 
 	let {

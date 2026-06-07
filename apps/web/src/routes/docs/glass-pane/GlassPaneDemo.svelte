@@ -2,7 +2,7 @@
 	import { GlassPane } from "motion-core";
 	import type { ComponentProps } from "svelte";
 
-	const demoImage = "/images/demos/sample-6.jpg";
+	const demoImage = "/images/photos/sample-image-7.webp";
 	type Props = Partial<ComponentProps<typeof GlassPane>>;
 
 	let {

@@ -9,10 +9,10 @@
 	};
 
 	const images = [
-		"/images/demos/sample-8.jpg",
-		"/images/demos/sample-9.jpg",
-		"/images/demos/sample-10.jpg",
-		"/images/demos/sample-11.jpg",
+		"/images/photos/sample-image-8.webp",
+		"/images/photos/sample-image-9.webp",
+		"/images/photos/sample-image-10.webp",
+		"/images/photos/sample-image-11.webp",
 	];
 
 	let {

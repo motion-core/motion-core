@@ -8,8 +8,8 @@
 </script>
 
 <Fake3DImage
-	colorSrc="/images/demos/sample-16.jpg"
-	depthSrc="/images/demos/sample-16-depth-map.webp"
+	colorSrc="/images/photos/sample-image-21.jpg"
+	depthSrc="/images/photos/sample-image-21-depth-map.webp"
 	class="h-full min-h-96 w-full"
 	{xThreshold}
 	{yThreshold}

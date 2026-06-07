@@ -1193,6 +1193,35 @@
 				}
 			]
 		},
+		"watercolor-image": {
+			"slug": "watercolor-image",
+			"name": "Watercolor Image",
+			"description": "An image display component that applies a structure-tensor guided anisotropic Kuwahara watercolor filter.",
+			"category": "canvas",
+			"introducedAt": "2026-06-07",
+			"dependencies": {
+				"ogl": "^1.0.11"
+			},
+			"devDependencies": {},
+			"internalDependencies": [],
+			"files": [
+				{
+					"path": "components/watercolor-image/WatercolorImage.svelte",
+					"kind": "entry"
+				},
+				{
+					"path": "components/watercolor-image/WatercolorImageScene.svelte"
+				},
+				{
+					"path": "utils/cn.ts",
+					"target": "utils"
+				},
+				{
+					"path": "helpers/color.ts",
+					"target": "helpers"
+				}
+			]
+		},
 		"weight-wave": {
 			"slug": "weight-wave",
 			"name": "Weight Wave",

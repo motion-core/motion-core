@@ -17,19 +17,19 @@
 
 	const items: DemoCard[] = [
 		{
-			image: "/images/demos/sample-9.jpg",
+			image: "/images/photos/sample-image-5.webp",
 			alt: "Blue and orange abstract texture",
 			title: "Frame One",
 			description: "Drag the top card and release past threshold.",
 		},
 		{
-			image: "/images/demos/sample-12.jpg",
+			image: "/images/photos/sample-image-6.webp",
 			alt: "Neon gradient waves",
 			title: "Frame Two",
 			description: "Only the top card is draggable at any moment.",
 		},
 		{
-			image: "/images/demos/sample-15.jpg",
+			image: "/images/photos/sample-image-7.webp",
 			alt: "Warm red and yellow gradient",
 			title: "Frame Three",
 			description: "Content layout is fully controlled in the snippet.",

@@ -141,6 +141,10 @@ export const docsNavigation: DocItem[] = [
 				slug: "water-ripple",
 				name: "Water Ripple",
 			},
+			{
+				slug: "watercolor-image",
+				name: "Watercolor Image",
+			},
 		],
 	},
 	{

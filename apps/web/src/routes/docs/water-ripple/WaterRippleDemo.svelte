@@ -8,7 +8,7 @@
 </script>
 
 <WaterRipple
-	src="/images/demos/sample-15.jpg"
+	src="/images/photos/sample-image-18.webp"
 	class="h-full min-h-96 w-full"
 	{brushSize}
 />

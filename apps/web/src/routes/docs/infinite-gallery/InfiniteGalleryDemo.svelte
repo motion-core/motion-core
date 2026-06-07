@@ -7,14 +7,14 @@
 	let { speed = 1, visibleCount = 8 }: Props = $props();
 
 	const images = [
-		"/images/demos/sample-8.jpg",
-		"/images/demos/sample-9.jpg",
-		"/images/demos/sample-10.jpg",
-		"/images/demos/sample-11.jpg",
-		"/images/demos/sample-12.jpg",
-		"/images/demos/sample-13.jpg",
-		"/images/demos/sample-14.jpg",
-		"/images/demos/sample-15.jpg",
+		"/images/photos/sample-image-19.webp",
+		"/images/photos/sample-image-20.webp",
+		"/images/photos/sample-image-1.webp",
+		"/images/photos/sample-image-2.webp",
+		"/images/photos/sample-image-3.webp",
+		"/images/photos/sample-image-4.webp",
+		"/images/photos/sample-image-5.webp",
+		"/images/photos/sample-image-6.webp",
 	];
 </script>
 

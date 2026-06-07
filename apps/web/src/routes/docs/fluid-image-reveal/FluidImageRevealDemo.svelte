@@ -2,8 +2,8 @@
 	import { FluidImageReveal } from "motion-core";
 	import type { ComponentProps } from "svelte";
 
-	const baseImage = "/images/demos/night.png";
-	const revealImage = "/images/demos/day.png";
+	const baseImage = "/images/photos/sample-image-12.webp";
+	const revealImage = "/images/photos/sample-image-12-xray.png";
 	type Props = Partial<ComponentProps<typeof FluidImageReveal>>;
 
 	let {

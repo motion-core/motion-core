@@ -19,7 +19,7 @@
 			id: "img-1",
 			type: "image",
 			image: {
-				src: "/images/demos/sample-1.jpg",
+				src: "	/images/photos/sample-image-7.webp",
 				alt: "Alt 1",
 			},
 		},
@@ -27,7 +27,7 @@
 			id: "img-2",
 			type: "image",
 			image: {
-				src: "/images/demos/sample-4.jpg",
+				src: "	/images/photos/sample-image-8.webp",
 				alt: "Alt 2",
 			},
 		},
@@ -35,7 +35,7 @@
 			id: "img-3",
 			type: "image",
 			image: {
-				src: "/images/demos/sample-10.jpg",
+				src: "	/images/photos/sample-image-9.webp",
 				alt: "Alt 3",
 			},
 		},
@@ -43,7 +43,7 @@
 			id: "img-4",
 			type: "image",
 			image: {
-				src: "/images/demos/sample-12.jpg",
+				src: "	/images/photos/sample-image-10.webp",
 				alt: "Alt 4",
 			},
 		},

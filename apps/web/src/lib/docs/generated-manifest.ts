@@ -369,6 +369,15 @@ export const docsManifest: ComponentInfo[] = [
 		},
 	},
 	{
+		slug: "watercolor-image",
+		name: "Watercolor Image",
+		category: "canvas",
+		introducedAt: "2026-06-07",
+		dependencies: {
+			ogl: "^1.0.11",
+		},
+	},
+	{
 		slug: "weight-wave",
 		name: "Weight Wave",
 		category: "typography",
