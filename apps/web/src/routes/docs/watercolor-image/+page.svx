@@ -1,0 +1,101 @@
+---
+name: Watercolor Image
+description: An image display component that applies a structure-tensor guided anisotropic Kuwahara watercolor filter.
+---
+
+<script lang="ts">
+	import ComponentPreview from "$lib/components/docs/ComponentPreview.svelte";
+	import { componentPreviewControls } from "$lib/components/docs/component-preview/presets";
+	import ApiTable from "$lib/components/docs/ApiTable.svelte";
+	import InstallationTabs from "$lib/components/docs/LegacyInstallationTabs.svelte";
+	import Steps from "$lib/components/docs/markdown/Steps.svelte";
+	import Step from "$lib/components/docs/markdown/Step.svelte";
+	import watercolorImageSource from "motion-core/components/watercolor-image/WatercolorImage.svelte?raw";
+	import sceneSource from "motion-core/components/watercolor-image/WatercolorImageScene.svelte?raw";
+	import colorHelperSource from "motion-core/helpers/color.ts?raw";
+	import WatercolorImageDemo from "./WatercolorImageDemo.svelte";
+	import watercolorImageDemoSource from "./WatercolorImageDemo.svelte?raw";
+</script>
+
+## Installation
+
+<Steps>
+	<Step title="Install the component">
+		Run the following command to install the component and its dependencies:
+		<InstallationTabs component="watercolor-image" />
+	</Step>
+	<Step title="Import the component">
+		Import the component into your Svelte file:
+
+```ts
+import { WatercolorImage } from "$lib/motion-core";
+```
+
+	</Step>
+</Steps>
+
+## Usage
+
+<ComponentPreview
+	controls={componentPreviewControls["watercolor-image"]}
+	sources={[
+		{ name: "Example", code: watercolorImageDemoSource, language: "svelte" },
+		{
+			name: "WatercolorImage.svelte",
+			code: watercolorImageSource,
+			language: "svelte",
+		},
+		{
+			name: "WatercolorImageScene.svelte",
+			code: sceneSource,
+			language: "svelte",
+		},
+		{ name: "helpers/color.ts", code: colorHelperSource, language: "typescript" },
+	]}
+>
+	{#snippet children(props)}
+		<WatercolorImageDemo {...props} />
+	{/snippet}
+</ComponentPreview>
+
+## Props
+
+### WatercolorImage
+
+<ApiTable
+	headers={["Prop", "Type", "Default"]}
+	keys={["prop", "type", "default"]}
+	data={[
+		{
+			prop: "src",
+			type: "string",
+			default: "—",
+			description: "URL of the image to be displayed.",
+		},
+		{
+			prop: "radius",
+			type: "number",
+			default: "6",
+			description:
+				"Radius of the anisotropic watercolor filter. Higher values produce broader paint regions.",
+		},
+		{
+			prop: "tensorPass",
+			type: "boolean",
+			default: "true",
+			description: "Enables the structure tensor pass used by the Kuwahara filter.",
+		},
+		{
+			prop: "kuwaharaPass",
+			type: "boolean",
+			default: "true",
+			description: "Enables the anisotropic Kuwahara watercolor pass.",
+		},
+		{
+			prop: "class",
+			type: "string",
+			default: '""',
+			description: "Additional CSS classes for the container.",
+		},
+	]}
+/>

@@ -1,0 +1,29 @@
+{
+	"introducedAt": "2026-06-07",
+	"name": "Watercolor Image",
+	"slug": "watercolor-image",
+	"description": "An image display component that applies a structure-tensor guided anisotropic Kuwahara watercolor filter.",
+	"category": "canvas",
+	"dependencies": {
+		"ogl": "^1.0.11"
+	},
+	"devDependencies": {},
+	"internalDependencies": [],
+	"files": [
+		{
+			"path": "WatercolorImage.svelte",
+			"kind": "entry"
+		},
+		{
+			"path": "WatercolorImageScene.svelte"
+		},
+		{
+			"path": "../../utils/cn.ts",
+			"target": "utils"
+		},
+		{
+			"path": "../../helpers/color.ts",
+			"target": "helpers"
+		}
+	]
+}

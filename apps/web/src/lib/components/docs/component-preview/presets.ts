@@ -84,7 +84,7 @@ const file = (
 export const componentPreviewControls = {
 	"ascii-renderer": [
 		number("density", "Density", {
-			defaultValue: 25,
+			defaultValue: 80,
 			min: 5,
 			max: 80,
 			step: 1,
@@ -1020,6 +1020,16 @@ export const componentPreviewControls = {
 			defaultValue: 100,
 			min: 20,
 			max: 240,
+			step: 1,
+		}),
+	],
+	"watercolor-image": [
+		bool("tensorPass", "Tensor Pass", true),
+		bool("kuwaharaPass", "Kuwahara Pass", true),
+		number("radius", "Radius", {
+			defaultValue: 6,
+			min: 1,
+			max: 12,
 			step: 1,
 		}),
 	],
