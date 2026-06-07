@@ -612,6 +612,9 @@
   {
     "__typename": "Tweet",
     "favorite_count": 2,
+    "in_reply_to_screen_name": "madebyhex",
+    "in_reply_to_status_id_str": "2005307712322879594",
+    "in_reply_to_user_id_str": "1913155043919831040",
     "lang": "en",
     "created_at": "2025-12-29T04:27:54.000Z",
     "display_text_range": [
@@ -652,6 +655,171 @@
     },
     "conversation_count": 0,
     "news_action_type": "conversation",
+    "parent": {
+      "favorite_count": 3,
+      "lang": "en",
+      "possibly_sensitive": false,
+      "reply_count": 1,
+      "retweet_count": 0,
+      "created_at": "2025-12-28T15:59:50.000Z",
+      "display_text_range": [
+        0,
+        83
+      ],
+      "entities": {
+        "media": [
+          {
+            "display_url": "pic.x.com/9UORPsnjnN",
+            "expanded_url": "https://x.com/madebyhex/status/2005307712322879594/video/1",
+            "indices": [
+              83,
+              106
+            ],
+            "url": "https://t.co/9UORPsnjnN"
+          }
+        ],
+        "urls": [
+          {
+            "display_url": "motion-core.dev",
+            "expanded_url": "https://motion-core.dev/",
+            "indices": [
+              59,
+              82
+            ],
+            "url": "https://t.co/4VOhQtXU8V"
+          }
+        ]
+      },
+      "id_str": "2005307712322879594",
+      "text": "two commands with CLI and your static image goes brrrah 🔥\n\nhttps://t.co/4VOhQtXU8V https://t.co/9UORPsnjnN",
+      "user": {
+        "id_str": "1913155043919831040",
+        "name": "Marek Jóźwiak",
+        "screen_name": "madebyhex",
+        "is_blue_verified": true,
+        "profile_image_shape": "Circle",
+        "verified": false,
+        "profile_image_url_https": "https://pbs.twimg.com/profile_images/2048158689937313792/SBqSlE-n_normal.jpg"
+      },
+      "edit_control": {
+        "edit_tweet_ids": [
+          "2005307712322879594"
+        ],
+        "editable_until_msecs": "1766941190000",
+        "edits_remaining": "5",
+        "is_edit_eligible": true
+      },
+      "mediaDetails": [
+        {
+          "additional_media_info": {},
+          "display_url": "pic.x.com/9UORPsnjnN",
+          "expanded_url": "https://x.com/madebyhex/status/2005307712322879594/video/1",
+          "ext_media_availability": {
+            "status": "Available"
+          },
+          "indices": [
+            83,
+            106
+          ],
+          "media_url_https": "https://pbs.twimg.com/amplify_video_thumb/2005307606269652992/img/jaGX4n1mh31Hwq5n.jpg",
+          "original_info": {
+            "focus_rects": [],
+            "height": 1080,
+            "width": 1920
+          },
+          "sizes": {
+            "large": {
+              "h": 1080,
+              "resize": "fit",
+              "w": 1920
+            },
+            "medium": {
+              "h": 675,
+              "resize": "fit",
+              "w": 1200
+            },
+            "small": {
+              "h": 383,
+              "resize": "fit",
+              "w": 680
+            },
+            "thumb": {
+              "h": 150,
+              "resize": "crop",
+              "w": 150
+            }
+          },
+          "type": "video",
+          "url": "https://t.co/9UORPsnjnN",
+          "video_info": {
+            "aspect_ratio": [
+              16,
+              9
+            ],
+            "duration_millis": 4798,
+            "variants": [
+              {
+                "content_type": "application/x-mpegURL",
+                "url": "https://video.twimg.com/amplify_video/2005307606269652992/pl/i19xDhI3ipb_fG7j.m3u8?tag=14"
+              },
+              {
+                "bitrate": 288000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2005307606269652992/vid/avc1/480x270/QJ6yPyRRkENxWdhp.mp4?tag=14"
+              },
+              {
+                "bitrate": 832000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2005307606269652992/vid/avc1/640x360/0JlnrMTQ3OLG5IbV.mp4?tag=14"
+              },
+              {
+                "bitrate": 2176000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/amplify_video/2005307606269652992/vid/avc1/1280x720/z6jUBuYId7lT4Fi7.mp4?tag=14"
+              }
+            ]
+          }
+        }
+      ],
+      "photos": [],
+      "video": {
+        "aspectRatio": [
+          16,
+          9
+        ],
+        "contentType": "media_entity",
+        "durationMs": 4798,
+        "mediaAvailability": {
+          "status": "available"
+        },
+        "poster": "https://pbs.twimg.com/amplify_video_thumb/2005307606269652992/img/jaGX4n1mh31Hwq5n.jpg",
+        "variants": [
+          {
+            "type": "application/x-mpegURL",
+            "src": "https://video.twimg.com/amplify_video/2005307606269652992/pl/i19xDhI3ipb_fG7j.m3u8?tag=14"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2005307606269652992/vid/avc1/480x270/QJ6yPyRRkENxWdhp.mp4?tag=14"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2005307606269652992/vid/avc1/640x360/0JlnrMTQ3OLG5IbV.mp4?tag=14"
+          },
+          {
+            "type": "video/mp4",
+            "src": "https://video.twimg.com/amplify_video/2005307606269652992/vid/avc1/1280x720/z6jUBuYId7lT4Fi7.mp4?tag=14"
+          }
+        ],
+        "videoId": {
+          "type": "tweet",
+          "id": "2005307712322879594"
+        },
+        "viewCount": 0
+      },
+      "isEdited": false,
+      "isStaleEdit": false
+    },
     "isEdited": false,
     "isStaleEdit": false
   },

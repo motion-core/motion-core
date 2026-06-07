@@ -86,6 +86,8 @@
 				);
 			}
 
+			tl.add("scalePhase", "-=0.1");
+
 			if (isScaleDownTargets.length) {
 				tl.to(
 					isScaleDownTargets,
@@ -103,7 +105,7 @@
 							}
 						},
 					},
-					"-=0.1",
+					"scalePhase",
 				);
 			}
 
@@ -119,7 +121,7 @@
 						height: "100dvh",
 						duration: 2,
 					},
-					"< 0.5",
+					"scalePhase",
 				);
 			}
 		}, containerRef);
