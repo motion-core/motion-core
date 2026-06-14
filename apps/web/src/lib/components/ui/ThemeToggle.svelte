@@ -26,24 +26,42 @@
 	<span class="sr-only"
 		>{themeStore.isDark ? "Switch to light mode" : "Switch to dark mode"}</span
 	>
-	<span
-		class={cn(
-			"absolute transition-[opacity,filter,scale] duration-150 ease-out will-change-[opacity,filter,scale]",
-			!themeStore.isDark
-				? "blur-0 scale-100 opacity-100"
-				: " scale-[0.25] opacity-0 blur-xs",
-		)}
-	>
+	<span class="theme-toggle-icon theme-toggle-sun">
 		<Sun size={16} />
 	</span>
-	<span
-		class={cn(
-			"absolute transition-[opacity,filter,scale] duration-150 ease-out will-change-[opacity,filter,scale]",
-			!themeStore.isDark
-				? "scale-[0.25] opacity-0 blur-xs"
-				: "blur-0 scale-100 opacity-100",
-		)}
-	>
+	<span class="theme-toggle-icon theme-toggle-moon">
 		<Moon size={16} />
 	</span>
 </button>
+
+<style>
+	.theme-toggle-icon {
+		position: absolute;
+		opacity: 0;
+		filter: blur(4px);
+		scale: 0.25;
+		transition:
+			opacity 150ms ease-out,
+			filter 150ms ease-out,
+			scale 150ms ease-out;
+		will-change: opacity, filter, scale;
+	}
+
+	.theme-toggle-sun {
+		opacity: 1;
+		filter: blur(0);
+		scale: 1;
+	}
+
+	:global(.dark) .theme-toggle-sun {
+		opacity: 0;
+		filter: blur(4px);
+		scale: 0.25;
+	}
+
+	:global(.dark) .theme-toggle-moon {
+		opacity: 1;
+		filter: blur(0);
+		scale: 1;
+	}
+</style>

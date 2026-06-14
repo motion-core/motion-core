@@ -10,23 +10,6 @@ function isTheme(value: string | null): value is Theme {
 	return value === "light" || value === "dark";
 }
 
-function getPreferredTheme(): Theme {
-	if (!browser) {
-		return docsUiConfig.theme.defaultMode === "dark" ? "dark" : "light";
-	}
-
-	if (
-		docsUiConfig.theme.defaultMode === "light" ||
-		docsUiConfig.theme.defaultMode === "dark"
-	) {
-		return docsUiConfig.theme.defaultMode;
-	}
-
-	return window.matchMedia("(prefers-color-scheme: dark)").matches
-		? "dark"
-		: "light";
-}
-
 function applyTheme(theme: Theme) {
 	if (!browser) {
 		return;
@@ -37,15 +20,24 @@ function applyTheme(theme: Theme) {
 	document.documentElement.style.colorScheme = isDark ? "dark" : "light";
 }
 
+function getInitialTheme(): Theme {
+	if (!browser) {
+		return docsUiConfig.theme.defaultMode === "dark" ? "dark" : "light";
+	}
+
+	const storedTheme = localStorage.getItem(storageKey);
+	if (isTheme(storedTheme)) {
+		return storedTheme;
+	}
+
+	return document.documentElement.classList.contains("dark") ? "dark" : "light";
+}
+
 function createThemeStore() {
-	let current = $state<Theme>("light");
+	const initialTheme = getInitialTheme();
+	let current = $state<Theme>(initialTheme);
 
 	if (browser) {
-		const storedTheme = localStorage.getItem(storageKey);
-		const initialTheme = isTheme(storedTheme)
-			? storedTheme
-			: getPreferredTheme();
-		current = initialTheme;
 		applyTheme(initialTheme);
 
 		const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
