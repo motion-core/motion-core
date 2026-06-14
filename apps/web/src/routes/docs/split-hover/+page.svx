@@ -6,7 +6,7 @@ description: A text effect that splits characters and animates stacked layers on
 <script lang="ts">
 	import ComponentPreview from "$lib/components/docs/ComponentPreview.svelte";
 	import ApiTable from "$lib/components/docs/ApiTable.svelte"; import
-	InstallationTabs from "$lib/components/docs/LegacyInstallationTabs.svelte";
+	InstallationTabs from "$lib/components/docs/InstallationTabs.svelte";
 	import Steps from "$lib/components/docs/markdown/Steps.svelte"; import Step
 	from "$lib/components/docs/markdown/Step.svelte"; import splitHoverSource from
 	"motion-core/components/split-hover/SplitHover.svelte?raw"; import gsapHelperSource

@@ -7,7 +7,7 @@ description: A smooth and organic lava lamp effect using raymarching shaders and
 	import ComponentPreview from "$lib/components/docs/ComponentPreview.svelte";
 	import { componentPreviewControls } from "$lib/components/docs/component-preview/presets";
 	import ApiTable from "$lib/components/docs/ApiTable.svelte"; import
-	InstallationTabs from "$lib/components/docs/LegacyInstallationTabs.svelte";
+	InstallationTabs from "$lib/components/docs/InstallationTabs.svelte";
 	import Steps from "$lib/components/docs/markdown/Steps.svelte"; import Step
 	from "$lib/components/docs/markdown/Step.svelte"; import lavaLampSource from
 	"motion-core/components/lava-lamp/LavaLamp.svelte?raw"; import sceneSource

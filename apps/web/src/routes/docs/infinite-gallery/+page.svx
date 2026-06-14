@@ -7,7 +7,7 @@ description: A 3D gallery that endlessly scrolls through textured planes with cl
 	import ComponentPreview from "$lib/components/docs/ComponentPreview.svelte";
 	import { componentPreviewControls } from "$lib/components/docs/component-preview/presets";
 	import ApiTable from "$lib/components/docs/ApiTable.svelte"; import
-	InstallationTabs from "$lib/components/docs/LegacyInstallationTabs.svelte";
+	InstallationTabs from "$lib/components/docs/InstallationTabs.svelte";
 	import Steps from "$lib/components/docs/markdown/Steps.svelte"; import Step
 	from "$lib/components/docs/markdown/Step.svelte"; import infiniteGallerySource
 	from "motion-core/components/infinite-gallery/InfiniteGallery.svelte?raw";

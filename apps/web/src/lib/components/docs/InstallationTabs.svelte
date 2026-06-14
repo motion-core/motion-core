@@ -1,23 +1,22 @@
 <script lang="ts">
 	import { SvelteMap } from "svelte/reactivity";
 	import { cn } from "$lib/utils/cn";
-	import CopyCodeButton from "./markdown/CopyCodeButton.svelte";
-	import ShikiCodeBlock from "./ShikiCodeBlock.svelte";
 	import { getHighlighter } from "$lib/utils/highlighter";
 	import {
 		packageManagers,
 		packageManagerStore,
 		type PackageManager,
 	} from "$lib/stores/package-manager.svelte";
-	import { siteConfig } from "$lib/config/site";
+	import ShikiCodeBlock from "./ShikiCodeBlock.svelte";
+	import CopyCodeButton from "./markdown/CopyCodeButton.svelte";
 
 	type Props = {
-		pkg?: string;
+		component?: string;
 		args?: string;
-		isDev?: boolean;
+		mode?: "execute" | "global";
 	};
 
-	let { pkg = siteConfig.package.name, args, isDev = false }: Props = $props();
+	let { component, args, mode = "execute" }: Props = $props();
 	let tabList = $state<HTMLDivElement | null>(null);
 	let activeIndicatorLeft = $state(0);
 	let activeIndicatorWidth = $state(0);
@@ -26,18 +25,18 @@
 	const tabRefs = new SvelteMap<PackageManager, HTMLButtonElement>();
 
 	const commands: Record<PackageManager, string> = $derived(
-		isDev
+		mode === "global"
 			? {
-					npm: `npm install -D ${pkg} ${args ?? ""}`,
-					pnpm: `pnpm add -D ${pkg} ${args ?? ""}`,
-					bun: `bun add -D ${pkg} ${args ?? ""}`,
-					yarn: `yarn add -D ${pkg} ${args ?? ""}`,
+					npm: "npm install -g @motion-core/cli",
+					pnpm: "pnpm add -g @motion-core/cli",
+					bun: "bun add -g @motion-core/cli",
+					yarn: "yarn global add @motion-core/cli",
 				}
 			: {
-					npm: `npm install ${pkg} ${args ?? ""}`,
-					pnpm: `pnpm add ${pkg} ${args ?? ""}`,
-					bun: `bun add ${pkg} ${args ?? ""}`,
-					yarn: `yarn add ${pkg} ${args ?? ""}`,
+					npm: `npx @motion-core/cli ${args ?? (component ? `add ${component}` : "add")}`,
+					pnpm: `pnpm dlx @motion-core/cli ${args ?? (component ? `add ${component}` : "add")}`,
+					bun: `bunx @motion-core/cli ${args ?? (component ? `add ${component}` : "add")}`,
+					yarn: `yarn dlx @motion-core/cli ${args ?? (component ? `add ${component}` : "add")}`,
 				},
 	);
 

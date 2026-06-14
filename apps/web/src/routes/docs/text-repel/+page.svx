@@ -7,7 +7,7 @@ description: A cursor-reactive text wrapper that splits content into words or ch
 	import ComponentPreview from "$lib/components/docs/ComponentPreview.svelte";
 	import { componentPreviewControls } from "$lib/components/docs/component-preview/presets";
 	import ApiTable from "$lib/components/docs/ApiTable.svelte"; import
-	InstallationTabs from "$lib/components/docs/LegacyInstallationTabs.svelte";
+	InstallationTabs from "$lib/components/docs/InstallationTabs.svelte";
 	import Steps from "$lib/components/docs/markdown/Steps.svelte"; import Step
 	from "$lib/components/docs/markdown/Step.svelte"; import textRepelSource from
 	"motion-core/components/text-repel/TextRepel.svelte?raw"; import gsapHelperSource

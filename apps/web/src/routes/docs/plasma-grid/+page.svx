@@ -7,7 +7,7 @@ description: A fluid, pixelated noise pattern useful for backgrounds.
 	import ComponentPreview from "$lib/components/docs/ComponentPreview.svelte";
 	import { componentPreviewControls } from "$lib/components/docs/component-preview/presets";
 	import ApiTable from "$lib/components/docs/ApiTable.svelte"; import
-	InstallationTabs from "$lib/components/docs/LegacyInstallationTabs.svelte";
+	InstallationTabs from "$lib/components/docs/InstallationTabs.svelte";
 	import Steps from "$lib/components/docs/markdown/Steps.svelte"; import Step
 	from "$lib/components/docs/markdown/Step.svelte"; import plasmaGridSource from
 	"motion-core/components/plasma-grid/PlasmaGrid.svelte?raw"; import sceneSource

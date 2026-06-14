@@ -7,7 +7,7 @@ description: A draggable stack where the top card snaps to the back after a thre
 	import ComponentPreview from "$lib/components/docs/ComponentPreview.svelte";
 	import { componentPreviewControls } from "$lib/components/docs/component-preview/presets";
 	import ApiTable from "$lib/components/docs/ApiTable.svelte";
-	import InstallationTabs from "$lib/components/docs/LegacyInstallationTabs.svelte";
+	import InstallationTabs from "$lib/components/docs/InstallationTabs.svelte";
 	import Steps from "$lib/components/docs/markdown/Steps.svelte";
 	import Step from "$lib/components/docs/markdown/Step.svelte";
 	import flipCardStackSource from "motion-core/components/flip-card-stack/FlipCardStack.svelte?raw";

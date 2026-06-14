@@ -5,7 +5,7 @@ description: Getting started with the Motion Core CLI.
 
 <script lang="ts">
 	import InstallationTabs from
-	"$lib/components/docs/LegacyInstallationTabs.svelte";
+	"$lib/components/docs/InstallationTabs.svelte";
 </script>
 
 ## Installation
