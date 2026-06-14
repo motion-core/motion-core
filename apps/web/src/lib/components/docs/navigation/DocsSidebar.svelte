@@ -494,4 +494,10 @@
 	.sidebar-nav-layout-shift::after {
 		transition: opacity 150ms ease-out;
 	}
+
+	@media (max-width: 1023.98px) {
+		.sidebar-nav::before {
+			display: none;
+		}
+	}
 </style>

@@ -431,4 +431,10 @@
 		will-change: transform, height, opacity;
 		z-index: 20;
 	}
+
+	@media (max-width: 1023.98px) {
+		.command-results::before {
+			display: none;
+		}
+	}
 </style>
