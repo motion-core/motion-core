@@ -1024,8 +1024,6 @@ export const componentPreviewControls = {
 		}),
 	],
 	"watercolor-image": [
-		bool("tensorPass", "Tensor Pass", true),
-		bool("kuwaharaPass", "Kuwahara Pass", true),
 		number("radius", "Radius", {
 			defaultValue: 6,
 			min: 1,
