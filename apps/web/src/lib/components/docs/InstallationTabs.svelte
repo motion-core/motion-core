@@ -2,12 +2,12 @@
 	import { SvelteMap } from "svelte/reactivity";
 	import { cn } from "$lib/utils/cn";
 	import { getHighlighter } from "$lib/utils/highlighter";
+	import Pre from "./markdown/Pre.svelte";
 	import {
 		packageManagers,
 		packageManagerStore,
 		type PackageManager,
 	} from "$lib/stores/package-manager.svelte";
-	import ShikiCodeBlock from "./ShikiCodeBlock.svelte";
 	import CopyCodeButton from "./markdown/CopyCodeButton.svelte";
 
 	type Props = {
@@ -84,6 +84,7 @@
 		pendingIndicatorFrame = window.requestAnimationFrame(() => {
 			pendingIndicatorFrame = null;
 			updateActiveIndicator();
+			document.documentElement.dataset.docsPackageManagerReady = "true";
 		});
 	}
 
@@ -153,11 +154,12 @@
 					<button
 						onclick={() => (packageManagerStore.active = pm)}
 						class={cn(
-							"relative z-20 px-4 py-2.5 text-sm font-medium tracking-normal transition-colors duration-150 ease-out outline-none select-none",
+							"package-manager-tab relative z-20 px-4 py-2.5 text-sm font-medium tracking-normal transition-colors duration-150 ease-out outline-none select-none",
 							packageManagerStore.active === pm
 								? "text-accent"
 								: "text-foreground-muted hover:text-foreground",
 						)}
+						data-package-manager={pm}
 						use:registerTab={pm}
 					>
 						{pm}
@@ -171,12 +173,24 @@
 		<div
 			class="min-h-12.5 p-4 [&>div]:mt-0 [&>div]:rounded-none [&>div]:border-0 [&>div]:bg-transparent [&>div]:p-0 [&>div]:shadow-none [&>div]:[box-shadow:none]!"
 		>
-			<ShikiCodeBlock
-				code=""
-				htmlLight={highlightedCommands[packageManagerStore.active].light}
-				htmlDark={highlightedCommands[packageManagerStore.active].dark}
-				unstyled={true}
-			/>
+			<Pre code="" unstyled={true}>
+				{#each packageManagers as pm (pm)}
+					<div
+						class="package-manager-command"
+						data-package-manager={pm}
+						data-active={packageManagerStore.active === pm}
+					>
+						<div class="shiki-theme-light">
+							<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+							{@html highlightedCommands[pm].light}
+						</div>
+						<div class="shiki-theme-dark">
+							<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+							{@html highlightedCommands[pm].dark}
+						</div>
+					</div>
+				{/each}
+			</Pre>
 		</div>
 	</div>
 
@@ -191,6 +205,140 @@
 				transparent
 			);
 			filter: drop-shadow(0 0 6px oklch(from var(--color-accent) l c h / 0.38));
+		}
+
+		.package-manager-tab::after {
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			height: 2px;
+			pointer-events: none;
+			content: "";
+			background-image: linear-gradient(
+				to right,
+				transparent,
+				oklch(from var(--color-accent) l c h / 0.68) 18%,
+				var(--color-accent) 50%,
+				oklch(from var(--color-accent) l c h / 0.68) 82%,
+				transparent
+			);
+			filter: drop-shadow(0 0 6px oklch(from var(--color-accent) l c h / 0.38));
+			opacity: 0;
+		}
+
+		:global(
+				html[data-docs-package-manager]:not([data-docs-package-manager-ready])
+			)
+			.tab-active-line {
+			opacity: 0;
+		}
+
+		.package-manager-command {
+			display: none;
+		}
+
+		.package-manager-command[data-active="true"] {
+			display: block;
+		}
+
+		:global(
+				html[data-docs-package-manager]:not([data-docs-package-manager-ready])
+			)
+			.package-manager-tab {
+			color: var(--color-foreground-muted);
+		}
+
+		:global(
+				html[data-docs-package-manager="npm"]:not(
+						[data-docs-package-manager-ready]
+					)
+			)
+			.package-manager-tab[data-package-manager="npm"],
+		:global(
+				html[data-docs-package-manager="pnpm"]:not(
+						[data-docs-package-manager-ready]
+					)
+			)
+			.package-manager-tab[data-package-manager="pnpm"],
+		:global(
+				html[data-docs-package-manager="bun"]:not(
+						[data-docs-package-manager-ready]
+					)
+			)
+			.package-manager-tab[data-package-manager="bun"],
+		:global(
+				html[data-docs-package-manager="yarn"]:not(
+						[data-docs-package-manager-ready]
+					)
+			)
+			.package-manager-tab[data-package-manager="yarn"] {
+			color: var(--color-accent);
+		}
+
+		:global(
+				html[data-docs-package-manager="npm"]:not(
+						[data-docs-package-manager-ready]
+					)
+			)
+			.package-manager-tab[data-package-manager="npm"]::after,
+		:global(
+				html[data-docs-package-manager="pnpm"]:not(
+						[data-docs-package-manager-ready]
+					)
+			)
+			.package-manager-tab[data-package-manager="pnpm"]::after,
+		:global(
+				html[data-docs-package-manager="bun"]:not(
+						[data-docs-package-manager-ready]
+					)
+			)
+			.package-manager-tab[data-package-manager="bun"]::after,
+		:global(
+				html[data-docs-package-manager="yarn"]:not(
+						[data-docs-package-manager-ready]
+					)
+			)
+			.package-manager-tab[data-package-manager="yarn"]::after {
+			opacity: 1;
+		}
+
+		:global(html[data-docs-package-manager="npm"])
+			.package-manager-command[data-package-manager="npm"],
+		:global(html[data-docs-package-manager="pnpm"])
+			.package-manager-command[data-package-manager="pnpm"],
+		:global(html[data-docs-package-manager="bun"])
+			.package-manager-command[data-package-manager="bun"],
+		:global(html[data-docs-package-manager="yarn"])
+			.package-manager-command[data-package-manager="yarn"] {
+			display: block;
+		}
+
+		:global(html[data-docs-package-manager="pnpm"])
+			.package-manager-command[data-active="true"]:not(
+				[data-package-manager="pnpm"]
+			),
+		:global(html[data-docs-package-manager="bun"])
+			.package-manager-command[data-active="true"]:not(
+				[data-package-manager="bun"]
+			),
+		:global(html[data-docs-package-manager="yarn"])
+			.package-manager-command[data-active="true"]:not(
+				[data-package-manager="yarn"]
+			) {
+			display: none;
+		}
+
+		.shiki-theme-dark {
+			display: none;
+		}
+
+		:global(.dark) :global(.shiki-theme-light) {
+			display: none;
+		}
+
+		:global(.dark) :global(.shiki-theme-dark) {
+			display: block;
 		}
 	</style>
 </div>

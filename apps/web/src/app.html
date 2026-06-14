@@ -3,6 +3,70 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<style>
+			html[data-docs-package-manager] .package-manager-command {
+				display: none !important;
+			}
+
+			html[data-docs-package-manager="npm"]
+				.package-manager-command[data-package-manager="npm"],
+			html[data-docs-package-manager="pnpm"]
+				.package-manager-command[data-package-manager="pnpm"],
+			html[data-docs-package-manager="bun"]
+				.package-manager-command[data-package-manager="bun"],
+			html[data-docs-package-manager="yarn"]
+				.package-manager-command[data-package-manager="yarn"] {
+				display: block !important;
+			}
+
+			html[data-docs-package-manager]:not([data-docs-package-manager-ready])
+				.tab-active-line {
+				opacity: 0 !important;
+			}
+
+			html[data-docs-package-manager]:not([data-docs-package-manager-ready])
+				.package-manager-tab {
+				color: var(--color-foreground-muted);
+			}
+
+			html[data-docs-package-manager="npm"]:not(
+					[data-docs-package-manager-ready]
+				)
+				.package-manager-tab[data-package-manager="npm"],
+			html[data-docs-package-manager="pnpm"]:not(
+					[data-docs-package-manager-ready]
+				)
+				.package-manager-tab[data-package-manager="pnpm"],
+			html[data-docs-package-manager="bun"]:not(
+					[data-docs-package-manager-ready]
+				)
+				.package-manager-tab[data-package-manager="bun"],
+			html[data-docs-package-manager="yarn"]:not(
+					[data-docs-package-manager-ready]
+				)
+				.package-manager-tab[data-package-manager="yarn"] {
+				color: var(--color-accent);
+			}
+
+			html[data-docs-package-manager="npm"]:not(
+					[data-docs-package-manager-ready]
+				)
+				.package-manager-tab[data-package-manager="npm"]::after,
+			html[data-docs-package-manager="pnpm"]:not(
+					[data-docs-package-manager-ready]
+				)
+				.package-manager-tab[data-package-manager="pnpm"]::after,
+			html[data-docs-package-manager="bun"]:not(
+					[data-docs-package-manager-ready]
+				)
+				.package-manager-tab[data-package-manager="bun"]::after,
+			html[data-docs-package-manager="yarn"]:not(
+					[data-docs-package-manager-ready]
+				)
+				.package-manager-tab[data-package-manager="yarn"]::after {
+				opacity: 1;
+			}
+		</style>
 		<script>
 			(() => {
 				document.documentElement.classList.add("js");
@@ -14,6 +78,23 @@
 						window.matchMedia("(prefers-color-scheme: dark)").matches);
 				document.documentElement.classList.toggle("dark", isDark);
 				document.documentElement.style.colorScheme = isDark ? "dark" : "light";
+
+				const packageManagerStorageKey = "docs-package-manager";
+				const packageManagerDefault = "npm";
+				const enabledPackageManagers = ["npm", "pnpm", "bun", "yarn"];
+				const storedPackageManager = localStorage.getItem(
+					packageManagerStorageKey,
+				);
+				const activePackageManager = enabledPackageManagers.includes(
+					storedPackageManager,
+				)
+					? storedPackageManager
+					: packageManagerDefault;
+
+				if (activePackageManager) {
+					document.documentElement.dataset.docsPackageManager =
+						activePackageManager;
+				}
 			})();
 		</script>
 		<link
