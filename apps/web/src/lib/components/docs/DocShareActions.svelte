@@ -15,6 +15,11 @@
 	let { rawPath, rawUrl, githubUrl }: Props = $props();
 
 	let buttonRef = $state<HTMLButtonElement | null>(null);
+	let actionsElement = $state<HTMLDivElement | null>(null);
+	let hoverIndicatorTop = $state(0);
+	let hoverIndicatorHeight = $state(0);
+	let hoverIndicatorVisible = $state(false);
+	let hoveredElement: HTMLElement | null = null;
 
 	type CopyState = "idle" | "copying" | "success" | "error";
 	let copyState = $state<CopyState>("idle");
@@ -35,6 +40,8 @@
 			Boolean(chatGptUrl) ||
 			Boolean(claudeUrl),
 	);
+	const actionItemClass =
+		"relative z-10 flex items-center gap-2 rounded-sm px-3 py-1.5 text-left font-medium tracking-normal text-foreground-muted transition-colors duration-150 ease-out hover:text-foreground focus-visible:text-foreground";
 
 	const copyLabel = $derived(
 		copyState === "copying"
@@ -45,6 +52,56 @@
 					? docsUiConfig.docActions.copyLabels.error
 					: docsUiConfig.docActions.copyLabels.desktopIdle,
 	);
+
+	function showHoverIndicator(node: HTMLElement) {
+		if (!actionsElement) return;
+
+		hoveredElement = node;
+		const actionsRect = actionsElement.getBoundingClientRect();
+		const nodeRect = node.getBoundingClientRect();
+
+		hoverIndicatorTop = nodeRect.top - actionsRect.top;
+		hoverIndicatorHeight = nodeRect.height;
+		hoverIndicatorVisible = true;
+	}
+
+	function hideHoverIndicator() {
+		hoveredElement = null;
+		hoverIndicatorVisible = false;
+	}
+
+	function restoreHoverIndicator() {
+		if (typeof document === "undefined" || !actionsElement) return;
+
+		const focusedElement =
+			document.activeElement instanceof HTMLElement &&
+			actionsElement.contains(document.activeElement)
+				? document.activeElement
+				: null;
+		const hoveredTarget =
+			hoveredElement?.isConnected &&
+			actionsElement.contains(hoveredElement) &&
+			hoveredElement.matches(":hover")
+				? hoveredElement
+				: Array.from(
+						actionsElement.querySelectorAll<HTMLElement>("a[href], button"),
+					).find((node) => node.matches(":hover"));
+		const target = hoveredTarget ?? focusedElement;
+
+		if (target) {
+			showHoverIndicator(target);
+		}
+	}
+
+	function handleActionsFocusOut(event: FocusEvent) {
+		if (!actionsElement) return;
+		if (
+			event.relatedTarget instanceof Node &&
+			actionsElement.contains(event.relatedTarget)
+		)
+			return;
+		hideHoverIndicator();
+	}
 
 	async function handleCopy() {
 		if (
@@ -84,6 +141,10 @@
 	}
 
 	$effect(() => {
+		if (hasActions) {
+			restoreHoverIndicator();
+		}
+
 		return () => {
 			if (resetTimer) {
 				clearTimeout(resetTimer);
@@ -94,15 +155,29 @@
 
 {#if hasActions}
 	<div class="mt-auto">
-		<div class="flex flex-col gap-1 text-sm">
+		<div
+			class="doc-share-actions relative flex flex-col gap-1 text-sm"
+			bind:this={actionsElement}
+			role="group"
+			aria-label="Document actions"
+			onmouseleave={hideHoverIndicator}
+			onfocusout={handleActionsFocusOut}
+			style={`
+				--doc-share-hover-top: ${hoverIndicatorTop}px;
+				--doc-share-hover-height: ${hoverIndicatorHeight}px;
+				--doc-share-hover-opacity: ${hoverIndicatorVisible ? 1 : 0};
+			`}
+		>
 			{#if canShowCopy}
 				<button
 					bind:this={buttonRef}
 					type="button"
 					onclick={handleCopy}
+					onmouseenter={(event) => showHoverIndicator(event.currentTarget)}
+					onfocus={(event) => showHoverIndicator(event.currentTarget)}
 					aria-live="polite"
 					aria-disabled={copyState === "success"}
-					class="group/option flex items-center gap-2 overflow-hidden rounded-sm px-3 py-1.5 text-left font-medium tracking-normal text-foreground-muted transition-colors duration-150 ease-out hover:bg-background-muted hover:text-foreground"
+					class={`${actionItemClass} overflow-hidden`}
 				>
 					<span class="grid" style="grid-template-areas: 'content';">
 						{#key copyState}
@@ -142,10 +217,12 @@
 
 			{#if canShowRepository}
 				<a
-					class="group/option flex items-center gap-2 rounded-sm px-3 py-1.5 text-left font-medium tracking-normal text-foreground-muted transition-colors duration-150 ease-out hover:bg-background-muted hover:text-foreground"
+					class={actionItemClass}
 					href={githubUrl}
 					target="_blank"
 					rel="noreferrer"
+					onmouseenter={(event) => showHoverIndicator(event.currentTarget)}
+					onfocus={(event) => showHoverIndicator(event.currentTarget)}
 				>
 					<LogoGithub class="size-4 flex-none" />
 					<span>{docsUiConfig.docActions.repositoryLinkLabel}</span>
@@ -155,10 +232,12 @@
 
 			{#if chatGptUrl}
 				<a
-					class="group/option flex items-center gap-2 rounded-sm px-3 py-1.5 text-left font-medium tracking-normal text-foreground-muted transition-colors duration-150 ease-out hover:bg-background-muted hover:text-foreground"
+					class={actionItemClass}
 					href={chatGptUrl}
 					target="_blank"
 					rel="noreferrer"
+					onmouseenter={(event) => showHoverIndicator(event.currentTarget)}
+					onfocus={(event) => showHoverIndicator(event.currentTarget)}
 				>
 					<svg
 						role="img"
@@ -179,10 +258,12 @@
 
 			{#if claudeUrl}
 				<a
-					class="group/option flex items-center gap-2 rounded-sm px-3 py-1.5 text-left font-medium tracking-normal text-foreground-muted transition-colors duration-150 ease-out hover:bg-background-muted hover:text-foreground"
+					class={actionItemClass}
 					href={claudeUrl}
 					target="_blank"
 					rel="noreferrer"
+					onmouseenter={(event) => showHoverIndicator(event.currentTarget)}
+					onfocus={(event) => showHoverIndicator(event.currentTarget)}
 				>
 					<svg
 						role="img"
@@ -203,3 +284,24 @@
 		</div>
 	</div>
 {/if}
+
+<style>
+	.doc-share-actions::before {
+		content: "";
+		position: absolute;
+		inset-inline: 0px;
+		top: 0;
+		height: var(--doc-share-hover-height);
+		border-radius: var(--radius-sm);
+		background: var(--color-background-muted);
+		opacity: var(--doc-share-hover-opacity);
+		pointer-events: none;
+		transform: translateY(var(--doc-share-hover-top));
+		transition:
+			transform 150ms ease-out,
+			height 150ms ease-out,
+			opacity 150ms ease-out;
+		will-change: transform, height, opacity;
+		z-index: 0;
+	}
+</style>
