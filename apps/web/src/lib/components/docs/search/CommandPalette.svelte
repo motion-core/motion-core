@@ -17,6 +17,17 @@
 	let selectedIndex = $state(0);
 	let inputRef = $state<HTMLInputElement>();
 	let contentHeight = $state(0);
+	let resultsRef = $state<HTMLDivElement | null>(null);
+	let selectedIndicatorTop = $state(0);
+	let selectedIndicatorHeight = $state(0);
+	let selectedIndicatorVisible = $state(false);
+	let selectedGlowLeft = $state(0);
+	let selectedGlowTop = $state(0);
+	let selectedGlowHeight = $state(0);
+	let selectedGlowVisible = $state(false);
+	let selectedResultElement: HTMLElement | null = null;
+	let selectedResultIsChild = false;
+	let pendingSelectedIndicatorFrame: number | null = null;
 
 	function handleGlobalKeydown(e: KeyboardEvent) {
 		const hotkey = docsUiConfig.search.hotkey;
@@ -49,6 +60,95 @@
 	$effect(() => {
 		void results;
 		selectedIndex = 0;
+	});
+
+	function updateSelectedIndicators() {
+		if (!resultsRef || !selectedResultElement) {
+			selectedIndicatorVisible = false;
+			selectedGlowVisible = false;
+			return;
+		}
+
+		const resultsRect = resultsRef.getBoundingClientRect();
+		const nodeRect = selectedResultElement.getBoundingClientRect();
+
+		selectedIndicatorTop = nodeRect.top - resultsRect.top;
+		selectedIndicatorHeight = nodeRect.height;
+		selectedIndicatorVisible = true;
+
+		selectedGlowLeft = nodeRect.left - resultsRect.left + 12;
+		selectedGlowTop = selectedIndicatorTop;
+		selectedGlowHeight = selectedIndicatorHeight;
+		selectedGlowVisible = selectedResultIsChild;
+	}
+
+	function scheduleSelectedIndicatorUpdate() {
+		if (typeof window === "undefined") {
+			updateSelectedIndicators();
+			return;
+		}
+
+		if (pendingSelectedIndicatorFrame !== null) {
+			window.cancelAnimationFrame(pendingSelectedIndicatorFrame);
+		}
+
+		pendingSelectedIndicatorFrame = window.requestAnimationFrame(() => {
+			pendingSelectedIndicatorFrame = null;
+			updateSelectedIndicators();
+		});
+	}
+
+	function registerResult(
+		node: HTMLElement,
+		params: { selected: boolean; child: boolean },
+	) {
+		if (params.selected) {
+			selectedResultElement = node;
+			selectedResultIsChild = params.child;
+			scheduleSelectedIndicatorUpdate();
+		}
+
+		return {
+			update(nextParams: { selected: boolean; child: boolean }) {
+				if (nextParams.selected) {
+					selectedResultElement = node;
+					selectedResultIsChild = nextParams.child;
+					scheduleSelectedIndicatorUpdate();
+				} else if (selectedResultElement === node) {
+					selectedResultElement = null;
+					selectedResultIsChild = false;
+					scheduleSelectedIndicatorUpdate();
+				}
+			},
+			destroy() {
+				if (selectedResultElement === node) {
+					selectedResultElement = null;
+					selectedResultIsChild = false;
+					scheduleSelectedIndicatorUpdate();
+				}
+			},
+		};
+	}
+
+	$effect(() => {
+		const index = selectedIndex;
+		const resultCount = results.length;
+		void index;
+		void resultCount;
+
+		scheduleSelectedIndicatorUpdate();
+
+		if (typeof window === "undefined") return;
+
+		window.addEventListener("resize", scheduleSelectedIndicatorUpdate);
+
+		return () => {
+			window.removeEventListener("resize", scheduleSelectedIndicatorUpdate);
+			if (pendingSelectedIndicatorFrame !== null) {
+				window.cancelAnimationFrame(pendingSelectedIndicatorFrame);
+				pendingSelectedIndicatorFrame = null;
+			}
+		};
 	});
 
 	function close() {
@@ -171,64 +271,83 @@
 							viewportStyle="mask-image: linear-gradient(to bottom, transparent, black 8px, black calc(100% - 8px), transparent); -webkit-mask-image: linear-gradient(to bottom, transparent, black 8px, black calc(100% - 8px), transparent);"
 							viewportClass="max-h-96 p-2"
 						>
-							{#each results as result, i (result.slug + (result.anchor || "") + i)}
-								{@const isChild =
-									result.matchType === "heading" ||
-									result.matchType === "content"}
-								<button
-									class={cn(
-										"group relative flex w-full flex-col items-start gap-1 rounded-sm px-3 py-2 text-sm font-medium tracking-normal",
-										isChild && "pl-8",
-										i === selectedIndex
-											? "bg-background-muted text-foreground"
-											: "text-foreground hover:bg-background-muted",
-									)}
-									onclick={() => selectResult(result)}
-									onmouseenter={() => (selectedIndex = i)}
-								>
-									{#if isChild}
-										<div
-											class={cn(
-												"absolute top-0 bottom-0 left-3 w-px bg-border",
-											)}
-										></div>
-									{/if}
-
-									<div class="flex w-full flex-col items-start gap-0.5">
-										{#if result.matchType !== "content"}
+							<div
+								class="command-results relative flex flex-col"
+								bind:this={resultsRef}
+								style={`
+										--command-selected-top: ${selectedIndicatorTop}px;
+										--command-selected-height: ${selectedIndicatorHeight}px;
+										--command-selected-opacity: ${selectedIndicatorVisible ? 1 : 0};
+										--command-glow-left: ${selectedGlowLeft}px;
+										--command-glow-top: ${selectedGlowTop}px;
+										--command-glow-height: ${selectedGlowHeight}px;
+										--command-glow-opacity: ${selectedGlowVisible ? 1 : 0};
+									`}
+							>
+								{#each results as result, i (result.slug + (result.anchor || "") + i)}
+									{@const isChild =
+										result.matchType === "heading" ||
+										result.matchType === "content"}
+									{@const isSelected = i === selectedIndex}
+									<button
+										class={cn(
+											"group relative z-10 flex w-full flex-col items-start gap-1 rounded-sm px-3 py-2 text-sm font-medium tracking-normal transition-colors duration-150 ease-out",
+											isChild && "pl-8",
+											isSelected
+												? "text-foreground"
+												: "text-foreground hover:text-foreground",
+										)}
+										onclick={() => selectResult(result)}
+										onmouseenter={() => (selectedIndex = i)}
+										use:registerResult={{
+											selected: isSelected,
+											child: isChild,
+										}}
+									>
+										{#if isChild}
 											<div
-												class="flex items-center gap-2 font-medium tracking-normal"
-											>
-												{#if result.matchType === "heading"}
-													<span class="opacity-70">#</span>
-												{/if}
-												<span>
-													{#each highlight(result.heading || result.title, query) as part, index (index)}
+												class={cn(
+													"absolute top-0 bottom-0 left-3 w-px bg-border",
+												)}
+											></div>
+										{/if}
+
+										<div class="flex w-full flex-col items-start gap-0.5">
+											{#if result.matchType !== "content"}
+												<div
+													class="flex items-center gap-2 font-medium tracking-normal"
+												>
+													{#if result.matchType === "heading"}
+														<span class="opacity-70">#</span>
+													{/if}
+													<span>
+														{#each highlight(result.heading || result.title, query) as part, index (index)}
+															{#if part.highlight}
+																<span class="text-accent">{part.text}</span>
+															{:else}
+																{part.text}
+															{/if}
+														{/each}
+													</span>
+												</div>
+											{/if}
+											{#if result.snippet}
+												<div
+													class="line-clamp-1 text-left text-xs font-medium tracking-normal text-foreground-muted"
+												>
+													{#each highlight(result.snippet, query) as part, index (index)}
 														{#if part.highlight}
 															<span class="text-accent">{part.text}</span>
 														{:else}
 															{part.text}
 														{/if}
 													{/each}
-												</span>
-											</div>
-										{/if}
-										{#if result.snippet}
-											<div
-												class="line-clamp-1 text-left text-xs font-medium tracking-normal text-foreground-muted"
-											>
-												{#each highlight(result.snippet, query) as part, index (index)}
-													{#if part.highlight}
-														<span class="text-accent">{part.text}</span>
-													{:else}
-														{part.text}
-													{/if}
-												{/each}
-											</div>
-										{/if}
-									</div>
-								</button>
-							{/each}
+												</div>
+											{/if}
+										</div>
+									</button>
+								{/each}
+							</div>
 						</ScrollArea>
 					{:else if query}
 						<div
@@ -264,5 +383,52 @@
 		outline-color: transparent !important;
 		outline-offset: 0 !important;
 		box-shadow: none !important;
+	}
+
+	.command-results::before {
+		content: "";
+		position: absolute;
+		inset-inline: 0px;
+		top: 0;
+		height: var(--command-selected-height);
+		border-radius: var(--radius-sm);
+		background: var(--color-background-muted);
+		opacity: var(--command-selected-opacity);
+		pointer-events: none;
+		transform: translateY(var(--command-selected-top));
+		transition:
+			transform 150ms ease-out,
+			height 150ms ease-out,
+			opacity 150ms ease-out;
+		will-change: transform, height, opacity;
+		z-index: 0;
+	}
+
+	.command-results::after {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 1px;
+		height: var(--command-glow-height);
+		border-radius: 9999px;
+		background-image: linear-gradient(
+			to bottom,
+			transparent,
+			oklch(from var(--color-accent) l c h / 0.68) 18%,
+			var(--color-accent) 50%,
+			oklch(from var(--color-accent) l c h / 0.68) 82%,
+			transparent
+		);
+		filter: drop-shadow(0 0 6px oklch(from var(--color-accent) l c h / 0.38));
+		opacity: var(--command-glow-opacity);
+		pointer-events: none;
+		transform: translate(var(--command-glow-left), var(--command-glow-top));
+		transition:
+			transform 150ms ease-out,
+			height 150ms ease-out,
+			opacity 150ms ease-out;
+		will-change: transform, height, opacity;
+		z-index: 20;
 	}
 </style>

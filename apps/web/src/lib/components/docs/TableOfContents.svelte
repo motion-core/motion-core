@@ -47,6 +47,7 @@
 	let indicatorRange = $state<IndicatorRange | null>(null);
 	let pendingIndicatorFrame: number | null = null;
 	let tocViewportActive = $state(false);
+	let lastPulsedRangeKey = "";
 
 	const ACTIVE_OFFSET = 140;
 	const VISIBLE_BUFFER = 24;
@@ -57,6 +58,9 @@
 		{ top: number; height: number }
 	>();
 	const headingOrder = new SvelteMap<string, number>();
+	const pulseTimers = new SvelteMap<string, number>();
+	const lastIndicatorIds = new SvelteSet<string>();
+	let pulsingDotIds = $state<string[]>([]);
 	let linksWrapper = $state<HTMLOListElement | null>(null);
 
 	const currentPath = $derived(page.url.pathname);
@@ -78,11 +82,66 @@
 		indicatorHeight = 0;
 		indicatorBottom = 0;
 		indicatorRange = null;
+		lastPulsedRangeKey = "";
+		lastIndicatorIds.clear();
 		headingOrder.clear();
+		pulsingDotIds = [];
+		if (typeof window !== "undefined") {
+			pulseTimers.forEach((timer) => window.clearTimeout(timer));
+		}
+		pulseTimers.clear();
 		if (typeof window !== "undefined" && pendingIndicatorFrame !== null) {
 			window.cancelAnimationFrame(pendingIndicatorFrame);
 			pendingIndicatorFrame = null;
 		}
+	}
+
+	function pulseDot(id: string) {
+		if (typeof window === "undefined" || !id) return;
+
+		const existingTimer = pulseTimers.get(id);
+		if (existingTimer) {
+			window.clearTimeout(existingTimer);
+		}
+
+		pulsingDotIds = pulsingDotIds.filter((item) => item !== id);
+		window.requestAnimationFrame(() => {
+			pulsingDotIds = [...pulsingDotIds, id];
+			const timer = window.setTimeout(() => {
+				pulsingDotIds = pulsingDotIds.filter((item) => item !== id);
+				pulseTimers.delete(id);
+			}, 560);
+			pulseTimers.set(id, timer);
+		});
+	}
+
+	function pulseRange(range: IndicatorRange | null) {
+		if (!range) return;
+		const rangeKey = `${range.startId}:${range.endId}`;
+		if (rangeKey === lastPulsedRangeKey) return;
+		lastPulsedRangeKey = rangeKey;
+
+		const startIndex = headingOrder.get(range.startId);
+		const endIndex = headingOrder.get(range.endId);
+		if (startIndex === undefined || endIndex === undefined) return;
+
+		const min = Math.min(startIndex, endIndex);
+		const max = Math.max(startIndex, endIndex);
+
+		const nextIndicatorIds = headings
+			.filter((_heading, index) => index >= min && index <= max)
+			.map((heading) => heading.id);
+
+		nextIndicatorIds.forEach((id) => {
+			if (!lastIndicatorIds.has(id)) {
+				pulseDot(id);
+			}
+		});
+
+		lastIndicatorIds.clear();
+		nextIndicatorIds.forEach((id) => {
+			lastIndicatorIds.add(id);
+		});
 	}
 
 	function registerLink(node: HTMLElement, id?: string) {
@@ -257,6 +316,7 @@
 	function scheduleIndicatorUpdate(range?: IndicatorRange | null) {
 		if (typeof window === "undefined") {
 			if (range) {
+				pulseRange(range);
 				updateIndicator(range);
 			} else {
 				updateIndicator();
@@ -271,6 +331,7 @@
 		pendingIndicatorFrame = window.requestAnimationFrame(() => {
 			pendingIndicatorFrame = null;
 			if (range) {
+				pulseRange(range);
 				updateIndicator(range);
 			} else {
 				updateIndicator();
@@ -444,6 +505,10 @@
 		return () => {
 			container.removeEventListener("scroll", updateActive);
 			window.removeEventListener("resize", handleResize);
+			pulseTimers.forEach((timer) => window.clearTimeout(timer));
+			pulseTimers.clear();
+			pulsingDotIds = [];
+			lastIndicatorIds.clear();
 			if (pendingIndicatorFrame !== null) {
 				window.cancelAnimationFrame(pendingIndicatorFrame);
 				pendingIndicatorFrame = null;
@@ -530,18 +595,18 @@
 </script>
 
 {#if headings.length > 0}
-	<nav class="hidden lg:block">
+	<nav>
 		<div
 			class="mb-2 flex items-center gap-2 text-xs font-medium tracking-wide text-foreground-muted/70 uppercase"
 		>
 			<TableOfContents size={16} />
 			{title}
 		</div>
-		<div class="relative flex px-2">
+		<div class="relative mx-1 flex">
 			<div
-				class="pointer-events-none absolute top-0 left-1 h-full w-10"
+				class="pointer-events-none absolute top-0 left-[2.5px] h-full w-10"
 				style={`
-                    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${svgWidth} ${lineHeight}' width='${svgWidth}' height='${lineHeight}' preserveAspectRatio='none'%3E%3Cpath d='${svgPath}' stroke='black' stroke-width='1' fill='none'/%3E%3C/svg%3E");
+	                    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${svgWidth} ${lineHeight}' width='${svgWidth}' height='${lineHeight}' preserveAspectRatio='none'%3E%3Cpath d='${svgPath}' stroke='black' stroke-width='1' fill='none'/%3E%3C/svg%3E");
                     -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${svgWidth} ${lineHeight}' width='${svgWidth}' height='${lineHeight}' preserveAspectRatio='none'%3E%3Cpath d='${svgPath}' stroke='black' stroke-width='1' fill='none'/%3E%3C/svg%3E");
                     mask-repeat: no-repeat;
                     -webkit-mask-repeat: no-repeat;
@@ -555,16 +620,16 @@
 
 				{#if indicatorHeight > 0}
 					<div
-						class="absolute left-0 w-full bg-accent transition-all duration-450 ease-out"
+						class="toc-active-line absolute left-0 w-full transition-[top,bottom] duration-450 ease-out"
 						style={`
-                            top: ${indicatorTop}px;
-                            bottom: ${Math.max(0, lineHeight - indicatorBottom)}px;
+	                            top: ${indicatorTop}px;
+	                            bottom: ${Math.max(0, lineHeight - indicatorBottom)}px;
                         `}
 					></div>
 				{/if}
 			</div>
 
-			<ol class="relative flex flex-col pl-3 text-sm" bind:this={linksWrapper}>
+			<ol class="relative flex flex-col text-sm" bind:this={linksWrapper}>
 				{#each headings as heading (heading.id)}
 					<li
 						class="transition-colors duration-150 ease-out"
@@ -572,15 +637,31 @@
 					>
 						<a
 							href={`#${heading.id}`}
+							onclick={() => pulseDot(heading.id)}
 							class={cn(
-								"block max-w-48 truncate py-1 font-medium tracking-normal transition-[color] duration-150 ease-out",
+								"flex max-w-48 items-center gap-2 py-1 font-medium tracking-normal transition-[color] duration-150 ease-out",
 								isLinkHighlighted(heading.id)
 									? "text-accent"
 									: "text-foreground-muted hover:text-foreground",
 							)}
 							use:registerLink={heading.id}
 						>
-							{heading.text}
+							<span
+								aria-hidden="true"
+								class={cn(
+									"toc-dot relative size-1.5 flex-none rounded-full transition-[background-color,box-shadow,scale] duration-150 ease-out",
+									isLinkHighlighted(heading.id) && "toc-dot-active",
+									pulsingDotIds.includes(heading.id) && "toc-dot-pulse",
+								)}
+							></span>
+							<span
+								class={cn(
+									"min-w-0 truncate pl-1",
+									isLinkHighlighted(heading.id) && "text-accent",
+								)}
+							>
+								{heading.text}
+							</span>
 						</a>
 					</li>
 				{/each}
@@ -592,3 +673,64 @@
 		{emptyLabel}
 	</div>
 {/if}
+
+<style>
+	.toc-active-line {
+		background-image: linear-gradient(
+			to bottom,
+			transparent,
+			oklch(from var(--color-accent) l c h / 0.68) 22%,
+			var(--color-accent) 50%,
+			oklch(from var(--color-accent) l c h / 0.68) 78%,
+			transparent
+		);
+		filter: drop-shadow(0 0 6px oklch(from var(--color-accent) l c h / 0.38));
+	}
+
+	.toc-dot {
+		background-color: var(--color-foreground-muted);
+		box-shadow: 0 0 0 2px var(--color-background);
+		opacity: 0.72;
+	}
+
+	.toc-dot-active {
+		background-color: var(--color-accent);
+		box-shadow:
+			inset 0 1px oklch(from var(--color-white-fixed) l c h / 0.35),
+			0 0 0 2px var(--color-background),
+			0 0 10px oklch(from var(--color-accent) l c h / 0.38);
+		opacity: 1;
+	}
+
+	.toc-dot-active::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		border-radius: 9999px;
+		box-shadow: 0 0 9px oklch(from var(--color-accent) l c h / 0.5);
+	}
+
+	.toc-dot-pulse {
+		animation: toc-dot-pulse 0.52s ease-out both;
+	}
+
+	@keyframes toc-dot-pulse {
+		0% {
+			transform: scale(1);
+			box-shadow: 0 0 0 2px var(--color-background);
+		}
+
+		12% {
+			transform: scale(1.15);
+			background-color: var(--color-accent);
+			box-shadow:
+				0 0 0 2px var(--color-background),
+				0 0 0 3px oklch(from var(--color-accent) l c h / 0.18),
+				0 0 18px oklch(from var(--color-accent) l c h / 0.52);
+		}
+
+		100% {
+			transform: scale(1);
+		}
+	}
+</style>

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { SvelteMap } from "svelte/reactivity";
 	import { cn } from "$lib/utils/cn";
 	import CopyCodeButton from "./markdown/CopyCodeButton.svelte";
 	import ShikiCodeBlock from "./ShikiCodeBlock.svelte";
@@ -17,6 +18,12 @@
 	};
 
 	let { pkg = siteConfig.package.name, args, isDev = false }: Props = $props();
+	let tabList = $state<HTMLDivElement | null>(null);
+	let activeIndicatorLeft = $state(0);
+	let activeIndicatorWidth = $state(0);
+	let pendingIndicatorFrame: number | null = null;
+
+	const tabRefs = new SvelteMap<PackageManager, HTMLButtonElement>();
 
 	const commands: Record<PackageManager, string> = $derived(
 		isDev
@@ -35,6 +42,72 @@
 	);
 
 	const activeCommand = $derived(commands[packageManagerStore.active]);
+
+	function registerTab(node: HTMLElement, pm: PackageManager) {
+		tabRefs.set(pm, node as HTMLButtonElement);
+
+		return {
+			update(nextPm: PackageManager) {
+				if (nextPm === pm) return;
+				tabRefs.delete(pm);
+				pm = nextPm;
+				tabRefs.set(pm, node as HTMLButtonElement);
+			},
+			destroy() {
+				tabRefs.delete(pm);
+			},
+		};
+	}
+
+	function updateActiveIndicator() {
+		const activeTab = tabRefs.get(packageManagerStore.active);
+
+		if (!tabList || !activeTab) {
+			activeIndicatorLeft = 0;
+			activeIndicatorWidth = 0;
+			return;
+		}
+
+		activeIndicatorLeft = activeTab.offsetLeft;
+		activeIndicatorWidth = activeTab.offsetWidth;
+	}
+
+	function scheduleActiveIndicatorUpdate() {
+		if (typeof window === "undefined") {
+			updateActiveIndicator();
+			return;
+		}
+
+		if (pendingIndicatorFrame !== null) {
+			window.cancelAnimationFrame(pendingIndicatorFrame);
+		}
+
+		pendingIndicatorFrame = window.requestAnimationFrame(() => {
+			pendingIndicatorFrame = null;
+			updateActiveIndicator();
+		});
+	}
+
+	$effect(() => {
+		const activePackageManager = packageManagerStore.active;
+		const currentTabList = tabList;
+		void activePackageManager;
+		void currentTabList;
+
+		scheduleActiveIndicatorUpdate();
+
+		if (typeof window === "undefined") return;
+
+		window.addEventListener("resize", scheduleActiveIndicatorUpdate);
+
+		return () => {
+			window.removeEventListener("resize", scheduleActiveIndicatorUpdate);
+			if (pendingIndicatorFrame !== null) {
+				window.cancelAnimationFrame(pendingIndicatorFrame);
+				pendingIndicatorFrame = null;
+			}
+		};
+	});
 
 	const highlightedCommands = $derived.by(() => {
 		const highlighter = getHighlighter();
@@ -66,23 +139,29 @@
 		<div
 			class="relative flex items-center justify-between rounded-t-md after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-border after:shadow-2xs after:shadow-white after:content-[''] dark:after:bg-background-inset dark:after:shadow-border"
 		>
-			<div class="flex items-center">
+			<div class="relative flex items-center" bind:this={tabList}>
+				{#if activeIndicatorWidth > 0}
+					<div
+						class="tab-active-line pointer-events-none absolute bottom-0 left-0 z-10 h-0.5 transition-[transform,width] duration-150 ease-out"
+						style={`
+								width: ${activeIndicatorWidth}px;
+								transform: translateX(${activeIndicatorLeft}px);
+							`}
+					></div>
+				{/if}
+
 				{#each packageManagers as pm (pm)}
 					<button
 						onclick={() => (packageManagerStore.active = pm)}
 						class={cn(
-							"relative px-4 py-2.5 text-sm font-medium tracking-normal transition-colors duration-150 ease-out outline-none select-none",
+							"relative z-20 px-4 py-2.5 text-sm font-medium tracking-normal transition-colors duration-150 ease-out outline-none select-none",
 							packageManagerStore.active === pm
-								? "text-foreground"
+								? "text-accent"
 								: "text-foreground-muted hover:text-foreground",
 						)}
+						use:registerTab={pm}
 					>
 						{pm}
-						{#if packageManagerStore.active === pm}
-							<div
-								class="absolute bottom-0 left-0 h-0.5 w-full bg-accent"
-							></div>
-						{/if}
 					</button>
 				{/each}
 			</div>
@@ -101,4 +180,18 @@
 			/>
 		</div>
 	</div>
+
+	<style>
+		.tab-active-line {
+			background-image: linear-gradient(
+				to right,
+				transparent,
+				oklch(from var(--color-accent) l c h / 0.68) 18%,
+				var(--color-accent) 50%,
+				oklch(from var(--color-accent) l c h / 0.68) 82%,
+				transparent
+			);
+			filter: drop-shadow(0 0 6px oklch(from var(--color-accent) l c h / 0.38));
+		}
+	</style>
 </div>

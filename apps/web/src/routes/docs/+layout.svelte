@@ -235,19 +235,19 @@
 	<MobileSidebar />
 
 	<div
-		class="flex h-full w-full min-w-0 lg:grid lg:grid-cols-[22rem_minmax(0,1fr)] xl:grid-cols-[22rem_minmax(0,56rem)_18rem] xl:justify-center"
+		class="relative flex h-full w-full min-w-0 lg:grid lg:grid-cols-[22rem_minmax(0,1fr)]"
 	>
 		<aside class="hidden lg:block">
 			<DocsSidebar />
 		</aside>
 
 		<div
-			class="inset-shadow relative mx-auto h-full w-full max-w-4xl min-w-0 overflow-hidden bg-background-inset pt-12 lg:my-4 lg:mr-4 lg:max-h-[calc(100dvh-2rem)] lg:overflow-visible lg:rounded-xl lg:pt-0 xl:mr-0"
+			class="inset-shadow relative mr-auto h-full overflow-hidden bg-background-inset pt-12 lg:my-2 lg:mr-2 lg:grid lg:max-h-[calc(100dvh-1rem)] lg:w-[calc(100%-0.5rem)] lg:grid-cols-[minmax(0,52rem)] lg:grid-rows-[minmax(0,1fr)] lg:overflow-visible lg:rounded-xl lg:pt-0 xl:grid-cols-[minmax(0,1fr)_14rem_2rem] 2xl:grid-cols-[minmax(0,52rem)_minmax(0,1fr)_14rem_2rem]"
 		>
 			<ScrollArea
 				id="docs-content-container"
-				class="mx-auto h-full w-full lg:max-h-[calc(100dvh-2rem)]"
-				viewportClass="rounded-lg overscroll-none flex flex-col gap-8 px-4 py-8 lg:px-8"
+				class="h-full w-full lg:row-start-1 lg:max-h-[calc(100dvh-1rem)] xl:col-start-1 xl:col-end-4 2xl:col-end-5"
+				viewportClass="rounded-lg overscroll-none flex flex-col max-w-[54rem] gap-8 px-4 py-8 lg:px-8 xl:max-w-[calc(100%-18rem)] 2xl:max-w-[54rem]"
 				viewportStyle="mask-image: linear-gradient(to bottom, transparent, black 16px, black calc(100% - 16px), transparent); -webkit-mask-image: linear-gradient(to bottom, transparent, black 16px, black calc(100% - 16px), transparent);"
 			>
 				<section class="min-w-0 flex-1 space-y-8">
@@ -308,11 +308,9 @@
 					</div>
 				</section>
 			</ScrollArea>
-		</div>
 
-		<aside class="hidden xl:block xl:w-full xl:py-8 xl:pr-4 xl:pl-4">
-			<div
-				class="sticky top-8 flex h-full max-h-[calc(100dvh-4rem)] min-h-0 flex-col"
+			<aside
+				class="z-50 hidden w-56 flex-col justify-between py-8 xl:col-start-2 xl:row-start-1 xl:flex 2xl:col-start-3"
 			>
 				{#if showToc}
 					<div class="min-h-0 flex-1">
@@ -327,7 +325,7 @@
 				{#if showDocActions}
 					<DocShareActions {rawPath} {rawUrl} {githubUrl} />
 				{/if}
-			</div>
-		</aside>
+			</aside>
+		</div>
 	</div>
 </main>
