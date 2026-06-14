@@ -3,11 +3,9 @@
 	import { cn } from "$lib/utils/cn";
 	import { page } from "$app/state";
 	import TableOfContents from "carbon-icons-svelte/lib/TableOfContents.svelte";
+	import type { DocTocHeading } from "$lib/docs/manifest";
 
-	type TocItem = {
-		id: string;
-		text: string;
-		level: number;
+	type TocItem = DocTocHeading & {
 		element: HTMLElement;
 	};
 
@@ -26,6 +24,7 @@
 		title?: string;
 		emptyLabel?: string;
 		minViewportWidth?: number;
+		headings?: DocTocHeading[];
 	};
 
 	const props = $props();
@@ -35,8 +34,14 @@
 	const title = $derived((props as Props).title ?? "On this page");
 	const emptyLabel = $derived((props as Props).emptyLabel ?? "No headings");
 	const minViewportWidth = $derived((props as Props).minViewportWidth ?? 1280);
+	const initialHeadings = $derived(
+		normalizeHeadings((props as Props).headings),
+	);
 
-	let headings = $state<Omit<TocItem, "element">[]>([]);
+	let headings = $state<DocTocHeading[]>([]);
+	const renderedHeadings = $derived(
+		headings.length > 0 ? headings : initialHeadings,
+	);
 	let activeId = $state("");
 	let indicatorTop = $state(0);
 	let indicatorHeight = $state(0);
@@ -74,8 +79,44 @@
 			.replace(/[^a-z0-9]+/g, "-")
 			.replace(/^-+|-+$/g, "");
 
-	function resetTocState() {
-		headings = [];
+	function normalizeHeadings(value?: DocTocHeading[]) {
+		return Array.isArray(value)
+			? value.filter(
+					(heading): heading is DocTocHeading =>
+						typeof heading.id === "string" &&
+						heading.id.length > 0 &&
+						typeof heading.text === "string" &&
+						heading.text.length > 0 &&
+						typeof heading.level === "number",
+				)
+			: [];
+	}
+
+	function syncHeadingOrder(nextHeadings: DocTocHeading[]) {
+		headingOrder.clear();
+		nextHeadings.forEach(({ id }, index) => {
+			headingOrder.set(id, index);
+		});
+	}
+
+	function applyHeadings(nextHeadings: DocTocHeading[]) {
+		headings = nextHeadings;
+		syncHeadingOrder(nextHeadings);
+		activeId = nextHeadings[0]?.id ?? "";
+		lineHeight = 0;
+		indicatorTop = 0;
+		indicatorHeight = 0;
+		indicatorBottom = 0;
+		indicatorRange = null;
+		lastPulsedRangeKey = "";
+		lastIndicatorIds.clear();
+	}
+
+	function resetTocState(options: { clearHeadings?: boolean } = {}) {
+		if (options.clearHeadings ?? true) {
+			headings = [];
+			headingOrder.clear();
+		}
 		activeId = "";
 		lineHeight = 0;
 		indicatorTop = 0;
@@ -84,7 +125,6 @@
 		indicatorRange = null;
 		lastPulsedRangeKey = "";
 		lastIndicatorIds.clear();
-		headingOrder.clear();
 		pulsingDotIds = [];
 		if (typeof window !== "undefined") {
 			pulseTimers.forEach((timer) => window.clearTimeout(timer));
@@ -94,6 +134,10 @@
 			window.cancelAnimationFrame(pendingIndicatorFrame);
 			pendingIndicatorFrame = null;
 		}
+	}
+
+	function syncInitialHeadings() {
+		applyHeadings(initialHeadings);
 	}
 
 	function pulseDot(id: string) {
@@ -339,12 +383,7 @@
 		});
 	}
 
-	function collectHeadings() {
-		if (typeof document === "undefined" || !tocViewportActive) {
-			resetTocState();
-			return undefined;
-		}
-
+	function collectDomHeadings(): TocItem[] {
 		const slugCounts = new SvelteMap<string, number>();
 		const usedIds = new SvelteSet<string>();
 		const nodeList = Array.from(document.querySelectorAll(selector)).filter(
@@ -400,13 +439,37 @@
 			});
 		}
 
-		headingOrder.clear();
-		parsed.forEach(({ id }, index) => {
-			headingOrder.set(id, index);
-		});
+		return parsed;
+	}
 
-		headings = parsed.map(({ element: _element, ...rest }) => rest);
-		activeId = parsed[0]?.id ?? "";
+	function resolveInitialHeadingElements(): TocItem[] {
+		const nextHeadings = initialHeadings;
+		if (nextHeadings.length === 0) return [];
+
+		return nextHeadings
+			.map((heading) => {
+				const element = document.getElementById(heading.id);
+				if (!(element instanceof HTMLElement)) return null;
+
+				return {
+					...heading,
+					element,
+				};
+			})
+			.filter((heading): heading is TocItem => heading !== null);
+	}
+
+	function collectHeadings() {
+		if (typeof document === "undefined" || !tocViewportActive) {
+			resetTocState({ clearHeadings: false });
+			return undefined;
+		}
+
+		const initialParsed = resolveInitialHeadingElements();
+		const parsed =
+			initialParsed.length > 0 ? initialParsed : collectDomHeadings();
+
+		applyHeadings(parsed.map(({ element: _element, ...rest }) => rest));
 
 		lineHeight = 0;
 		indicatorTop = 0;
@@ -476,23 +539,7 @@
 		const container =
 			document.getElementById("docs-content-container") ?? window;
 
-		if (parsed.length > 0) {
-			const isWindow = container === window;
-			const scrollY = isWindow
-				? window.scrollY
-				: (container as HTMLElement).scrollTop;
-
-			if (scrollY < ACTIVE_OFFSET) {
-				activeId = parsed[0].id;
-				const initialRange: IndicatorRange = {
-					startId: activeId,
-					endId: activeId,
-				};
-				scheduleIndicatorUpdate(initialRange);
-			} else {
-				updateActive();
-			}
-		}
+		updateActive();
 
 		const handleResize = () => {
 			updateActive();
@@ -560,19 +607,21 @@
 		void path;
 		void isActive;
 
+		syncInitialHeadings();
+
 		if (!isActive) {
-			resetTocState();
+			resetTocState({ clearHeadings: false });
 			return;
 		}
 
 		let cleanup: (() => void) | undefined;
 
-		const timer = setTimeout(() => {
+		const frame = window.requestAnimationFrame(() => {
 			cleanup = collectHeadings();
-		}, 50);
+		});
 
 		return () => {
-			clearTimeout(timer);
+			window.cancelAnimationFrame(frame);
 			cleanup?.();
 		};
 	});
@@ -594,7 +643,7 @@
 	});
 </script>
 
-{#if headings.length > 0}
+{#if renderedHeadings.length > 0}
 	<nav>
 		<div
 			class="mb-2 flex items-center gap-2 text-xs font-medium tracking-wide text-foreground-muted/70 uppercase"
@@ -630,7 +679,7 @@
 			</div>
 
 			<ol class="relative flex flex-col text-sm" bind:this={linksWrapper}>
-				{#each headings as heading (heading.id)}
+				{#each renderedHeadings as heading (heading.id)}
 					<li
 						class="transition-colors duration-150 ease-out"
 						style={`padding-left: ${(heading.level - 2) * 12}px`}

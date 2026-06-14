@@ -133,6 +133,9 @@ importers:
       eslint-plugin-svelte:
         specifier: ^3.15.0
         version: 3.17.1(eslint@10.4.0(jiti@2.7.0))(svelte@5.55.7(@typescript-eslint/types@8.59.3))
+      github-slugger:
+        specifier: ^2.0.0
+        version: 2.0.0
       globals:
         specifier: ^17.4.0
         version: 17.6.0

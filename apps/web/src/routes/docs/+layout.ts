@@ -1,5 +1,10 @@
 import type { LayoutLoad } from "./$types";
-import { getAdjacentDocs, getDocBySlug, getDocMetadata } from "$lib";
+import {
+	getAdjacentDocs,
+	getDocBySlug,
+	getDocMetadata,
+	getDocTocHeadings,
+} from "$lib";
 import { docsManifest as generatedDocsManifest } from "$lib/docs/generated-manifest";
 
 function pathToSlug(pathname: string): string {
@@ -13,6 +18,7 @@ export const load: LayoutLoad = ({ url }) => {
 	const currentDoc = getDocBySlug(slug);
 	const { previous, next } = getAdjacentDocs(slug);
 	const metadata = getDocMetadata(url.pathname);
+	const tocHeadings = getDocTocHeadings(slug);
 	const componentDoc = generatedDocsManifest.find((doc) => doc.slug === slug);
 	const componentDependencies = Object.entries(componentDoc?.dependencies ?? {})
 		.map(([name]) => ({
@@ -32,6 +38,7 @@ export const load: LayoutLoad = ({ url }) => {
 		},
 		previousDoc: previous,
 		nextDoc: next,
+		tocHeadings,
 		componentDependencies,
 		docOrigin: url.origin,
 	};

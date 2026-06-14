@@ -27,6 +27,8 @@ export {
 	getAdjacentDocs,
 	getDocBySlug,
 	getDocHref,
+	getDocTocHeadings,
+	type DocTocHeading,
 } from "./docs/manifest";
 export { getDocMetadata, type DocMetadata } from "./docs/metadata";
 

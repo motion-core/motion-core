@@ -316,6 +316,7 @@
 					<div class="min-h-0 flex-1">
 						<TableOfContents
 							selector={tocSelector}
+							headings={props.data.tocHeadings}
 							title={docsUiConfig.toc.title}
 							emptyLabel={docsUiConfig.toc.emptyLabel}
 							minViewportWidth={docsUiConfig.toc.minViewportWidth}

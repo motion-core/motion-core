@@ -12,6 +12,7 @@
 		"eslint": "^10.0.2",
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-plugin-svelte": "^3.15.0",
+		"github-slugger": "^2.0.0",
 		"globals": "^17.4.0",
 		"mdsvex": "^0.12.6",
 		"prettier": "^3.8.1",
