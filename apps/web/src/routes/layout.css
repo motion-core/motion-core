@@ -47,14 +47,14 @@ html {
 
 	--background-inset: oklch(0.9764 0.0013 var(--base-hue));
 	--background: oklch(1 0 0);
-	--background-muted: oklch(0.956 0.002 var(--base-hue));
+	--background-muted: oklch(0.9264 0.002 var(--base-hue));
 	--fixed-light: oklch(1 0 0);
 	--foreground: oklch(0.1881 0.006 var(--base-hue));
 	--foreground-muted: oklch(0.5493 0.0081 var(--base-hue));
 	--accent: oklch(0.6996 0.201959 44.4414);
 	--accent-secondary: oklch(0.5096 0.151959 44.4414);
-	--border: oklch(0.4224 0.0013 var(--base-hue) / 0.1);
-	--highlight: oklch(0.4224 0.0013 var(--base-hue));
+	--border: oklch(0 0.0013 var(--base-hue) / 0.08);
+	--highlight: oklch(0 0.0013 var(--base-hue));
 
 	--shadow-xs: 0px 1px 1px -0.5px rgba(0, 0, 0, 0.06);
 	--shadow-sm:
@@ -90,8 +90,8 @@ html {
 	--foreground-muted: oklch(0.669 0.0107 var(--base-hue));
 	--accent: oklch(0.6996 0.181959 44.4414);
 	--accent-secondary: oklch(0.5096 0.131959 44.4414);
-	--border: oklch(0.999 0.013 var(--base-hue) / 0.05);
-	--highlight: oklch(0.999 0.013 var(--base-hue));
+	--border: oklch(1 0.013 var(--base-hue) / 0.05);
+	--highlight: oklch(1 0.013 var(--base-hue));
 }
 
 @theme inline {
@@ -158,13 +158,13 @@ html {
 		inset 0px 1px 1px -0.5px rgba(0, 0, 0, 0.06),
 		inset 0px 3px 3px -1.5px rgba(0, 0, 0, 0.06),
 		inset 0px 6px 6px -3px rgba(0, 0, 0, 0.06),
-		inset 0 -0.5px rgba(255, 255, 255, 0.06),
+		inset 0 -0.5px rgba(255, 255, 255, 0.08),
 		inset 0 0 0 0.5px oklch(from var(--highlight) l c h / 8%);
 }
 
 @utility card {
 	box-shadow:
-		0 -0.5px rgba(255, 255, 255, 0.06),
+		0 -0.5px rgba(255, 255, 255, 0.08),
 		0 4px 8px rgba(0, 0, 0, 0.06),
 		0 0 0 0.5px oklch(from var(--highlight) l c h / 8%),
 		0 1px 6px -4px #000;
