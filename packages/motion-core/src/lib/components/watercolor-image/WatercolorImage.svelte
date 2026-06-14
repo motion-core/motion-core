@@ -19,31 +19,14 @@
 		 * @default 6
 		 */
 		radius?: SceneProps["radius"];
-		/**
-		 * Enables the structure tensor pass.
-		 * @default true
-		 */
-		tensorPass?: SceneProps["tensorPass"];
-		/**
-		 * Enables the anisotropic Kuwahara pass.
-		 * @default true
-		 */
-		kuwaharaPass?: SceneProps["kuwaharaPass"];
 		[key: string]: unknown;
 	}
 
-	let {
-		src,
-		class: className = "",
-		radius = 6,
-		tensorPass = true,
-		kuwaharaPass = true,
-		...rest
-	}: Props = $props();
+	let { src, class: className = "", radius = 6, ...rest }: Props = $props();
 </script>
 
 <div class={cn("relative h-full w-full overflow-hidden", className)} {...rest}>
 	<div class="absolute inset-0 z-0">
-		<Scene image={src} {radius} {tensorPass} {kuwaharaPass} />
+		<Scene image={src} {radius} />
 	</div>
 </div>

@@ -20,24 +20,9 @@
 		 * @default 6
 		 */
 		radius?: number;
-		/**
-		 * Enables the structure tensor pass.
-		 * @default true
-		 */
-		tensorPass?: boolean;
-		/**
-		 * Enables the anisotropic Kuwahara pass.
-		 * @default true
-		 */
-		kuwaharaPass?: boolean;
 	}
 
-	let {
-		image,
-		radius = 6,
-		tensorPass = true,
-		kuwaharaPass = true,
-	}: Props = $props();
+	let { image, radius = 6 }: Props = $props();
 
 	type TensorUniformState = {
 		uTexture: { value: Texture };
@@ -122,28 +107,6 @@
 
 		void main() {
 			gl_FragColor = computeStructureTensor(vUv);
-		}
-	`;
-
-	const sourceFragmentShader = `
-		precision highp float;
-
-		uniform sampler2D uTexture;
-		uniform vec2 uResolution;
-		uniform vec2 uTextureSize;
-		varying vec2 vUv;
-
-		vec2 getCoverUV(vec2 uv, vec2 textureSize) {
-			vec2 safeTexture = max(textureSize, vec2(1.0));
-			vec2 s = uResolution / safeTexture;
-			float scale = max(s.x, s.y);
-			vec2 scaledSize = safeTexture * scale;
-			vec2 offset = (uResolution - scaledSize) * 0.5;
-			return (uv * uResolution - offset) / scaledSize;
-		}
-
-		void main() {
-			gl_FragColor = texture2D(uTexture, getCoverUV(vUv, uTextureSize));
 		}
 	`;
 
@@ -361,14 +324,6 @@
 			depthTest: false,
 			depthWrite: false,
 		});
-		const sourceProgram = new Program(gl, {
-			vertex: vertexShader,
-			fragment: sourceFragmentShader,
-			uniforms: tensorUniforms,
-			transparent: true,
-			depthTest: false,
-			depthWrite: false,
-		});
 		const watercolorProgram = new Program(gl, {
 			vertex: vertexShader,
 			fragment: watercolorFragmentShader,
@@ -388,12 +343,6 @@
 			program: watercolorProgram,
 			frustumCulled: false,
 		});
-		const sourceMesh = new Mesh(gl, {
-			geometry,
-			program: sourceProgram,
-			frustumCulled: false,
-		});
-
 		let imageToken = 0;
 		let disposed = false;
 		const loadImage = (source: string) => {
@@ -431,19 +380,13 @@
 				tensorTarget.setSize(bufW, bufH);
 			}
 
-			if (tensorPass) {
-				renderer.render({
-					scene: tensorMesh,
-					target: tensorTarget,
-					clear: true,
-				});
-			}
 			renderer.render({
-				scene: tensorPass
-					? kuwaharaPass
-						? watercolorMesh
-						: tensorMesh
-					: sourceMesh,
+				scene: tensorMesh,
+				target: tensorTarget,
+				clear: true,
+			});
+			renderer.render({
+				scene: watercolorMesh,
 				clear: true,
 			});
 			raf = window.requestAnimationFrame(tick);
@@ -458,7 +401,6 @@
 			setImageSource = undefined;
 			uniforms = undefined;
 			tensorProgram.remove();
-			sourceProgram.remove();
 			watercolorProgram.remove();
 			geometry.remove();
 			if (imageTexture.texture) gl.deleteTexture(imageTexture.texture);

@@ -80,18 +80,6 @@ import { WatercolorImage } from "$lib/motion-core";
 				"Radius of the anisotropic watercolor filter. Higher values produce broader paint regions.",
 		},
 		{
-			prop: "tensorPass",
-			type: "boolean",
-			default: "true",
-			description: "Enables the structure tensor pass used by the Kuwahara filter.",
-		},
-		{
-			prop: "kuwaharaPass",
-			type: "boolean",
-			default: "true",
-			description: "Enables the anisotropic Kuwahara watercolor pass.",
-		},
-		{
 			prop: "class",
 			type: "string",
 			default: '""',
