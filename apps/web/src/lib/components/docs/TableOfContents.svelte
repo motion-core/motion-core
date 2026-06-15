@@ -2,7 +2,7 @@
 	import { SvelteMap, SvelteSet } from "svelte/reactivity";
 	import { cn } from "$lib/utils/cn";
 	import { page } from "$app/state";
-	import TableOfContents from "carbon-icons-svelte/lib/TableOfContents.svelte";
+	import { AppTableOfContentsIcon } from "$lib/components/icons";
 	import type { DocTocHeading } from "$lib/docs/manifest";
 
 	type TocItem = DocTocHeading & {
@@ -648,7 +648,7 @@
 		<div
 			class="mb-2 flex items-center gap-2 text-xs font-medium tracking-wide text-foreground-muted/70 uppercase"
 		>
-			<TableOfContents size={16} />
+			<AppTableOfContentsIcon size={16} />
 			{title}
 		</div>
 		<div class="relative mx-1 flex">

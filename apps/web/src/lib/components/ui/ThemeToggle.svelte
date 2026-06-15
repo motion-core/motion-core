@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { cn } from "$lib/utils/cn";
 	import { themeStore } from "$lib/stores/theme.svelte";
-	import Sun from "carbon-icons-svelte/lib/Sun.svelte";
-	import Moon from "carbon-icons-svelte/lib/Moon.svelte";
+	import { AppMoonIcon, AppSunIcon } from "$lib/components/icons";
 
 	type Props = {
 		class?: string;
@@ -27,10 +26,10 @@
 		>{themeStore.isDark ? "Switch to light mode" : "Switch to dark mode"}</span
 	>
 	<span class="theme-toggle-icon theme-toggle-sun">
-		<Sun size={16} />
+		<AppSunIcon size={16} />
 	</span>
 	<span class="theme-toggle-icon theme-toggle-moon">
-		<Moon size={16} />
+		<AppMoonIcon size={16} />
 	</span>
 </button>
 

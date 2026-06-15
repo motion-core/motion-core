@@ -1,6 +1,5 @@
 <script lang="ts">
-	import CheckmarkFilled from "carbon-icons-svelte/lib/CheckmarkFilled.svelte";
-	import LogoX from "carbon-icons-svelte/lib/LogoX.svelte";
+	import { AppCheckBadgeIcon, AppXIcon } from "$lib/components/icons";
 	import type { TweetData } from "$lib/features/tweets/server/fetch-tweet";
 	import { cn } from "$lib/utils/cn";
 
@@ -49,7 +48,7 @@
 							{tweet.user.name}
 						</p>
 						{#if tweet.user.is_blue_verified || tweet.user.verified}
-							<CheckmarkFilled
+							<AppCheckBadgeIcon
 								class="size-4 shrink-0 text-[#1d9bf0]"
 								aria-label="Verified account"
 							/>
@@ -68,7 +67,7 @@
 				aria-label="View on X"
 				class="shrink-0 text-foreground-muted transition-colors duration-150 ease-out hover:text-foreground"
 			>
-				<LogoX size={16} />
+				<AppXIcon size={16} />
 			</a>
 		</div>
 

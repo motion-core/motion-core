@@ -10,8 +10,7 @@
 	import SearchTrigger from "../search/SearchTrigger.svelte";
 	import ScrollArea from "$lib/components/ui/ScrollArea.svelte";
 	import ThemeToggle from "$lib/components/ui/ThemeToggle.svelte";
-	import ChevronRight from "carbon-icons-svelte/lib/ChevronRight.svelte";
-	import LogoGithub from "carbon-icons-svelte/lib/LogoGithub.svelte";
+	import { AppChevronRightIcon, AppGitHubIcon } from "$lib/components/icons";
 
 	const currentPath = $derived(
 		page.url.pathname.length > 1
@@ -391,7 +390,7 @@
 								)}
 							>
 								<span>{doc.name}</span>
-								<ChevronRight
+								<AppChevronRightIcon
 									class={cn(
 										"size-4 transition-transform duration-150",
 										isGroupActive && "rotate-90",
@@ -489,7 +488,7 @@
 				rel="noreferrer"
 				aria-label={docsUiConfig.sidebar.repositoryAriaLabel}
 			>
-				<LogoGithub class="size-4 flex-none" />
+				<AppGitHubIcon class="size-4 flex-none" />
 			</a>
 		{/if}
 	</div>

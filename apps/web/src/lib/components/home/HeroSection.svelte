@@ -1,8 +1,7 @@
 <script lang="ts">
 	import brandLogoRaw from "$lib/assets/motion-core-logo.svg?raw";
 	import { resolve } from "$app/paths";
-	import Book from "carbon-icons-svelte/lib/Book.svelte";
-	import LogoGithub from "carbon-icons-svelte/lib/LogoGithub.svelte";
+	import { AppBookIcon, AppGitHubIcon } from "$lib/components/icons";
 	import Button from "../ui/Button.svelte";
 	import { siteConfig } from "$lib/config/site";
 	import { themeStore } from "$lib/stores/theme.svelte";
@@ -74,7 +73,7 @@
 				data-sveltekit-preload-data="off"
 				data-sveltekit-preload-code="off"
 			>
-				<Book size={16} />
+				<AppBookIcon size={16} />
 				<span>Documentation</span>
 			</Button>
 			<Button
@@ -84,7 +83,7 @@
 				rel="noreferrer"
 				size="lg"
 			>
-				<LogoGithub size={16} />
+				<AppGitHubIcon size={16} />
 				<span>GitHub</span>
 				<span aria-hidden="true" class="text-background/40">|</span>
 				<span>{formattedGithubStars}</span>

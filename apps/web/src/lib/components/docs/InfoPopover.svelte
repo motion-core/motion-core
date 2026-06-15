@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount, tick } from "svelte";
 	import { scale } from "svelte/transition";
-	import Information from "carbon-icons-svelte/lib/Information.svelte";
+	import { AppInfoIcon } from "$lib/components/icons";
 
 	let { description }: { description: string } = $props();
 
@@ -91,7 +91,7 @@
 		class="text-foreground-muted transition-[color] duration-150 ease-out hover:text-accent"
 		aria-label="More info"
 	>
-		<Information class="size-4 flex-none" />
+		<AppInfoIcon class="size-4 flex-none" />
 	</button>
 
 	{#if isOpen}

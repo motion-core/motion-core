@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { onDestroy } from "svelte";
 	import { cn } from "$lib/utils/cn";
-	import Copy from "carbon-icons-svelte/lib/Copy.svelte";
-	import Checkmark from "carbon-icons-svelte/lib/Checkmark.svelte";
+	import { AppCheckIcon, AppCopyIcon } from "$lib/components/icons";
 
 	type Props = {
 		code: string;
@@ -80,7 +79,7 @@
 				: "blur-0 scale-100 opacity-100",
 		)}
 	>
-		<Copy size={16} />
+		<AppCopyIcon size={16} />
 	</span>
 	<span
 		class={cn(
@@ -90,6 +89,6 @@
 				: " scale-[0.25] opacity-0 blur-xs",
 		)}
 	>
-		<Checkmark size={16} />
+		<AppCheckIcon size={16} />
 	</span>
 </button>

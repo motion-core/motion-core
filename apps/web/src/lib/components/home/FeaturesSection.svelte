@@ -1,7 +1,9 @@
 <script lang="ts">
-	import Assembly from "carbon-icons-svelte/lib/Assembly.svelte";
-	import Chart_3D from "carbon-icons-svelte/lib/Chart_3D.svelte";
-	import Terminal from "carbon-icons-svelte/lib/Terminal.svelte";
+	import {
+		AppAssemblyIcon,
+		AppChart3DIcon,
+		AppTerminalIcon,
+	} from "$lib/components/icons";
 	import Card from "./Card.svelte";
 </script>
 
@@ -26,7 +28,7 @@
 				description="Each pattern ships as a focused Svelte component with typed props, scoped assets, and docs that mirror the implementation."
 			>
 				{#snippet icon()}
-					<Assembly size={32} aria-hidden="true" />
+					<AppAssemblyIcon size={32} aria-hidden="true" />
 				{/snippet}
 			</Card>
 			<Card
@@ -35,7 +37,7 @@
 				description="OGL-powered effects are wrapped in predictable Svelte APIs, so WebGL demos feel integrated instead of bolted onto the page."
 			>
 				{#snippet icon()}
-					<Chart_3D size={32} aria-hidden="true" />
+					<AppChart3DIcon size={32} aria-hidden="true" />
 				{/snippet}
 			</Card>
 			<Card
@@ -44,7 +46,7 @@
 				description="Install only the pieces you need, keep dependencies explicit, and use the registry-backed docs as the source of truth."
 			>
 				{#snippet icon()}
-					<Terminal size={32} aria-hidden="true" />
+					<AppTerminalIcon size={32} aria-hidden="true" />
 				{/snippet}
 			</Card>
 		</div>

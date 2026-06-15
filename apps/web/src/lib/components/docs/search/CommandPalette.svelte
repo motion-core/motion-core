@@ -9,8 +9,7 @@
 	import { cn } from "$lib/utils/cn";
 	import ScrollArea from "$lib/components/ui/ScrollArea.svelte";
 	import { onMount } from "svelte";
-	import Search from "carbon-icons-svelte/lib/Search.svelte";
-	import Return from "carbon-icons-svelte/lib/Return.svelte";
+	import { AppEnterIcon, AppSearchIcon } from "$lib/components/icons";
 
 	let query = $state("");
 	let results = $derived(searchDocs(query));
@@ -246,7 +245,7 @@
 			<div
 				class="relative flex items-center px-3 after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-border after:shadow-2xs after:shadow-white after:content-[''] dark:after:bg-background-inset dark:after:shadow-border"
 			>
-				<Search size={24} class="mr-2 text-foreground-muted/70" />
+				<AppSearchIcon size={24} class="mr-2 text-foreground-muted/70" />
 				<input
 					bind:this={inputRef}
 					bind:value={query}
@@ -364,7 +363,7 @@
 				<kbd
 					class="pointer-events-none inset-shadow relative hidden h-5 items-center gap-1 rounded-[calc(var(--radius-base)*1.5)] bg-background-inset px-1.5 font-mono text-[10px] font-medium text-foreground-muted/70 select-none sm:flex"
 				>
-					<Return class="size-3" />
+					<AppEnterIcon class="size-3" />
 				</kbd>
 				<span
 					class="text-xs font-medium tracking-normal text-foreground-muted/70"

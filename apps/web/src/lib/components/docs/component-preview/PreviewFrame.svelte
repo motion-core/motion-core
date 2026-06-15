@@ -5,9 +5,11 @@
 	} from "./types";
 	import { cn } from "$lib/utils/cn";
 	import ScrollArea from "../../ui/ScrollArea.svelte";
-	import Reset from "carbon-icons-svelte/lib/Reset.svelte";
-	import Maximize from "carbon-icons-svelte/lib/Maximize.svelte";
-	import Minimize from "carbon-icons-svelte/lib/Minimize.svelte";
+	import {
+		AppMaximizeIcon,
+		AppMinimizeIcon,
+		AppResetIcon,
+	} from "$lib/components/icons";
 
 	type Props = {
 		children?: ComponentPreviewChildren;
@@ -48,20 +50,20 @@
 	>
 		<button
 			onclick={onReload}
-			class="absolute top-2 right-10 z-30 flex size-7 items-center justify-center rounded-sm bg-background-inset text-foreground inset-shadow transition-transform duration-150 ease-out active:scale-[0.95]"
+			class="inset-shadow absolute top-2 right-10 z-30 flex size-7 items-center justify-center rounded-sm bg-background-inset text-foreground transition-transform duration-150 ease-out active:scale-[0.95]"
 			aria-label="Reload Preview"
 		>
-			<Reset class="size-4 flex-none" />
+			<AppResetIcon class="size-4 flex-none" />
 		</button>
 		<button
 			onclick={onToggleFullScreen}
-			class="absolute top-2 right-2 z-30 flex size-7 items-center justify-center rounded-sm bg-background-inset text-foreground inset-shadow transition-transform duration-150 ease-out active:scale-[0.95]"
+			class="inset-shadow absolute top-2 right-2 z-30 flex size-7 items-center justify-center rounded-sm bg-background-inset text-foreground transition-transform duration-150 ease-out active:scale-[0.95]"
 			aria-label={isFullScreen ? "Exit Fullscreen" : "Enter Fullscreen"}
 		>
 			{#if isFullScreen}
-				<Minimize class="size-4 flex-none" />
+				<AppMinimizeIcon class="size-4 flex-none" />
 			{:else}
-				<Maximize class="size-4 flex-none" />
+				<AppMaximizeIcon class="size-4 flex-none" />
 			{/if}
 		</button>
 		<ScrollArea

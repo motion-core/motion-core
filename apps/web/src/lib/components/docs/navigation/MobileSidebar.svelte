@@ -2,8 +2,7 @@
 	import { page } from "$app/state";
 	import DocsSidebar from "./DocsSidebar.svelte";
 	import { brandingConfig } from "$lib/config/branding";
-	import Menu from "carbon-icons-svelte/lib/Menu.svelte";
-	import Close from "carbon-icons-svelte/lib/Close.svelte";
+	import { AppCloseIcon, AppMenuIcon } from "$lib/components/icons";
 
 	let isOpen = $state(false);
 	let isVisible = $state(false);
@@ -72,7 +71,7 @@
 		class="-mr-2 inline-flex size-10 items-center justify-center gap-2 rounded-sm text-sm whitespace-nowrap text-foreground transition-colors duration-150 ease-out hover:bg-background-muted lg:hidden"
 		aria-label="Toggle menu"
 	>
-		<Menu size={20} />
+		<AppMenuIcon size={20} />
 	</button>
 </div>
 
@@ -97,7 +96,7 @@
 	>
 		<div class="absolute top-0 right-0 flex justify-end p-4">
 			<button onclick={close} aria-label="Close menu">
-				<Close size={32} class="size-6" />
+				<AppCloseIcon size={32} class="size-6" />
 			</button>
 		</div>
 		<DocsSidebar />
