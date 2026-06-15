@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { SvelteMap } from "svelte/reactivity";
 	import { cn } from "$lib/utils/cn";
 	import { getHighlighter } from "$lib/utils/highlighter";
 	import {
@@ -17,6 +18,79 @@
 	};
 
 	const activeCommand = $derived(commands[packageManagerStore.active]);
+	let tabList = $state<HTMLDivElement | null>(null);
+	let activeIndicatorLeft = $state(0);
+	let activeIndicatorWidth = $state(0);
+	let pendingIndicatorFrame: number | null = null;
+
+	const tabRefs = new SvelteMap<PackageManager, HTMLButtonElement>();
+
+	function registerTab(node: HTMLElement, pm: PackageManager) {
+		tabRefs.set(pm, node as HTMLButtonElement);
+
+		return {
+			update(nextPm: PackageManager) {
+				if (nextPm === pm) return;
+				tabRefs.delete(pm);
+				pm = nextPm;
+				tabRefs.set(pm, node as HTMLButtonElement);
+			},
+			destroy() {
+				tabRefs.delete(pm);
+			},
+		};
+	}
+
+	function updateActiveIndicator() {
+		const activeTab = tabRefs.get(packageManagerStore.active);
+
+		if (!tabList || !activeTab) {
+			activeIndicatorLeft = 0;
+			activeIndicatorWidth = 0;
+			return;
+		}
+
+		activeIndicatorLeft = activeTab.offsetLeft;
+		activeIndicatorWidth = activeTab.offsetWidth;
+	}
+
+	function scheduleActiveIndicatorUpdate() {
+		if (typeof window === "undefined") {
+			updateActiveIndicator();
+			return;
+		}
+
+		if (pendingIndicatorFrame !== null) {
+			window.cancelAnimationFrame(pendingIndicatorFrame);
+		}
+
+		pendingIndicatorFrame = window.requestAnimationFrame(() => {
+			pendingIndicatorFrame = null;
+			updateActiveIndicator();
+			document.documentElement.dataset.docsPackageManagerReady = "true";
+		});
+	}
+
+	$effect(() => {
+		const activePackageManager = packageManagerStore.active;
+		const currentTabList = tabList;
+		void activePackageManager;
+		void currentTabList;
+
+		scheduleActiveIndicatorUpdate();
+
+		if (typeof window === "undefined") return;
+
+		window.addEventListener("resize", scheduleActiveIndicatorUpdate);
+
+		return () => {
+			window.removeEventListener("resize", scheduleActiveIndicatorUpdate);
+			if (pendingIndicatorFrame !== null) {
+				window.cancelAnimationFrame(pendingIndicatorFrame);
+				pendingIndicatorFrame = null;
+			}
+		};
+	});
 
 	const highlightedCommands = $derived.by(() => {
 		const highlighter = getHighlighter();
@@ -73,24 +147,34 @@
 					<div
 						class="relative flex items-center justify-between rounded-t-md after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-border after:shadow-2xs after:shadow-white after:content-[''] dark:after:bg-background-inset dark:after:shadow-border"
 					>
-						<div class="flex min-w-0 items-center overflow-x-auto">
+						<div
+							class="relative flex min-w-0 items-center overflow-x-auto"
+							bind:this={tabList}
+						>
+							{#if activeIndicatorWidth > 0}
+								<div
+									class="tab-active-line pointer-events-none absolute bottom-0 left-0 z-10 h-0.5 transition-[transform,width] duration-150 ease-out"
+									style={`
+										width: ${activeIndicatorWidth}px;
+										transform: translateX(${activeIndicatorLeft}px);
+									`}
+								></div>
+							{/if}
+
 							{#each packageManagers as pm (pm)}
 								<button
 									type="button"
 									onclick={() => (packageManagerStore.active = pm)}
 									class={cn(
-										"relative px-4 py-2.5 text-sm font-medium tracking-normal transition-colors duration-150 ease-out outline-none select-none",
+										"package-manager-tab relative z-20 px-4 py-2.5 text-sm font-medium tracking-normal transition-colors duration-150 ease-out outline-none select-none",
 										packageManagerStore.active === pm
-											? "text-foreground"
+											? "text-accent"
 											: "text-foreground-muted hover:text-foreground",
 									)}
+									data-package-manager={pm}
+									use:registerTab={pm}
 								>
 									{pm}
-									{#if packageManagerStore.active === pm}
-										<div
-											class="absolute bottom-0 left-0 h-0.5 w-full bg-accent"
-										></div>
-									{/if}
 								</button>
 							{/each}
 						</div>
@@ -112,4 +196,106 @@
 			</div>
 		</div>
 	</div>
+
+	<style>
+		.tab-active-line {
+			background-image: linear-gradient(
+				to right,
+				transparent,
+				oklch(from var(--color-accent) l c h / 0.68) 18%,
+				var(--color-accent) 50%,
+				oklch(from var(--color-accent) l c h / 0.68) 82%,
+				transparent
+			);
+			filter: drop-shadow(0 0 6px oklch(from var(--color-accent) l c h / 0.38));
+		}
+
+		.package-manager-tab::after {
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			height: 2px;
+			pointer-events: none;
+			content: "";
+			background-image: linear-gradient(
+				to right,
+				transparent,
+				oklch(from var(--color-accent) l c h / 0.68) 18%,
+				var(--color-accent) 50%,
+				oklch(from var(--color-accent) l c h / 0.68) 82%,
+				transparent
+			);
+			filter: drop-shadow(0 0 6px oklch(from var(--color-accent) l c h / 0.38));
+			opacity: 0;
+		}
+
+		:global(
+				html[data-docs-package-manager]:not([data-docs-package-manager-ready])
+			)
+			.tab-active-line {
+			opacity: 0;
+		}
+
+		:global(
+				html[data-docs-package-manager]:not([data-docs-package-manager-ready])
+			)
+			.package-manager-tab {
+			color: var(--color-foreground-muted);
+		}
+
+		:global(
+				html[data-docs-package-manager="npm"]:not(
+						[data-docs-package-manager-ready]
+					)
+			)
+			.package-manager-tab[data-package-manager="npm"],
+		:global(
+				html[data-docs-package-manager="pnpm"]:not(
+						[data-docs-package-manager-ready]
+					)
+			)
+			.package-manager-tab[data-package-manager="pnpm"],
+		:global(
+				html[data-docs-package-manager="bun"]:not(
+						[data-docs-package-manager-ready]
+					)
+			)
+			.package-manager-tab[data-package-manager="bun"],
+		:global(
+				html[data-docs-package-manager="yarn"]:not(
+						[data-docs-package-manager-ready]
+					)
+			)
+			.package-manager-tab[data-package-manager="yarn"] {
+			color: var(--color-accent);
+		}
+
+		:global(
+				html[data-docs-package-manager="npm"]:not(
+						[data-docs-package-manager-ready]
+					)
+			)
+			.package-manager-tab[data-package-manager="npm"]::after,
+		:global(
+				html[data-docs-package-manager="pnpm"]:not(
+						[data-docs-package-manager-ready]
+					)
+			)
+			.package-manager-tab[data-package-manager="pnpm"]::after,
+		:global(
+				html[data-docs-package-manager="bun"]:not(
+						[data-docs-package-manager-ready]
+					)
+			)
+			.package-manager-tab[data-package-manager="bun"]::after,
+		:global(
+				html[data-docs-package-manager="yarn"]:not(
+						[data-docs-package-manager-ready]
+					)
+			)
+			.package-manager-tab[data-package-manager="yarn"]::after {
+			opacity: 1;
+		}
+	</style>
 </section>
