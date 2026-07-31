@@ -1,7 +1,7 @@
 {
 	"name": "Motion Core Registry",
 	"description": "Curated Motion Core Svelte components",
-	"version": "0.16.0",
+	"version": "0.17.0",
 	"requirements": {
 		"svelte": "^5.0.0",
 		"tailwindcss": "^4.1.0"
@@ -631,6 +631,35 @@
 				},
 				{
 					"path": "components/lava-lamp/LavaLampScene.svelte"
+				},
+				{
+					"path": "utils/cn.ts",
+					"target": "utils"
+				},
+				{
+					"path": "helpers/color.ts",
+					"target": "helpers"
+				}
+			]
+		},
+		"liquid-metal": {
+			"slug": "liquid-metal",
+			"name": "Liquid Metal",
+			"description": "A full-surface liquid-metal shader with refractive depth shaped by distorted waves.",
+			"category": "canvas",
+			"introducedAt": "2026-07-31",
+			"dependencies": {
+				"ogl": "^1.0.11"
+			},
+			"devDependencies": {},
+			"internalDependencies": [],
+			"files": [
+				{
+					"path": "components/liquid-metal/LiquidMetal.svelte",
+					"kind": "entry"
+				},
+				{
+					"path": "components/liquid-metal/LiquidMetalScene.svelte"
 				},
 				{
 					"path": "utils/cn.ts",

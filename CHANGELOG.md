@@ -6,6 +6,13 @@ and the project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.17.0] - 2026-07-31
+
+### Added
+
+- **1 component**:
+  - **Canvas**: Liquid Metal.
+
 ## [0.16.0] - 2026-06-07
 
 ### Added

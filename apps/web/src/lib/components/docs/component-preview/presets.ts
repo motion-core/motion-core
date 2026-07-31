@@ -145,6 +145,46 @@ export const componentPreviewControls = {
 			step: 1,
 		}),
 	],
+	"liquid-metal": [
+		color("color", "Color", "#FFFFFF"),
+		color("backgroundColor", "Background", "#17181A"),
+		number("speed", "Speed", {
+			defaultValue: 1,
+			min: 0,
+			max: 3,
+			step: 0.01,
+		}),
+		number("scale", "Scale", {
+			defaultValue: 1,
+			min: 0.25,
+			max: 2.5,
+			step: 0.01,
+		}),
+		number("frequency", "Frequency", {
+			defaultValue: 3.5,
+			min: 0.5,
+			max: 10,
+			step: 0.1,
+		}),
+		number("refraction", "Refraction", {
+			defaultValue: 2,
+			min: 0,
+			max: 2,
+			step: 0.01,
+		}),
+		number("chromaticAberration", "Chromatic Aberration", {
+			defaultValue: 3,
+			min: 0,
+			max: 3,
+			step: 0.01,
+		}),
+		number("blur", "Blur", {
+			defaultValue: 1,
+			min: 0,
+			max: 2,
+			step: 0.01,
+		}),
+	],
 	"dithered-image": [
 		{
 			name: "ditherMap",

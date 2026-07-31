@@ -118,6 +118,10 @@ export const docsNavigation: DocItem[] = [
 				name: "Lava Lamp",
 			},
 			{
+				slug: "liquid-metal",
+				name: "Liquid Metal",
+			},
+			{
 				slug: "neural-noise",
 				name: "Neural Noise",
 			},

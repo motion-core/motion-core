@@ -1,0 +1,121 @@
+---
+name: Liquid Metal
+description: A full-surface liquid-metal shader with refractive depth shaped by distorted waves.
+---
+
+<script lang="ts">
+	import ComponentPreview from "$lib/components/docs/ComponentPreview.svelte";
+	import { componentPreviewControls } from "$lib/components/docs/component-preview/presets";
+	import ApiTable from "$lib/components/docs/ApiTable.svelte";
+	import InstallationTabs from "$lib/components/docs/InstallationTabs.svelte";
+	import Steps from "$lib/components/docs/markdown/Steps.svelte";
+	import Step from "$lib/components/docs/markdown/Step.svelte";
+
+	import liquidMetalSource from "motion-core/components/liquid-metal/LiquidMetal.svelte?raw";
+	import sceneSource from "motion-core/components/liquid-metal/LiquidMetalScene.svelte?raw";
+	import colorHelperSource from "motion-core/helpers/color.ts?raw";
+	import LiquidMetalDemo from "./LiquidMetalDemo.svelte";
+	import liquidMetalDemoSource from "./LiquidMetalDemo.svelte?raw";
+</script>
+
+## Installation
+
+<Steps>
+	<Step title="Install the component">
+		Run the following command to install the component and its dependencies:
+		<InstallationTabs component="liquid-metal" />
+	</Step>
+	<Step title="Import the component">
+		Import the component into your Svelte file:
+
+```ts
+import { LiquidMetal } from "$lib/motion-core";
+```
+
+	</Step>
+</Steps>
+
+## Usage
+
+<ComponentPreview
+	controls={componentPreviewControls["liquid-metal"]}
+	sources={[
+		{ name: "Example", code: liquidMetalDemoSource, language: "svelte" },
+		{
+			name: "LiquidMetal.svelte",
+			code: liquidMetalSource,
+			language: "svelte",
+		},
+		{ name: "LiquidMetalScene.svelte", code: sceneSource, language: "svelte" },
+		{ name: "helpers/color.ts", code: colorHelperSource, language: "typescript" },
+	]}
+>
+	{#snippet children(props)}
+		<LiquidMetalDemo {...props} />
+	{/snippet}
+</ComponentPreview>
+
+## Props
+
+### LiquidMetal
+
+<ApiTable
+	headers={["Prop", "Type", "Default"]}
+	keys={["prop", "type", "default"]}
+	data={[
+		{
+			prop: "color",
+			type: 'string | number | [number, number, number] | { r: number; g: number; b: number }',
+			default: '"#FFFFFF"',
+			description: "Light color reflected through the liquid-metal surface.",
+		},
+		{
+			prop: "backgroundColor",
+			type: 'string | number | [number, number, number] | { r: number; g: number; b: number }',
+			default: '"#17181A"',
+			description: "Dark color reflected through the liquid-metal surface.",
+		},
+		{
+			prop: "speed",
+			type: "number",
+			default: "1.0",
+			description: "Animation speed multiplier.",
+		},
+		{
+			prop: "scale",
+			type: "number",
+			default: "1.0",
+			description: "Scale multiplier for the distorted field.",
+		},
+		{
+			prop: "frequency",
+			type: "number",
+			default: "3.5",
+			description: "Spatial frequency of the distorted folds.",
+		},
+		{
+			prop: "refraction",
+			type: "number",
+			default: "2.0",
+			description: "Strength of the liquid-metal refraction.",
+		},
+		{
+			prop: "chromaticAberration",
+			type: "number",
+			default: "3.0",
+			description: "Strength of the RGB separation inside the refracted surface.",
+		},
+		{
+			prop: "blur",
+			type: "number",
+			default: "1.0",
+			description: "Radius multiplier for the internal blur sampling.",
+		},
+		{
+			prop: "class",
+			type: "string",
+			default: '""',
+			description: "Additional CSS classes for the container.",
+		},
+	]}
+/>

@@ -1,0 +1,29 @@
+{
+	"introducedAt": "2026-07-31",
+	"name": "Liquid Metal",
+	"slug": "liquid-metal",
+	"description": "A full-surface liquid-metal shader with refractive depth shaped by distorted waves.",
+	"category": "canvas",
+	"dependencies": {
+		"ogl": "^1.0.11"
+	},
+	"devDependencies": {},
+	"internalDependencies": [],
+	"files": [
+		{
+			"path": "LiquidMetal.svelte",
+			"kind": "entry"
+		},
+		{
+			"path": "LiquidMetalScene.svelte"
+		},
+		{
+			"path": "../../utils/cn.ts",
+			"target": "utils"
+		},
+		{
+			"path": "../../helpers/color.ts",
+			"target": "helpers"
+		}
+	]
+}

@@ -197,6 +197,15 @@ export const docsManifest: ComponentInfo[] = [
 		},
 	},
 	{
+		slug: "liquid-metal",
+		name: "Liquid Metal",
+		category: "canvas",
+		introducedAt: "2026-07-31",
+		dependencies: {
+			ogl: "^1.0.11",
+		},
+	},
+	{
 		slug: "logo-carousel",
 		name: "Logo Carousel",
 		category: "showcase",
