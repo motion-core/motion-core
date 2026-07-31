@@ -13,6 +13,10 @@ and the project adheres to [Semantic Versioning](https://semver.org/).
 - **1 component**:
   - **Canvas**: Liquid Metal.
 
+### Changed
+
+- **Canvas / Globe**: Removed the `rotation` prop and its display-transform control while preserving interactive rotation, auto-rotation, focus navigation, and marker alignment.
+
 ## [0.16.0] - 2026-06-07
 
 ### Added

@@ -86,12 +86,6 @@ import { Globe } from "$lib/motion-core";
 			description: "Vertical globe offset in normalized viewport units.",
 		},
 		{
-			prop: "rotation",
-			type: "number",
-			default: "0",
-			description: "Globe field rotation in degrees.",
-		},
-		{
 			prop: "fresnelConfig",
 			type: "FresnelConfig",
 			default: "Default Fresnel",

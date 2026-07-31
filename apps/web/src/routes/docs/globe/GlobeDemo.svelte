@@ -13,7 +13,6 @@
 		scale = 1,
 		offsetX = 0,
 		offsetY = 0,
-		rotation = 0,
 		pointCount = 25000,
 		pointSize = 0.05,
 		landPointColor = "#f77114",
@@ -64,7 +63,6 @@
 	{scale}
 	{offsetX}
 	{offsetY}
-	{rotation}
 	{pointCount}
 	{pointSize}
 	{landPointColor}

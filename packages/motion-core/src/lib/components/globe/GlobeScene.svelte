@@ -88,11 +88,6 @@
 		 */
 		offsetY?: number;
 		/**
-		 * Globe field rotation in degrees.
-		 * @default 0
-		 */
-		rotation?: number;
-		/**
 		 * Optional overrides for the Fresnel shader uniforms.
 		 */
 		fresnelConfig?: FresnelConfig;
@@ -151,7 +146,6 @@
 		scale: number;
 		offsetX: number;
 		offsetY: number;
-		rotation: number;
 		pointCount: number;
 		pointSize: number;
 		landPointColor: ColorRepresentation;
@@ -197,7 +191,6 @@
 		scale = 1,
 		offsetX = 0,
 		offsetY = 0,
-		rotation = 0,
 		fresnelConfig = {},
 		atmosphereConfig = {},
 		pointCount = 15000,
@@ -343,15 +336,12 @@
 
 	function applyDisplayTransform(x: number, y: number, aspect: number) {
 		const nextScale = Math.max(0.001, scale);
-		const angle = rotation * DEG2RAD;
-		const cos = Math.cos(angle);
-		const sin = Math.sin(angle);
 		const ax = x * aspect * nextScale;
 		const ay = y * nextScale;
 
 		return {
-			x: (ax * cos - ay * sin + offsetX * aspect * 2) / aspect,
-			y: ax * sin + ay * cos - offsetY * 2,
+			x: (ax + offsetX * aspect * 2) / aspect,
+			y: ay - offsetY * 2,
 		};
 	}
 
@@ -361,7 +351,6 @@
 			scale,
 			offsetX,
 			offsetY,
-			rotation,
 			pointCount,
 			pointSize,
 			landPointColor,
@@ -419,7 +408,6 @@
 			uScale: { value: DEFAULT_GLOBE_SCALE },
 			uDisplayScale: { value: scale },
 			uDisplayOffset: { value: new Vec2(offsetX, offsetY) },
-			uDisplayRotation: { value: rotation },
 			uDots: { value: Math.max(1, Math.floor(pointCount)) },
 			uPointRadius: { value: toPointRadius(pointSize) },
 			uBaseColor: { value: new Vec3(0, 0, 0) },
@@ -460,7 +448,6 @@
 			uniform float uScale;
 			uniform float uDisplayScale;
 			uniform vec2 uDisplayOffset;
-			uniform float uDisplayRotation;
 			uniform float uDots;
 			uniform float uPointRadius;
 			uniform vec3 uBaseColor;
@@ -482,18 +469,11 @@
 
 			float byDots;
 
-			vec2 rotate2(vec2 p, float angle) {
-				float c = cos(angle);
-				float s = sin(angle);
-				return vec2(p.x * c - p.y * s, p.x * s + p.y * c);
-			}
-
 			vec2 transformUv(vec2 uv) {
 				float aspect = uResolution.x / max(1.0, uResolution.y);
 				vec2 centered = vec2((uv.x - 0.5) * aspect, uv.y - 0.5);
-				vec2 transformed = rotate2(
-					centered - vec2(uDisplayOffset.x * aspect, uDisplayOffset.y),
-					-radians(uDisplayRotation)
+				vec2 transformed = (
+					centered - vec2(uDisplayOffset.x * aspect, uDisplayOffset.y)
 				) / max(uDisplayScale, 0.001);
 				return vec2(transformed.x / aspect + 0.5, transformed.y + 0.5);
 			}
@@ -691,7 +671,6 @@
 			uniform float uScale;
 			uniform float uDisplayScale;
 			uniform vec2 uDisplayOffset;
-			uniform float uDisplayRotation;
 			uniform vec3 uAtmosphereColor;
 			uniform float uAtmosphereScale;
 			uniform float uAtmospherePower;
@@ -700,18 +679,11 @@
 
 			const float kSphereRadius = 0.8;
 
-			vec2 rotate2(vec2 p, float angle) {
-				float c = cos(angle);
-				float s = sin(angle);
-				return vec2(p.x * c - p.y * s, p.x * s + p.y * c);
-			}
-
 			vec2 transformUv(vec2 uv) {
 				float aspect = uResolution.x / max(1.0, uResolution.y);
 				vec2 centered = vec2((uv.x - 0.5) * aspect, uv.y - 0.5);
-				vec2 transformed = rotate2(
-					centered - vec2(uDisplayOffset.x * aspect, uDisplayOffset.y),
-					-radians(uDisplayRotation)
+				vec2 transformed = (
+					centered - vec2(uDisplayOffset.x * aspect, uDisplayOffset.y)
 				) / max(uDisplayScale, 0.001);
 				return vec2(transformed.x / aspect + 0.5, transformed.y + 0.5);
 			}
@@ -805,7 +777,6 @@
 			uniforms.uScale.value = currentScale;
 			uniforms.uDisplayScale.value = Math.max(0.001, state.scale);
 			uniforms.uDisplayOffset.value.set(state.offsetX, state.offsetY);
-			uniforms.uDisplayRotation.value = state.rotation;
 			uniforms.uDots.value = Math.max(1, Math.floor(state.pointCount));
 			uniforms.uPointRadius.value = toPointRadius(state.pointSize);
 
@@ -859,7 +830,6 @@
 			scale,
 			offsetX,
 			offsetY,
-			rotation,
 			pointCount,
 			pointSize,
 			landPointColor,

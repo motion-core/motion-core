@@ -471,13 +471,6 @@ export const componentPreviewControls = {
 			max: 0.5,
 			step: 0.01,
 		}),
-		number("rotation", "Rotation", {
-			defaultValue: 0,
-			min: -180,
-			max: 180,
-			step: 1,
-			unit: "deg",
-		}),
 		number("pointCount", "Point Count", {
 			defaultValue: 25000,
 			min: 5000,

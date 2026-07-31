@@ -27,11 +27,6 @@
 		 */
 		offsetY?: SceneProps["offsetY"];
 		/**
-		 * Globe field rotation in degrees.
-		 * @default 0
-		 */
-		rotation?: SceneProps["rotation"];
-		/**
 		 * Optional overrides for the Fresnel shader uniforms.
 		 */
 		fresnelConfig?: SceneProps["fresnelConfig"];
@@ -88,7 +83,6 @@
 		scale = 1,
 		offsetX = 0,
 		offsetY = 0,
-		rotation = 0,
 		fresnelConfig,
 		atmosphereConfig,
 		pointCount,
@@ -109,7 +103,6 @@
 			{scale}
 			{offsetX}
 			{offsetY}
-			{rotation}
 			{fresnelConfig}
 			{atmosphereConfig}
 			{pointCount}
