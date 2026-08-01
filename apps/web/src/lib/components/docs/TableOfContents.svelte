@@ -3,6 +3,7 @@
 	import { cn } from "$lib/utils/cn";
 	import { page } from "$app/state";
 	import { AppTableOfContentsIcon } from "$lib/components/icons";
+	import ScrollArea from "$lib/components/ui/ScrollArea.svelte";
 	import type { DocTocHeading } from "$lib/docs/manifest";
 
 	type TocItem = DocTocHeading & {
@@ -644,17 +645,22 @@
 </script>
 
 {#if renderedHeadings.length > 0}
-	<nav>
+	<nav class="flex h-full min-h-0 flex-col">
 		<div
-			class="mb-2 flex items-center gap-2 text-xs font-medium tracking-wide text-foreground-muted/70 uppercase"
+			class="flex flex-none items-center gap-2 text-xs font-medium tracking-wide text-foreground-muted/70 uppercase"
 		>
 			<AppTableOfContentsIcon size={16} />
 			{title}
 		</div>
-		<div class="relative mx-1 flex">
-			<div
-				class="pointer-events-none absolute top-0 left-[2.5px] h-full w-10"
-				style={`
+		<ScrollArea
+			class="min-h-0 flex-1"
+			viewportClass="overscroll-contain py-2"
+			viewportStyle="mask-image: linear-gradient(to bottom, transparent, black 8px, black calc(100% - 8px), transparent); -webkit-mask-image: linear-gradient(to bottom, transparent, black 8px, black calc(100% - 8px), transparent);"
+		>
+			<div class="relative mx-1 flex">
+				<div
+					class="pointer-events-none absolute top-0 left-[2.5px] h-full w-10"
+					style={`
 	                    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${svgWidth} ${lineHeight}' width='${svgWidth}' height='${lineHeight}' preserveAspectRatio='none'%3E%3Cpath d='${svgPath}' stroke='black' stroke-width='1' fill='none'/%3E%3C/svg%3E");
                     -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${svgWidth} ${lineHeight}' width='${svgWidth}' height='${lineHeight}' preserveAspectRatio='none'%3E%3Cpath d='${svgPath}' stroke='black' stroke-width='1' fill='none'/%3E%3C/svg%3E");
                     mask-repeat: no-repeat;
@@ -664,58 +670,59 @@
                     mask-size: 100% 100%;
                     -webkit-mask-size: 100% 100%;
                 `}
-			>
-				<div class="absolute inset-0 h-full w-full bg-border"></div>
+				>
+					<div class="absolute inset-0 h-full w-full bg-border"></div>
 
-				{#if indicatorHeight > 0}
-					<div
-						class="toc-active-line absolute left-0 w-full transition-[top,bottom] duration-450 ease-out"
-						style={`
+					{#if indicatorHeight > 0}
+						<div
+							class="toc-active-line absolute left-0 w-full transition-[top,bottom] duration-450 ease-out"
+							style={`
 	                            top: ${indicatorTop}px;
 	                            bottom: ${Math.max(0, lineHeight - indicatorBottom)}px;
                         `}
-					></div>
-				{/if}
-			</div>
+						></div>
+					{/if}
+				</div>
 
-			<ol class="relative flex flex-col text-sm" bind:this={linksWrapper}>
-				{#each renderedHeadings as heading (heading.id)}
-					<li
-						class="transition-colors duration-150 ease-out"
-						style={`padding-left: ${(heading.level - 2) * 12}px`}
-					>
-						<a
-							href={`#${heading.id}`}
-							onclick={() => pulseDot(heading.id)}
-							class={cn(
-								"flex max-w-48 items-center gap-2 py-1 font-medium tracking-normal transition-[color] duration-150 ease-out",
-								isLinkHighlighted(heading.id)
-									? "text-accent"
-									: "text-foreground-muted hover:text-foreground",
-							)}
-							use:registerLink={heading.id}
+				<ol class="relative flex flex-col text-sm" bind:this={linksWrapper}>
+					{#each renderedHeadings as heading (heading.id)}
+						<li
+							class="transition-colors duration-150 ease-out"
+							style={`padding-left: ${(heading.level - 2) * 12}px`}
 						>
-							<span
-								aria-hidden="true"
+							<a
+								href={`#${heading.id}`}
+								onclick={() => pulseDot(heading.id)}
 								class={cn(
-									"toc-dot relative size-1.5 flex-none rounded-full transition-[background-color,box-shadow,scale] duration-150 ease-out",
-									isLinkHighlighted(heading.id) && "toc-dot-active",
-									pulsingDotIds.includes(heading.id) && "toc-dot-pulse",
+									"flex max-w-48 items-center gap-2 py-1 font-medium tracking-normal transition-[color] duration-150 ease-out",
+									isLinkHighlighted(heading.id)
+										? "text-accent"
+										: "text-foreground-muted hover:text-foreground",
 								)}
-							></span>
-							<span
-								class={cn(
-									"min-w-0 truncate pl-1",
-									isLinkHighlighted(heading.id) && "text-accent",
-								)}
+								use:registerLink={heading.id}
 							>
-								{heading.text}
-							</span>
-						</a>
-					</li>
-				{/each}
-			</ol>
-		</div>
+								<span
+									aria-hidden="true"
+									class={cn(
+										"toc-dot relative size-1.5 flex-none rounded-full transition-[background-color,box-shadow,scale] duration-150 ease-out",
+										isLinkHighlighted(heading.id) && "toc-dot-active",
+										pulsingDotIds.includes(heading.id) && "toc-dot-pulse",
+									)}
+								></span>
+								<span
+									class={cn(
+										"min-w-0 truncate pl-1",
+										isLinkHighlighted(heading.id) && "text-accent",
+									)}
+								>
+									{heading.text}
+								</span>
+							</a>
+						</li>
+					{/each}
+				</ol>
+			</div>
+		</ScrollArea>
 	</nav>
 {:else}
 	<div class="hidden text-sm tracking-normal text-foreground-muted/70 lg:block">
