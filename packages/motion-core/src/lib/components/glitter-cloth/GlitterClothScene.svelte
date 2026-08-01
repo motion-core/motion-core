@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { onMount } from "svelte";
+	import { untrack } from "svelte";
+	import type { Attachment } from "svelte/attachments";
 	import {
 		Camera,
 		Mesh,
@@ -90,9 +91,6 @@
 	};
 
 	const DEFAULT_PRIMARY: [number, number, number] = [1, 105 / 255, 0];
-
-	let canvas = $state<HTMLCanvasElement>();
-	let uniforms = $state.raw<UniformState>();
 
 	const toLinearTriplet = (
 		value: [number, number, number],
@@ -355,29 +353,7 @@
 		}
 	`;
 
-	$effect(() => {
-		if (!uniforms) return;
-		const primarySrgb = toRgb(color, DEFAULT_PRIMARY);
-		const paletteSrgb = derivePalette(primarySrgb);
-		const primary = toLinearTriplet(primarySrgb);
-		const accent = toLinearTriplet(paletteSrgb.accent);
-		const shadow = toLinearTriplet(paletteSrgb.shadow);
-		uniforms.uPrimaryColor.value.set(primary[0], primary[1], primary[2]);
-		uniforms.uAccentColor.value.set(accent[0], accent[1], accent[2]);
-		uniforms.uShadowColor.value.set(shadow[0], shadow[1], shadow[2]);
-		uniforms.uSpeed.value = speed;
-		uniforms.uBrightness.value = brightness;
-		uniforms.uBlendStrength.value = blendStrength;
-		uniforms.uNoiseScale.value = noiseScale;
-		uniforms.uVignetteStrength.value = vignetteStrength;
-		uniforms.uVignettePower.value = vignettePower;
-		uniforms.uVignetteOpacity.value = vignetteOpacity;
-	});
-
-	onMount(() => {
-		const targetCanvas = canvas;
-		if (!targetCanvas) return;
-
+	const setupScene = (targetCanvas: HTMLCanvasElement) => {
 		const renderer = new Renderer({
 			canvas: targetCanvas,
 			alpha: true,
@@ -418,7 +394,24 @@
 			uVignettePower: { value: vignettePower },
 			uVignetteOpacity: { value: vignetteOpacity },
 		};
-		uniforms = localUniforms;
+
+		$effect(() => {
+			const primarySrgb = toRgb(color, DEFAULT_PRIMARY);
+			const paletteSrgb = derivePalette(primarySrgb);
+			const primary = toLinearTriplet(primarySrgb);
+			const accent = toLinearTriplet(paletteSrgb.accent);
+			const shadow = toLinearTriplet(paletteSrgb.shadow);
+			localUniforms.uPrimaryColor.value.set(primary[0], primary[1], primary[2]);
+			localUniforms.uAccentColor.value.set(accent[0], accent[1], accent[2]);
+			localUniforms.uShadowColor.value.set(shadow[0], shadow[1], shadow[2]);
+			localUniforms.uSpeed.value = speed;
+			localUniforms.uBrightness.value = brightness;
+			localUniforms.uBlendStrength.value = blendStrength;
+			localUniforms.uNoiseScale.value = noiseScale;
+			localUniforms.uVignetteStrength.value = vignetteStrength;
+			localUniforms.uVignettePower.value = vignettePower;
+			localUniforms.uVignetteOpacity.value = vignetteOpacity;
+		});
 
 		const program = new Program(gl, {
 			vertex: vertexShader,
@@ -459,12 +452,18 @@
 
 		return () => {
 			window.cancelAnimationFrame(raf);
+			mesh.setParent(null);
+			program.remove();
+			geometry.remove();
 		};
-	});
+	};
+
+	const mountScene: Attachment<HTMLCanvasElement> = (targetCanvas) =>
+		untrack(() => setupScene(targetCanvas));
 </script>
 
 <canvas
-	bind:this={canvas}
+	{@attach mountScene}
 	class="absolute inset-0 block h-full w-full"
 	style="width:100%;height:100%;"
 	aria-hidden="true"

@@ -5,6 +5,17 @@ description: All notable changes to Motion Core Component Registry.
 
 ## [Unreleased]
 
+## [0.17.1] - 2026-08-01
+
+### Changed
+
+- **Canvas / Runtime**: Migrated all Canvas scene mounting from `onMount` and `bind:this` to Svelte attachments while keeping live uniform updates on the existing WebGL scene.
+- **Canvas / Cleanup**: Added deterministic cleanup for animation frames, event listeners, OGL meshes, programs, geometries, textures, render targets, MediaPipe resources, and camera streams.
+
+### Fixed
+
+- **Canvas / Live Controls**: Prevented attachment initialization from tracking component props, so changing uniform controls no longer recreates the WebGL scene, resets animation state, or flashes a black frame.
+
 ## [0.17.0] - 2026-07-31
 
 ### Added

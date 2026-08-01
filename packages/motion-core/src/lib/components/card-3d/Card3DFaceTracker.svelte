@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount, onDestroy } from "svelte";
+	import type { Attachment } from "svelte/attachments";
 	import { FaceLandmarker, FilesetResolver } from "@mediapipe/tasks-vision";
 	import { portal } from "../../utils/use-portal";
 
@@ -31,103 +31,99 @@
 		class: className = "",
 	}: Props = $props();
 
-	let video = $state<HTMLVideoElement>();
-	let faceLandmarker: FaceLandmarker | null = null;
-	let animationFrameId: number;
 	let isRunning = $state(false);
 	let error = $state<string | null>(null);
 
-	const attachVideo = (node: HTMLVideoElement) => {
-		video = node;
-		return () => {
-			if (video === node) {
-				video = undefined;
+	const attachVideo: Attachment<HTMLVideoElement> = (targetVideo) => {
+		let disposed = false;
+		let animationFrameId = 0;
+		let stream: MediaStream | null = null;
+		let faceLandmarker: FaceLandmarker | null = null;
+
+		const detectFace = () => {
+			if (disposed) return;
+			if (!faceLandmarker || targetVideo.readyState < 2) {
+				animationFrameId = requestAnimationFrame(detectFace);
+				return;
+			}
+
+			const results = faceLandmarker.detectForVideo(
+				targetVideo,
+				performance.now(),
+			);
+			const landmarks = results.faceLandmarks?.[0];
+			if (landmarks) {
+				const nose = landmarks[1];
+				const leftEar = landmarks[234];
+				const rightEar = landmarks[454];
+				onHeadMove({
+					x: (nose.x - 0.5) * 2,
+					y: (nose.y - 0.5) * 2,
+					z: (0.4 - Math.abs(rightEar.x - leftEar.x)) * 5,
+				});
+			}
+
+			animationFrameId = requestAnimationFrame(detectFace);
+		};
+
+		const initialize = async () => {
+			try {
+				const filesetResolver = await FilesetResolver.forVisionTasks(
+					"https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm",
+				);
+				const nextFaceLandmarker = await FaceLandmarker.createFromOptions(
+					filesetResolver,
+					{
+						baseOptions: {
+							modelAssetPath:
+								"https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task",
+							delegate: "GPU",
+						},
+						runningMode: "VIDEO",
+						numFaces: 1,
+						outputFaceBlendshapes: false,
+						outputFacialTransformationMatrixes: true,
+					},
+				);
+				if (disposed) {
+					nextFaceLandmarker.close();
+					return;
+				}
+				faceLandmarker = nextFaceLandmarker;
+
+				const nextStream = await navigator.mediaDevices.getUserMedia({
+					video: { facingMode: "user", width: 640, height: 480 },
+				});
+				if (disposed) {
+					nextStream.getTracks().forEach((track) => track.stop());
+					return;
+				}
+				stream = nextStream;
+				targetVideo.srcObject = stream;
+				await targetVideo.play();
+				if (disposed) return;
+				isRunning = true;
+				detectFace();
+			} catch (cause) {
+				if (disposed) return;
+				error =
+					cause instanceof Error
+						? cause.message
+						: "Failed to initialize face tracking";
+				console.error("FaceTracker init error:", cause);
 			}
 		};
+
+		void initialize();
+
+		return () => {
+			disposed = true;
+			if (animationFrameId) cancelAnimationFrame(animationFrameId);
+			stream?.getTracks().forEach((track) => track.stop());
+			targetVideo.srcObject = null;
+			faceLandmarker?.close();
+		};
 	};
-
-	onMount(async () => {
-		try {
-			const filesetResolver = await FilesetResolver.forVisionTasks(
-				"https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm",
-			);
-
-			faceLandmarker = await FaceLandmarker.createFromOptions(filesetResolver, {
-				baseOptions: {
-					modelAssetPath:
-						"https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task",
-					delegate: "GPU",
-				},
-				runningMode: "VIDEO",
-				numFaces: 1,
-				outputFaceBlendshapes: false,
-				outputFacialTransformationMatrixes: true,
-			});
-
-			await startCamera();
-		} catch (e) {
-			error =
-				e instanceof Error ? e.message : "Failed to initialize face tracking";
-			console.error("FaceTracker init error:", e);
-		}
-	});
-
-	onDestroy(() => {
-		if (animationFrameId) {
-			cancelAnimationFrame(animationFrameId);
-		}
-		if (video?.srcObject) {
-			const tracks = (video.srcObject as MediaStream).getTracks();
-			tracks.forEach((track) => track.stop());
-		}
-		if (faceLandmarker) {
-			faceLandmarker.close();
-		}
-	});
-
-	async function startCamera() {
-		if (!video) return;
-		try {
-			const stream = await navigator.mediaDevices.getUserMedia({
-				video: { facingMode: "user", width: 640, height: 480 },
-			});
-			video.srcObject = stream;
-			await video.play();
-			isRunning = true;
-			detectFace();
-		} catch (e) {
-			error = "Camera access denied";
-			console.error("Camera error:", e);
-		}
-	}
-
-	function detectFace() {
-		if (!faceLandmarker || !video || video.readyState < 2) {
-			animationFrameId = requestAnimationFrame(detectFace);
-			return;
-		}
-
-		const results = faceLandmarker.detectForVideo(video, performance.now());
-
-		if (results.faceLandmarks && results.faceLandmarks.length > 0) {
-			const landmarks = results.faceLandmarks[0];
-
-			const nose = landmarks[1];
-
-			const x = (nose.x - 0.5) * 2;
-			const y = (nose.y - 0.5) * 2;
-
-			const leftEar = landmarks[234];
-			const rightEar = landmarks[454];
-			const faceWidth = Math.abs(rightEar.x - leftEar.x);
-
-			const z = (0.4 - faceWidth) * 5;
-
-			onHeadMove({ x, y, z });
-		}
-
-		animationFrameId = requestAnimationFrame(detectFace);
-	}
 </script>
 
 {#if showPreview}

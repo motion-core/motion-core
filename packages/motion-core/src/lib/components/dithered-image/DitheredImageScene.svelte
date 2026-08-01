@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { onMount } from "svelte";
+	import { untrack } from "svelte";
+	import type { Attachment } from "svelte/attachments";
 	import {
 		Camera,
 		Mesh,
@@ -104,7 +105,6 @@
 		],
 	};
 
-	let canvas = $state<HTMLCanvasElement>();
 	let uniforms = $state.raw<UniformState>();
 	let setImageSource = $state<(source: string) => void>();
 	let setDitherMap = $state<(map: DitherMap) => void>();
@@ -274,10 +274,7 @@
 		setDitherMap(ditherMap);
 	});
 
-	onMount(() => {
-		const targetCanvas = canvas;
-		if (!targetCanvas) return;
-
+	const setupScene = (targetCanvas: HTMLCanvasElement) => {
 		const renderer = new Renderer({
 			canvas: targetCanvas,
 			alpha: true,
@@ -409,8 +406,11 @@
 
 		return () => {
 			window.cancelAnimationFrame(raf);
+			mesh.setParent(null);
 			setImageSource = undefined;
 			setDitherMap = undefined;
+			program.remove();
+			geometry.remove();
 			if (thresholdState.texture.texture) {
 				gl.deleteTexture(thresholdState.texture.texture);
 			}
@@ -418,11 +418,14 @@
 				gl.deleteTexture(imageTexture.texture);
 			}
 		};
-	});
+	};
+
+	const mountScene: Attachment<HTMLCanvasElement> = (targetCanvas) =>
+		untrack(() => setupScene(targetCanvas));
 </script>
 
 <canvas
-	bind:this={canvas}
+	{@attach mountScene}
 	class="absolute inset-0 block h-full w-full"
 	style="width:100%;height:100%;"
 	aria-hidden="true"

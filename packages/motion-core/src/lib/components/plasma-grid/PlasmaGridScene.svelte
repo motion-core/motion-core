@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { onMount } from "svelte";
+	import { untrack } from "svelte";
+	import type { Attachment } from "svelte/attachments";
 	import {
 		Camera,
 		Mesh,
@@ -25,14 +26,6 @@
 	}
 
 	let { color = "#17181A", highlightColor = "#FF6900" }: Props = $props();
-
-	let canvas = $state<HTMLCanvasElement>();
-	let uniforms = $state.raw<{
-		uTime: { value: number };
-		uResolution: { value: Vec3 };
-		uBaseColor: { value: Vec3 };
-		uGradientColor: { value: Vec3 };
-	}>();
 
 	const applyColor = (
 		target: Vec3,
@@ -110,24 +103,7 @@
 		}
 	`;
 
-	$effect(() => {
-		if (!uniforms) return;
-		applyColor(uniforms.uBaseColor.value, color, [
-			17 / 255,
-			17 / 255,
-			19 / 255,
-		]);
-		applyColor(uniforms.uGradientColor.value, highlightColor, [
-			1,
-			105 / 255,
-			0,
-		]);
-	});
-
-	onMount(() => {
-		const targetCanvas = canvas;
-		if (!targetCanvas) return;
-
+	const setupScene = (targetCanvas: HTMLCanvasElement) => {
 		const renderer = new Renderer({
 			canvas: targetCanvas,
 			alpha: true,
@@ -171,7 +147,18 @@
 			},
 		};
 
-		uniforms = localUniforms;
+		$effect(() => {
+			applyColor(localUniforms.uBaseColor.value, color, [
+				17 / 255,
+				17 / 255,
+				19 / 255,
+			]);
+			applyColor(localUniforms.uGradientColor.value, highlightColor, [
+				1,
+				105 / 255,
+				0,
+			]);
+		});
 
 		const program = new Program(gl, {
 			vertex: vertexShader,
@@ -212,12 +199,18 @@
 
 		return () => {
 			window.cancelAnimationFrame(raf);
+			mesh.setParent(null);
+			program.remove();
+			geometry.remove();
 		};
-	});
+	};
+
+	const mountScene: Attachment<HTMLCanvasElement> = (targetCanvas) =>
+		untrack(() => setupScene(targetCanvas));
 </script>
 
 <canvas
-	bind:this={canvas}
+	{@attach mountScene}
 	class="absolute inset-0 block h-full w-full"
 	style="width:100%;height:100%;"
 	aria-hidden="true"

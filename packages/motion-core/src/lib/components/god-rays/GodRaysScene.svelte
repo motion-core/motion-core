@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { onMount } from "svelte";
+	import { untrack } from "svelte";
+	import type { Attachment } from "svelte/attachments";
 	import {
 		Camera,
 		Mesh,
@@ -107,26 +108,6 @@
 		distortion = 0.0,
 		intensity = 1.0,
 	}: Props = $props();
-
-	let canvas = $state<HTMLCanvasElement>();
-	let uniforms = $state.raw<{
-		uTime: { value: number };
-		uResolution: { value: Vec2 };
-		uColor: { value: Vec3 };
-		uBackgroundColor: { value: Vec3 };
-		uAnchorX: { value: number };
-		uAnchorY: { value: number };
-		uRayDir: { value: Vec2 };
-		uSpeed: { value: number };
-		uLightSpread: { value: number };
-		uRayLength: { value: number };
-		uPulsating: { value: number };
-		uFadeDistance: { value: number };
-		uSaturation: { value: number };
-		uNoiseAmount: { value: number };
-		uDistortion: { value: number };
-		uIntensity: { value: number };
-	}>();
 
 	const applyColor = (
 		target: Vec3,
@@ -297,32 +278,7 @@
 		}
 	`;
 
-	$effect(() => {
-		if (!uniforms) return;
-		applyColor(uniforms.uColor.value, color, [1, 1, 1]);
-		applyColor(uniforms.uBackgroundColor.value, backgroundColor, [
-			23 / 255,
-			24 / 255,
-			26 / 255,
-		]);
-		uniforms.uAnchorX.value = anchorX;
-		uniforms.uAnchorY.value = anchorY;
-		uniforms.uRayDir.value.set(directionX, directionY);
-		uniforms.uSpeed.value = speed;
-		uniforms.uLightSpread.value = lightSpread;
-		uniforms.uRayLength.value = rayLength;
-		uniforms.uPulsating.value = pulsating ? 1 : 0;
-		uniforms.uFadeDistance.value = fadeDistance;
-		uniforms.uSaturation.value = saturation;
-		uniforms.uNoiseAmount.value = noiseAmount;
-		uniforms.uDistortion.value = distortion;
-		uniforms.uIntensity.value = intensity;
-	});
-
-	onMount(() => {
-		const targetCanvas = canvas;
-		if (!targetCanvas) return;
-
+	const setupScene = (targetCanvas: HTMLCanvasElement) => {
 		const renderer = new Renderer({
 			canvas: targetCanvas,
 			alpha: true,
@@ -374,7 +330,26 @@
 			uIntensity: { value: intensity },
 		};
 
-		uniforms = localUniforms;
+		$effect(() => {
+			applyColor(localUniforms.uColor.value, color, [1, 1, 1]);
+			applyColor(localUniforms.uBackgroundColor.value, backgroundColor, [
+				23 / 255,
+				24 / 255,
+				26 / 255,
+			]);
+			localUniforms.uAnchorX.value = anchorX;
+			localUniforms.uAnchorY.value = anchorY;
+			localUniforms.uRayDir.value.set(directionX, directionY);
+			localUniforms.uSpeed.value = speed;
+			localUniforms.uLightSpread.value = lightSpread;
+			localUniforms.uRayLength.value = rayLength;
+			localUniforms.uPulsating.value = pulsating ? 1 : 0;
+			localUniforms.uFadeDistance.value = fadeDistance;
+			localUniforms.uSaturation.value = saturation;
+			localUniforms.uNoiseAmount.value = noiseAmount;
+			localUniforms.uDistortion.value = distortion;
+			localUniforms.uIntensity.value = intensity;
+		});
 
 		const program = new Program(gl, {
 			vertex: vertexShader,
@@ -413,12 +388,18 @@
 
 		return () => {
 			window.cancelAnimationFrame(raf);
+			mesh.setParent(null);
+			program.remove();
+			geometry.remove();
 		};
-	});
+	};
+
+	const mountScene: Attachment<HTMLCanvasElement> = (targetCanvas) =>
+		untrack(() => setupScene(targetCanvas));
 </script>
 
 <canvas
-	bind:this={canvas}
+	{@attach mountScene}
 	class="absolute inset-0 block h-full w-full"
 	style="width:100%;height:100%;"
 	aria-hidden="true"

@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { onMount } from "svelte";
+	import { untrack } from "svelte";
+	import type { Attachment } from "svelte/attachments";
 	import {
 		Camera,
 		Mesh,
@@ -53,18 +54,6 @@
 		hueShift = 30.0,
 		intensity = 1.0,
 	}: Props = $props();
-
-	let canvas = $state<HTMLCanvasElement>();
-	let uniforms = $state.raw<{
-		uTime: { value: number };
-		uResolution: { value: Vec2 };
-		uColor: { value: Vec3 };
-		uBackgroundColor: { value: Vec3 };
-		uSpeed: { value: number };
-		uDistortion: { value: number };
-		uHueShift: { value: number };
-		uIntensity: { value: number };
-	}>();
 
 	const applyColor = (
 		target: Vec3,
@@ -178,24 +167,7 @@
 		}
 	`;
 
-	$effect(() => {
-		if (!uniforms) return;
-		applyColor(uniforms.uColor.value, color, [1, 105 / 255, 0]);
-		applyColor(uniforms.uBackgroundColor.value, backgroundColor, [
-			23 / 255,
-			24 / 255,
-			26 / 255,
-		]);
-		uniforms.uSpeed.value = speed;
-		uniforms.uDistortion.value = distortion;
-		uniforms.uHueShift.value = hueShift;
-		uniforms.uIntensity.value = intensity;
-	});
-
-	onMount(() => {
-		const targetCanvas = canvas;
-		if (!targetCanvas) return;
-
+	const setupScene = (targetCanvas: HTMLCanvasElement) => {
 		const renderer = new Renderer({
 			canvas: targetCanvas,
 			alpha: true,
@@ -238,7 +210,18 @@
 			uIntensity: { value: intensity },
 		};
 
-		uniforms = localUniforms;
+		$effect(() => {
+			applyColor(localUniforms.uColor.value, color, [1, 105 / 255, 0]);
+			applyColor(localUniforms.uBackgroundColor.value, backgroundColor, [
+				23 / 255,
+				24 / 255,
+				26 / 255,
+			]);
+			localUniforms.uSpeed.value = speed;
+			localUniforms.uDistortion.value = distortion;
+			localUniforms.uHueShift.value = hueShift;
+			localUniforms.uIntensity.value = intensity;
+		});
 
 		const program = new Program(gl, {
 			vertex: vertexShader,
@@ -278,12 +261,18 @@
 
 		return () => {
 			window.cancelAnimationFrame(raf);
+			mesh.setParent(null);
+			program.remove();
+			geometry.remove();
 		};
-	});
+	};
+
+	const mountScene: Attachment<HTMLCanvasElement> = (targetCanvas) =>
+		untrack(() => setupScene(targetCanvas));
 </script>
 
 <canvas
-	bind:this={canvas}
+	{@attach mountScene}
 	class="absolute inset-0 block h-full w-full"
 	style="width:100%;height:100%;"
 	aria-hidden="true"

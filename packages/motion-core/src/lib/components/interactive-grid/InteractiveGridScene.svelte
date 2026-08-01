@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { onMount } from "svelte";
+	import { untrack } from "svelte";
+	import type { Attachment } from "svelte/attachments";
 	import {
 		Camera,
 		Mesh,
@@ -59,7 +60,6 @@
 		uTexture: { value: Texture };
 	};
 
-	let canvas = $state<HTMLCanvasElement>();
 	let setImageSource = $state<(source: string) => void>();
 	let setGridSize = $state<(value: number) => void>();
 
@@ -162,10 +162,7 @@
 		setGridSize(grid);
 	});
 
-	onMount(() => {
-		const targetCanvas = canvas;
-		if (!targetCanvas) return;
-
+	const setupScene = (targetCanvas: HTMLCanvasElement) => {
 		const renderer = new Renderer({
 			canvas: targetCanvas,
 			alpha: true,
@@ -312,8 +309,11 @@
 
 		return () => {
 			window.cancelAnimationFrame(raf);
+			mesh.setParent(null);
 			setImageSource = undefined;
 			setGridSize = undefined;
+			program.remove();
+			geometry.remove();
 			if (gridState.texture.texture) {
 				gl.deleteTexture(gridState.texture.texture);
 			}
@@ -321,11 +321,14 @@
 				gl.deleteTexture(imageTexture.texture);
 			}
 		};
-	});
+	};
+
+	const mountScene: Attachment<HTMLCanvasElement> = (targetCanvas) =>
+		untrack(() => setupScene(targetCanvas));
 </script>
 
 <canvas
-	bind:this={canvas}
+	{@attach mountScene}
 	class="absolute inset-0 block h-full w-full"
 	style="width:100%;height:100%;"
 	aria-hidden="true"

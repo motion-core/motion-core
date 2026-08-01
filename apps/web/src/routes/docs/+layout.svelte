@@ -310,10 +310,10 @@
 			</ScrollArea>
 
 			<aside
-				class="z-50 hidden w-56 flex-col justify-between py-8 xl:col-start-2 xl:row-start-1 xl:flex 2xl:col-start-3"
+				class="sticky top-2 z-50 hidden h-[calc(100dvh-1rem)] max-h-[calc(100dvh-1rem)] w-56 flex-col gap-8 overflow-hidden py-8 xl:col-start-2 xl:row-start-1 xl:flex xl:self-start 2xl:col-start-3"
 			>
 				{#if showToc}
-					<div class="min-h-0 flex-1">
+					<div class="min-h-0 flex-1 overflow-hidden">
 						<TableOfContents
 							selector={tocSelector}
 							headings={props.data.tocHeadings}
@@ -324,7 +324,9 @@
 					</div>
 				{/if}
 				{#if showDocActions}
-					<DocShareActions {rawPath} {rawUrl} {githubUrl} />
+					<div class="flex-none">
+						<DocShareActions {rawPath} {rawUrl} {githubUrl} />
+					</div>
 				{/if}
 			</aside>
 		</div>

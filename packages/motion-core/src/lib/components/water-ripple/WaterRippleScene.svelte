@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { onMount } from "svelte";
+	import { untrack } from "svelte";
+	import type { Attachment } from "svelte/attachments";
 	import {
 		Camera,
 		Mesh,
@@ -44,7 +45,6 @@
 
 	const MAX_WAVES = 100;
 
-	let canvas = $state<HTMLCanvasElement>();
 	let setImageSource = $state<(source: string) => void>();
 	let setBrushSize = $state<(value: number) => void>();
 
@@ -141,10 +141,7 @@
 		setBrushSize(brushSize);
 	});
 
-	onMount(() => {
-		const targetCanvas = canvas;
-		if (!targetCanvas) return;
-
+	const setupScene = (targetCanvas: HTMLCanvasElement) => {
 		const renderer = new Renderer({
 			canvas: targetCanvas,
 			alpha: true,
@@ -417,6 +414,8 @@
 			setImageSource = undefined;
 			setBrushSize = undefined;
 
+			mainMesh.setParent(null);
+			waves.forEach((wave) => wave.mesh.setParent(null));
 			mainProgram.remove();
 			waves.forEach((wave) => wave.mesh.program.remove());
 			fullscreenGeometry.remove();
@@ -425,11 +424,14 @@
 			if (imageTexture.texture) gl.deleteTexture(imageTexture.texture);
 			if (brushTexture.texture) gl.deleteTexture(brushTexture.texture);
 		};
-	});
+	};
+
+	const mountScene: Attachment<HTMLCanvasElement> = (targetCanvas) =>
+		untrack(() => setupScene(targetCanvas));
 </script>
 
 <canvas
-	bind:this={canvas}
+	{@attach mountScene}
 	class="absolute inset-0 block h-full w-full"
 	style="width:100%;height:100%;"
 	aria-hidden="true"

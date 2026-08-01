@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { onMount } from "svelte";
+	import { untrack } from "svelte";
+	import type { Attachment } from "svelte/attachments";
 	import {
 		Camera,
 		Mesh,
@@ -187,7 +188,6 @@
 		}
 	`;
 
-	let canvas = $state<HTMLCanvasElement>();
 	let setImageItems = $state<(items: ImageItem[]) => void>();
 	let setRuntimeConfig = $state<(config: RuntimeConfig) => void>();
 
@@ -201,10 +201,7 @@
 		setRuntimeConfig({ visibleCount });
 	});
 
-	onMount(() => {
-		const targetCanvas = canvas;
-		if (!targetCanvas) return;
-
+	const setupScene = (targetCanvas: HTMLCanvasElement) => {
 		const depthRange = DEFAULT_DEPTH_RANGE;
 		const totalRange = depthRange;
 		let count = Math.max(1, Math.floor(visibleCount));
@@ -561,11 +558,14 @@
 			textures.forEach(disposeTexture);
 			disposeTexture(fallbackTexture);
 		};
-	});
+	};
+
+	const mountScene: Attachment<HTMLCanvasElement> = (targetCanvas) =>
+		untrack(() => setupScene(targetCanvas));
 </script>
 
 <canvas
-	bind:this={canvas}
+	{@attach mountScene}
 	class="absolute inset-0 block h-full w-full"
 	style="width:100%;height:100%;"
 	aria-hidden="true"

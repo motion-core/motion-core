@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { onMount } from "svelte";
+	import { untrack } from "svelte";
+	import type { Attachment } from "svelte/attachments";
 	import {
 		Camera,
 		Mesh,
@@ -77,19 +78,6 @@
 		radius = 1,
 		smoothness = 0.1,
 	}: Props = $props();
-
-	let canvas = $state<HTMLCanvasElement>();
-	let uniforms = $state.raw<{
-		uTime: { value: number };
-		uResolution: { value: Vec4 };
-		uScale: { value: number };
-		uOffset: { value: Vec3 };
-		uColor: { value: Vec3 };
-		uFresnelColor: { value: Vec3 };
-		uFresnelPower: { value: number };
-		uRadius: { value: number };
-		uSmoothness: { value: number };
-	}>();
 
 	const applyColor = (
 		target: Vec3,
@@ -225,21 +213,7 @@
 		}
 	`;
 
-	$effect(() => {
-		if (!uniforms) return;
-		applyColor(uniforms.uColor.value, color, [24 / 255, 24 / 255, 27 / 255]);
-		applyColor(uniforms.uFresnelColor.value, fresnelColor, [1, 105 / 255, 0]);
-		uniforms.uScale.value = scale;
-		uniforms.uOffset.value.set(offsetX, offsetY, (rotation * Math.PI) / 180);
-		uniforms.uFresnelPower.value = fresnelPower;
-		uniforms.uRadius.value = radius;
-		uniforms.uSmoothness.value = smoothness;
-	});
-
-	onMount(() => {
-		const targetCanvas = canvas;
-		if (!targetCanvas) return;
-
+	const setupScene = (targetCanvas: HTMLCanvasElement) => {
 		const renderer = new Renderer({
 			canvas: targetCanvas,
 			alpha: true,
@@ -281,7 +255,27 @@
 			uSmoothness: { value: smoothness },
 		};
 
-		uniforms = localUniforms;
+		$effect(() => {
+			applyColor(localUniforms.uColor.value, color, [
+				24 / 255,
+				24 / 255,
+				27 / 255,
+			]);
+			applyColor(localUniforms.uFresnelColor.value, fresnelColor, [
+				1,
+				105 / 255,
+				0,
+			]);
+			localUniforms.uScale.value = scale;
+			localUniforms.uOffset.value.set(
+				offsetX,
+				offsetY,
+				(rotation * Math.PI) / 180,
+			);
+			localUniforms.uFresnelPower.value = fresnelPower;
+			localUniforms.uRadius.value = radius;
+			localUniforms.uSmoothness.value = smoothness;
+		});
 
 		const program = new Program(gl, {
 			vertex: vertexShader,
@@ -332,12 +326,18 @@
 
 		return () => {
 			window.cancelAnimationFrame(raf);
+			mesh.setParent(null);
+			program.remove();
+			geometry.remove();
 		};
-	});
+	};
+
+	const mountScene: Attachment<HTMLCanvasElement> = (targetCanvas) =>
+		untrack(() => setupScene(targetCanvas));
 </script>
 
 <canvas
-	bind:this={canvas}
+	{@attach mountScene}
 	class="absolute inset-0 block h-full w-full"
 	style="width:100%;height:100%;"
 	aria-hidden="true"
