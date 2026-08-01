@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { onDestroy, onMount } from "svelte";
+	import { onDestroy, untrack } from "svelte";
+	import type { Attachment } from "svelte/attachments";
 	import {
 		Camera,
 		Mesh,
@@ -38,8 +39,6 @@
 		chromaticAberration = 1.0,
 		refraction = 1.0,
 	}: Props = $props();
-
-	let canvas = $state<HTMLCanvasElement>();
 
 	const progress = { value: 0 };
 	let currentIndex = $state(0);
@@ -304,10 +303,7 @@
 		}
 	`;
 
-	onMount(() => {
-		const targetCanvas = canvas;
-		if (!targetCanvas) return;
-
+	const setupScene = (targetCanvas: HTMLCanvasElement) => {
 		const renderer = new Renderer({
 			canvas: targetCanvas,
 			alpha: true,
@@ -463,6 +459,7 @@
 
 		return () => {
 			window.cancelAnimationFrame(raf);
+			mesh.setParent(null);
 			setImageSources = undefined;
 			setUniformParams = undefined;
 			imageLoadToken += 1;
@@ -473,11 +470,14 @@
 			program.remove();
 			geometry.remove();
 		};
-	});
+	};
+
+	const mountScene: Attachment<HTMLCanvasElement> = (targetCanvas) =>
+		untrack(() => setupScene(targetCanvas));
 </script>
 
 <canvas
-	bind:this={canvas}
+	{@attach mountScene}
 	class="absolute inset-0 block h-full w-full"
 	style="width:100%;height:100%;"
 	aria-hidden="true"

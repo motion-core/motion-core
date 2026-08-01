@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { onMount } from "svelte";
+	import { untrack } from "svelte";
+	import type { Attachment } from "svelte/attachments";
 	import {
 		Camera,
 		Mesh,
@@ -55,7 +56,6 @@
 		uDepthTextureSize: { value: Vec2 };
 	};
 
-	let canvas = $state<HTMLCanvasElement>();
 	let uniforms = $state.raw<UniformState>();
 	let setColorSource = $state<(source: string) => void>();
 	let setDepthSource = $state<(source: string) => void>();
@@ -130,10 +130,7 @@
 		setDepthSource(depthSrc);
 	});
 
-	onMount(() => {
-		const targetCanvas = canvas;
-		if (!targetCanvas) return;
-
+	const setupScene = (targetCanvas: HTMLCanvasElement) => {
 		const renderer = new Renderer({
 			canvas: targetCanvas,
 			alpha: true,
@@ -294,10 +291,13 @@
 
 		return () => {
 			window.cancelAnimationFrame(raf);
+			mesh.setParent(null);
 			targetCanvas.removeEventListener("pointermove", handlePointerMove);
 			targetCanvas.removeEventListener("pointerleave", handlePointerLeave);
 			setColorSource = undefined;
 			setDepthSource = undefined;
+			program.remove();
+			geometry.remove();
 			if (colorTexture.texture) {
 				gl.deleteTexture(colorTexture.texture);
 			}
@@ -305,11 +305,14 @@
 				gl.deleteTexture(depthTexture.texture);
 			}
 		};
-	});
+	};
+
+	const mountScene: Attachment<HTMLCanvasElement> = (targetCanvas) =>
+		untrack(() => setupScene(targetCanvas));
 </script>
 
 <canvas
-	bind:this={canvas}
+	{@attach mountScene}
 	class="absolute inset-0 block h-full w-full"
 	style="width:100%;height:100%;"
 	aria-hidden="true"

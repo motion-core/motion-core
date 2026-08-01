@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { onMount } from "svelte";
+	import { untrack } from "svelte";
+	import type { Attachment } from "svelte/attachments";
 	import {
 		Camera,
 		Mesh,
@@ -83,20 +84,6 @@
 		sunZ = 1.0,
 		intensity = 1.0,
 	}: Props = $props();
-
-	let canvas = $state<HTMLCanvasElement>();
-	let uniforms = $state.raw<{
-		uTime: { value: number };
-		uResolution: { value: Vec2 };
-		uScale: { value: number };
-		uOffset: { value: Vec2 };
-		uRotation: { value: number };
-		uBackgroundColor: { value: Vec3 };
-		uRotationSpeed: { value: number };
-		uCameraDistance: { value: number };
-		uSunDir: { value: Vec3 };
-		uIntensity: { value: number };
-	}>();
 
 	const setColorUniform = (
 		target: Vec3,
@@ -318,26 +305,7 @@
 		}
 	`;
 
-	$effect(() => {
-		if (!uniforms) return;
-		setColorUniform(
-			uniforms.uBackgroundColor.value,
-			backgroundColor,
-			[0, 0, 0],
-		);
-		uniforms.uScale.value = scale;
-		uniforms.uOffset.value.set(offsetX, offsetY);
-		uniforms.uRotation.value = rotation;
-		uniforms.uRotationSpeed.value = rotationSpeed;
-		uniforms.uCameraDistance.value = cameraDistance;
-		setSunDirection(uniforms.uSunDir.value, sunX, sunY, sunZ);
-		uniforms.uIntensity.value = intensity;
-	});
-
-	onMount(() => {
-		const targetCanvas = canvas;
-		if (!targetCanvas) return;
-
+	const setupScene = (targetCanvas: HTMLCanvasElement) => {
 		const renderer = new Renderer({
 			canvas: targetCanvas,
 			alpha: true,
@@ -382,7 +350,20 @@
 			uIntensity: { value: intensity },
 		};
 
-		uniforms = localUniforms;
+		$effect(() => {
+			setColorUniform(
+				localUniforms.uBackgroundColor.value,
+				backgroundColor,
+				[0, 0, 0],
+			);
+			localUniforms.uScale.value = scale;
+			localUniforms.uOffset.value.set(offsetX, offsetY);
+			localUniforms.uRotation.value = rotation;
+			localUniforms.uRotationSpeed.value = rotationSpeed;
+			localUniforms.uCameraDistance.value = cameraDistance;
+			setSunDirection(localUniforms.uSunDir.value, sunX, sunY, sunZ);
+			localUniforms.uIntensity.value = intensity;
+		});
 
 		const program = new Program(gl, {
 			vertex: vertexShader,
@@ -422,12 +403,18 @@
 
 		return () => {
 			window.cancelAnimationFrame(raf);
+			mesh.setParent(null);
+			program.remove();
+			geometry.remove();
 		};
-	});
+	};
+
+	const mountScene: Attachment<HTMLCanvasElement> = (targetCanvas) =>
+		untrack(() => setupScene(targetCanvas));
 </script>
 
 <canvas
-	bind:this={canvas}
+	{@attach mountScene}
 	class="absolute inset-0 block h-full w-full"
 	style="width:100%;height:100%;"
 	aria-hidden="true"

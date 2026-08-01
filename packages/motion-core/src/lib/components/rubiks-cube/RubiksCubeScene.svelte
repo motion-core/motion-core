@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { onMount } from "svelte";
+	import { untrack } from "svelte";
+	import type { Attachment } from "svelte/attachments";
 	import { SvelteSet } from "svelte/reactivity";
 	import {
 		Box,
@@ -201,7 +202,6 @@
 		return geometry;
 	};
 
-	let canvas = $state<HTMLCanvasElement>();
 	let setDimensions = $state<(next: { gap: number; radius: number }) => void>();
 	let setFresnelUniforms = $state<(config: FresnelConfig) => void>();
 	let setSceneTransform = $state<
@@ -229,10 +229,7 @@
 		setSceneTransform({ scale, offsetX, offsetY, rotation });
 	});
 
-	onMount(() => {
-		const targetCanvas = canvas;
-		if (!targetCanvas) return;
-
+	const setupScene = (targetCanvas: HTMLCanvasElement) => {
 		const renderer = new Renderer({
 			canvas: targetCanvas,
 			alpha: true,
@@ -609,6 +606,10 @@
 		return () => {
 			window.cancelAnimationFrame(raf);
 			orbit.remove();
+			cubes.forEach((cube) => cube.mesh.setParent(null));
+			layerGroup.setParent(null);
+			mainGroup.setParent(null);
+			transformGroup.setParent(null);
 			setDimensions = undefined;
 			setFresnelUniforms = undefined;
 			setSceneTransform = undefined;
@@ -616,11 +617,14 @@
 			material.remove();
 			geometry.remove();
 		};
-	});
+	};
+
+	const mountScene: Attachment<HTMLCanvasElement> = (targetCanvas) =>
+		untrack(() => setupScene(targetCanvas));
 </script>
 
 <canvas
-	bind:this={canvas}
+	{@attach mountScene}
 	class="absolute inset-0 block h-full w-full"
 	style="width:100%;height:100%;"
 	aria-hidden="true"
