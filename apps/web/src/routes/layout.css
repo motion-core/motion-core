@@ -170,26 +170,6 @@ html {
 		0 1px 6px -4px #000;
 }
 
-@utility bg-dashed {
-	background-image: linear-gradient(
-		45deg,
-		var(--color-border) 12.5%,
-		transparent 12.5%,
-		transparent 50%,
-		var(--color-border) 50%,
-		var(--color-border) 62.5%,
-		transparent 62.5%,
-		transparent 100%
-	);
-	background-size: 0.25rem 0.25rem;
-}
-
-@layer utilities {
-	.highlight {
-		box-shadow: 0 -1px rgba(255, 255, 255, 0.06);
-	}
-}
-
 .btn-primary,
 .btn-secondary {
 	position: relative;
@@ -199,7 +179,7 @@ html {
 .btn-primary {
 	overflow: hidden;
 	color: var(--fixed-light);
-	text-shadow: 0 -1px 0 rgb(0 0 0 / 0.25);
+	text-shadow: 0 1px 1px rgb(0 0 0 / 0.5);
 	transition:
 		filter 150ms ease-out,
 		box-shadow 150ms ease-out;
@@ -250,7 +230,7 @@ html {
 .dark .btn-primary {
 	overflow: hidden;
 	color: var(--fixed-light);
-	text-shadow: 0 -1px 0 rgb(0 0 0 / 0.25);
+	text-shadow: 0 1px 1px rgb(0 0 0 / 0.5);
 	transition:
 		filter 150ms ease-out,
 		box-shadow 150ms ease-out;
@@ -306,7 +286,7 @@ html {
 	isolation: isolate;
 	overflow: hidden;
 	color: var(--foreground);
-	text-shadow: 0 -1px 0 rgb(0 0 0 / 0.15);
+	text-shadow: 0 1px 1px rgb(0 0 0 / 0.25);
 
 	transition:
 		filter 150ms ease-out,
@@ -363,7 +343,7 @@ html {
 	isolation: isolate;
 	overflow: hidden;
 	color: var(--foreground);
-	text-shadow: 0 -1px 0 rgb(0 0 0 / 0.15);
+	text-shadow: 0 1px 1px rgb(0 0 0 / 0.25);
 
 	transition:
 		filter 150ms ease-out,
